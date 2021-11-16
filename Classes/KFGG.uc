@@ -1277,7 +1277,7 @@ defaultproperties
   TeamAIType(0)=class'GGTeamAI'
   TeamAIType(1)=class'GGTeamAI'
   RestartWait=30
-  SpawnProtectionTime=2.000000
+  SpawnProtectionTime=4.000000 // 2.000000
   DefaultMaxLives=0
   DefaultEnemyRosterClass="XGame.xTeamRoster"
   LoginMenuClass="KFGunGame.KFGGMidGameMenu"
