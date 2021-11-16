@@ -1,12 +1,12 @@
 class KFGGLoginControls extends MidGamePanel;
 
 
-var automated GUISectionBackground sb_Red,sb_Blue, sb_FFA;
-var automated GUIImage i_JoinRed, i_JoinBlue;
-var automated GUIListBox lb_Red, lb_Blue, lb_FFA;
-var automated GUIButton b_Team, b_Settings, b_Browser, b_Quit, b_Favs,
-                        b_Leave, b_MapVote, b_KickVote, b_MatchSetup, b_Spec;
-var GUIList li_Red, li_Blue, li_FFA;
+var automated GUISectionBackground      sb_Red,sb_Blue, sb_FFA;
+var automated GUIImage                  i_JoinRed, i_JoinBlue;
+var automated GUIListBox                lb_Red, lb_Blue, lb_FFA;
+var automated GUIButton                 b_Team, b_Settings, b_Browser, b_Quit, b_Favs,
+                                        b_Leave, b_MapVote, b_KickVote, b_MatchSetup, b_Spec;
+var GUIList                             li_Red, li_Blue, li_FFA;
 
 var() noexport  bool                    bTeamGame, bFFAGame, bNetGame;
 
@@ -267,7 +267,7 @@ function SetupGroups()
 
   PC = PlayerOwner();
 
-  if ( bTeamGame )
+  if (bTeamGame)
   {
     RemoveComponent(lb_FFA, true);
     RemoveComponent(sb_FFA, true);

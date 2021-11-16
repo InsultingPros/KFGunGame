@@ -307,7 +307,7 @@ simulated function PlayDying(class<DamageType> DamageType, vector HitLoc)
 
   if (DamageType != none)
   {
-    if ( DamageType.default.bSkeletize )
+    if (DamageType.default.bSkeletize)
     {
       SetOverlayMaterial(DamageType.default.DamageOverlayMaterial, 4.0, true);
       if (!bSkeletized)

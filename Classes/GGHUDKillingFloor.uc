@@ -78,32 +78,32 @@ simulated function DrawHud(Canvas C)
 
   DrawHudPassC(C);
 
-  if ( KFPlayerController(PlayerOwner)!= none && KFPlayerController(PlayerOwner).ActiveNote!= none )
+  if (KFPlayerController(PlayerOwner) != none && KFPlayerController(PlayerOwner).ActiveNote != none)
   {
-    if( PlayerOwner.Pawn == none )
+    if (PlayerOwner.Pawn == none)
       KFPlayerController(PlayerOwner).ActiveNote = none;
     else KFPlayerController(PlayerOwner).ActiveNote.RenderNote(C);
   }
 
   PassStyle = STY_None;
   DisplayLocalMessages(C);
-  if( !bShowScoreboard )
+  if (!bShowScoreboard)
   {
-      DrawWeaponName(C);
-      DrawVehicleName(C);
+    DrawWeaponName(C);
+    DrawVehicleName(C);
   }
 
   PassStyle = STY_Modulated;
 
-  if ( KFGameReplicationInfo(Level.GRI)!= none && KFGameReplicationInfo(Level.GRI).EndGameType > 0 )
+  if (KFGameReplicationInfo(Level.GRI) != none && KFGameReplicationInfo(Level.GRI).EndGameType > 0)
   {
-    if ( KFGameReplicationInfo(Level.GRI).EndGameType == 2 )
+    if (KFGameReplicationInfo(Level.GRI).EndGameType == 2)
       DrawEndGameHUD(C, true);
     else DrawEndGameHUD(C, false);
   }
   else DrawKFHUDTextElements(C);
 
-  if ( bShowNotification )
+  if (bShowNotification)
     DrawPopupNotification(C);
 }
 
@@ -117,37 +117,37 @@ function DrawDoorHealthBars(Canvas C)
 
 simulated function DrawKFHUDTextElements(Canvas C);
 
+
 simulated function DrawHudPassC(Canvas C)
 {
   DrawFadeEffect(C);
 
-  if ( bShowScoreBoard && ScoreBoard != none )
+  if (bShowScoreBoard && ScoreBoard != none)
   {
     ScoreBoard.DrawScoreboard(C);
   }
 
   // portrait
-  if ( bShowPortrait && (Portrait != none) )
+  if (bShowPortrait && (Portrait != none))
   {
     DrawPortrait(C);
   }
 
-  if ( PawnOwner != none && PawnOwner.Weapon != none && KFWeapon(PawnOwner.Weapon) != none )
+  if (PawnOwner != none && PawnOwner.Weapon != none && KFWeapon(PawnOwner.Weapon) != none)
   {
-    if( !KFWeapon(PawnOwner.Weapon).bAimingRifle && !PawnOwner.Weapon.IsA('Crossbow')
-            && !PawnOwner.Weapon.IsA('M14EBRBattleRifle') && !PawnOwner.Weapon.IsA('M99SniperRifle') )
-        {
-            DrawCrosshair(C);
-        }
+    if(!KFWeapon(PawnOwner.Weapon).bAimingRifle && !PawnOwner.Weapon.IsA('Crossbow') && !PawnOwner.Weapon.IsA('M14EBRBattleRifle') && !PawnOwner.Weapon.IsA('M99SniperRifle'))
+    {
+      DrawCrosshair(C);
+    }
   }
 
   // Slow, for debugging only
-  if( bDebugPlayerCollision && (class'ROEngine.ROLevelInfo'.static.RODebugMode() || Level.NetMode == NM_StandAlone) )
+  if (bDebugPlayerCollision && (class'ROEngine.ROLevelInfo'.static.RODebugMode() || Level.NetMode == NM_StandAlone))
   {
     DrawPointSphere();
   }
-
 }
+
 
 simulated function DrawCrosshair (Canvas C)
 {
@@ -157,20 +157,20 @@ simulated function DrawCrosshair (Canvas C)
   local color CurrentCrosshairColor;
   local SpriteWidget CHtexture;
 
-//  if (!bCrosshairShow /*|| !class'ROEngine.ROLevelInfo'.static.RODebugMode() || !bShowKFDebugXHair*/)
-//    return;
+  // if (!bCrosshairShow /*|| !class'ROEngine.ROLevelInfo'.static.RODebugMode() || !bShowKFDebugXHair*/)
+  //   return;
 
-  if ( (PawnOwner != none) && (PawnOwner.Weapon != none) && (PawnOwner.Weapon.CustomCrosshair >= 0) )
+  if ((PawnOwner != none) && (PawnOwner.Weapon != none) && (PawnOwner.Weapon.CustomCrosshair >= 0))
   {
     CurrentCrosshairColor = PawnOwner.Weapon.CustomCrosshairColor;
     CurrentCrosshair = PawnOwner.Weapon.CustomCrosshair;
     CurrentCrosshairScale = PawnOwner.Weapon.CustomCrosshairScale;
-    if ( PawnOwner.Weapon.CustomCrosshairTextureName != "" )
+    if (PawnOwner.Weapon.CustomCrosshairTextureName != "")
     {
-      if ( PawnOwner.Weapon.CustomCrosshairTexture == none )
+      if (PawnOwner.Weapon.CustomCrosshairTexture == none)
       {
-        PawnOwner.Weapon.CustomCrosshairTexture = Texture(DynamicLoadObject(PawnOwner.Weapon.CustomCrosshairTextureName,class'Texture'));
-        if ( PawnOwner.Weapon.CustomCrosshairTexture == none )
+        PawnOwner.Weapon.CustomCrosshairTexture = Texture(DynamicLoadObject(PawnOwner.Weapon.CustomCrosshairTextureName, class'Texture'));
+        if (PawnOwner.Weapon.CustomCrosshairTexture == none)
         {
           log(PawnOwner.Weapon$" custom crosshair texture not found!");
           PawnOwner.Weapon.CustomCrosshairTextureName = "";
@@ -190,24 +190,25 @@ simulated function DrawCrosshair (Canvas C)
   CurrentCrosshair = Clamp(CurrentCrosshair, 0, Crosshairs.Length - 1);
 
   NormalScale = Crosshairs[CurrentCrosshair].TextureScale;
-  if ( CHTexture.WidgetTexture == none )
+  if (CHTexture.WidgetTexture == none)
     CHTexture = Crosshairs[CurrentCrosshair];
   CHTexture.TextureScale *= CurrentCrosshairScale;
 
-  for( i = 0; i < ArrayCount(CHTexture.Tints); i++ )
+  for (i = 0; i < ArrayCount(CHTexture.Tints); i++)
     CHTexture.Tints[i] = CurrentCrossHairColor;
 
   OldScale = HudScale;
-  HudScale=1;
+  HudScale = 1;
   OldW = C.ColorModulate.W;
   C.ColorModulate.W = 1;
   DrawSpriteWidget (C, CHTexture);
   C.ColorModulate.W = OldW;
-  HudScale=OldScale;
+  HudScale = OldScale;
   CHTexture.TextureScale = NormalScale;
 
   //DrawEnemyName(C);
 }
+
 
 simulated function DrawEndGameHUD(Canvas C, bool bVictory)
 {

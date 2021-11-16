@@ -38,7 +38,7 @@ function bool FindInjuredAlly()
 
     AllyDist = VSizeSquared(Pawn.Location - AKFHPawn.Location);
 
-    if (InjuredAlly == none || (AllyDist<BestDist))
+    if (InjuredAlly == none || (AllyDist < BestDist))
     {
       InjuredAlly = aKFHPawn;
       BestDist = AllyDist;
@@ -84,7 +84,7 @@ function ExecuteWhatToDoNext()
     Pawn.SetMovementPhysics();
   if ((Pawn.Physics == PHYS_Falling) && DoWaitForLanding())
     return;
-  if ((StartleActor != none) && !StartleActor.bDeleteMe && (VSize(StartleActor.Location - Pawn.Location) < StartleActor.CollisionRadius) )
+  if ((StartleActor != none) && !StartleActor.bDeleteMe && (VSize(StartleActor.Location - Pawn.Location) < StartleActor.CollisionRadius))
   {
     Startle(StartleActor);
     return;
@@ -156,42 +156,45 @@ function bool GetNearestShop()
   local ShopVolume Sp;
 
   KFGT = KFGameType(Level.Game);
-  if( KFGT==none )
+  if (KFGT == none)
     return false;
   l = KFGT.ShopList.Length;
-  for( i=0; i<l; i++ )
+  for (i = 0; i < l; i++)
   {
-    if( !KFGT.ShopList[i].bCurrentlyOpen )
+    if (!KFGT.ShopList[i].bCurrentlyOpen)
       continue;
-    if( !KFGT.ShopList[i].bTelsInit )
+    if (!KFGT.ShopList[i].bTelsInit)
       KFGT.ShopList[i].InitTeleports();
-    Dist = VSize(KFGT.ShopList[i].Location-Pawn.Location);
-    if( Dist<BDist || Sp==none )
+    Dist = VSize(KFGT.ShopList[i].Location - Pawn.Location);
+    if (Dist < BDist || Sp == none)
     {
       Sp = KFGT.ShopList[i];
       BDist = Dist;
     }
   }
-  if( Sp==none )
+
+  if (Sp  == none)
     return false;
-  if( Sp.BotPoint==none )
+  if (Sp.BotPoint == none)
   {
     Sp.BotPoint = FindShopPoint(Sp);
-    if( Sp.BotPoint==none )
+    if (Sp.BotPoint == none)
       return false;
   }
   ShoppingPath = Sp.BotPoint;
   return true;
 }
-final function NavigationPoint FindShopPoint( ShopVolume S )
+
+
+final function NavigationPoint FindShopPoint(ShopVolume S)
 {
   local NavigationPoint N,BN;
   local float Dist,BDist;
 
-  for( N=Level.NavigationPointList; N!=none; N=N.nextNavigationPoint )
+  for (N = Level.NavigationPointList; N != none; N = N.nextNavigationPoint)
   {
-    Dist = VSizeSquared(N.Location-S.Location);
-    if( BN==none || BDist>Dist )
+    Dist = VSizeSquared(N.Location - S.Location);
+    if (BN == none || BDist > Dist)
     {
       BN = N;
       BDist = Dist;

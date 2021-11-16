@@ -1,8 +1,10 @@
-// Red Team player.
-class KFRedGGPlayer extends KFGGHumanPawn;
+// main class!! Red Team player.
+class KFGGPlayer_Red extends KFGGHumanPawn;
 
 // #exec obj load file="TeamSkins.utx" package="KFGunGame"
 var Material TeamSkinX;
+// available character array
+var array<string> AvailableChars;
 
 
 simulated function PostBeginPlay()
@@ -24,16 +26,24 @@ simulated function PostBeginPlay()
 }
 
 
+// yyup, this is much cleaner than if-else walls
 simulated function bool IsTeamColorCharacter(string CheckString)
 {
-  if (CheckString == "Sergeant_Powers" || CheckString == "Corporal_Lewis" || CheckString == "Lieutenant_Masterson" || CheckString == "Trooper_Clive_Jenkins" || CheckString == "LanceCorporal_Lee_Baron" || CheckString == "Private_Schnieder")
+  local int i;
+
+  for (i = 0; i < AvailableChars.Length; i++)
   {
-    return true;
+    if (CheckString ~= AvailableChars[i])
+      return true;
   }
-  else
-  {
-    return false;
-  }
+
+  return false;
+}
+
+
+simulated function string GetDefaultCharacter()
+{
+  return AvailableChars[rand(AvailableChars.Length)];
 }
 
 
@@ -69,52 +79,10 @@ simulated function Setup(xUtil.PlayerRecord rec, optional bool bLoadNow)
 }
 
 
+// we are not allowed to buy!
 function bool CanBuyNow()
 {
-  // local TDMShopTrigger Sh;
-
-  // if (PlayerReplicationInfo == none || PlayerReplicationInfo.Team == none)
-  //   return false;
-  // foreach TouchingActors(class'TDMShopTrigger',Sh)
-  // if (Sh.Team == PlayerReplicationInfo.Team.TeamIndex)
-  //   return true;
   return false;
-}
-
-
-simulated function string GetDefaultCharacter()
-{
-  local int RandChance;
-
-  RandChance = Rand(5);
-
-  if (RandChance == 0)
-  {
-    return "Corporal_Lewis";
-  }
-  else if (RandChance == 1)
-  {
-    return "Lieutenant_Masterson";
-  }
-  else if (RandChance == 2)
-  {
-    return "Trooper_Clive_Jenkins";
-  }
-  else if (RandChance == 3)
-  {
-    return "LanceCorporal_Lee_Baron";
-  }
-  else if (RandChance == 4)
-  {
-    return "Private_Schnieder";
-  }
-  else
-  {
-    return "Sergeant_Powers";
-  }
-
-  // kinda fits
-  // Security_Office_Thorne
 }
 
 
@@ -122,4 +90,6 @@ defaultproperties
 {
   bNoTeamBeacon=false
   bScriptPostRender=true
+  // kinda fits - Security_Office_Thorne
+  AvailableChars=("Sergeant_Powers","Corporal_Lewis","Lieutenant_Masterson","Trooper_Clive_Jenkins","LanceCorporal_Lee_Baron","Private_Schnieder")
 }

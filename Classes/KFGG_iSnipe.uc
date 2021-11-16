@@ -11,9 +11,9 @@ function RestartPlayer(Controller aPlayer)
     return;
 
   if (aPlayer.PlayerReplicationInfo.Team.TeamIndex == 0)
-    aPlayer.PawnClass = class'KFRedGGPlayer_IS';
+    aPlayer.PawnClass = class'KFGGPlayer_Red_IS';
   else
-    aPlayer.PawnClass = class'KFBlueGGPlayer_IS';
+    aPlayer.PawnClass = class'KFGGPlayer_Blue_IS';
 
   aPlayer.PreviousPawnClass = aPlayer.PawnClass;
   KFPlayerReplicationInfo(aPlayer.PlayerReplicationInfo).ClientVeteranSkill = class'KFVeterancyTypes';
@@ -216,6 +216,7 @@ defaultproperties
   GameName="iSnipe"
   Description="Sniper party! Every kill instantly gets you fresh M99. Be the first player to get 16 kills to win!"
   HUDType="KFGunGame.GGHUDKillingFloor_IS"
+  // FIXME
   StandardWeaponList(0)="iSnipe.GG_M99SniperRifle"
   StandardWeaponList(1)="iSnipe.GG_M99SniperRifle"
   StandardWeaponList(2)="iSnipe.GG_M99SniperRifle"

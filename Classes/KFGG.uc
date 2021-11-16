@@ -24,14 +24,26 @@ var localized string WarmupDescription;
 var localized string ReverseDescription;
 var localized string ShortListDescription;
 
+var array<bool> boolshit;
+
+
 static function Texture GetRandomTeamSymbol(int base)
 {
   return Texture'Engine.S_Actor';
 }
+
+
+// DISABLED FUNCTIONS!!!
 event Tick(float DeltaTime);
 function DramaticEvent(float BaseZedTimePossibility, optional float DesiredZedTimeDuration);
 function ShowPathTo(PlayerController P, int TeamNum);
 function DoBossDeath();
+function CheckScore(PlayerReplicationInfo Scorer);
+// For now don't dynamically load / unload weapons. TODO: find a way to dynamically
+// load a set of the GG weapons at a time to save on memory
+function WeaponSpawned(Inventory Weapon){}
+function WeaponDestroyed(class<Weapon> WeaponClass){}
+
 
 event PostLogin(PlayerController NewPlayer)
 {
@@ -49,10 +61,6 @@ event PostLogin(PlayerController NewPlayer)
   }
 }
 
-// For now don't dynamically load/unload weapons. TODO: find a way to dynamically
-// load a set of the GG weapons at a time to save on memory
-function WeaponSpawned(Inventory Weapon){}
-function WeaponDestroyed(class<Weapon> WeaponClass){}
 
 static function FillPlayInfo(PlayInfo PlayInfo)
 {
@@ -63,8 +71,8 @@ static function FillPlayInfo(PlayInfo PlayInfo)
   PlayInfo.AddSetting(default.GameGroup, "bReverseList",  default.ReverseDescription,  0, 0, "Check",       ,  ,true,true);
   PlayInfo.AddSetting(default.GameGroup, "bShortList", default.ShortListDescription,  0, 0, "Check",       ,  ,true,true);
 
-  //AddSetting(string Group, string PropertyName, string Description, byte SecLevel, byte Weight, string RenderType, optional string Extras, optional string ExtraPrivs, optional bool bMultiPlayerOnly, optional bool bAdvanced);
-  //PlayInfo.AddSetting(default.GameGroup,   "NumAmmoSpawns","Num Ammo Pickups",0, 0, "Text","2;0:10");
+  // AddSetting(string Group, string PropertyName, string Description, byte SecLevel, byte Weight, string RenderType, optional string Extras, optional string ExtraPrivs, optional bool bMultiPlayerOnly, optional bool bAdvanced);
+  // PlayInfo.AddSetting(default.GameGroup,   "NumAmmoSpawns","Num Ammo Pickups",0, 0, "Text","2;0:10");
 
   PlayInfo.AddSetting(default.ServerGroup,   "MinPlayers","Num Bots",0, 0, "Text","2;0:64",,true,true);
   PlayInfo.AddSetting(default.ServerGroup, "LobbyTimeOut",  GetDisplayText("LobbyTimeOut"),    0, 1, "Text",  "3;0:120",  ,true,true);
@@ -88,7 +96,8 @@ static function FillPlayInfo(PlayInfo PlayInfo)
 
   if (default.BroadcastClass != none)
     default.BroadcastClass.static.FillPlayInfo(PlayInfo);
-  else class'BroadcastHandler'.static.FillPlayInfo(PlayInfo);
+  else
+    class'BroadcastHandler'.static.FillPlayInfo(PlayInfo);
 
   PlayInfo.PopClass();
 
@@ -98,6 +107,7 @@ static function FillPlayInfo(PlayInfo PlayInfo)
     PlayInfo.PopClass();
   }
 }
+
 
 static event string GetDescriptionText(string PropName)
 {
@@ -112,15 +122,33 @@ static event string GetDescriptionText(string PropName)
   return super.GetDescriptionText(PropName);
 }
 
+
 function bool CheckMaxLives(PlayerReplicationInfo Scorer)
 {
   return false;
 }
 
 
+// EXPERIMENTAL!!!
+function testBool()
+{
+  // local array<int> boolshit;
+
+  boolshit.length = 5;
+  boolshit[0] = false;
+  boolshit[1] = false;
+  boolshit[2] = true;
+
+  Log("WHY IT IS NOT WORKING!!!!" @ boolshit[0] @ boolshit[1] @ boolshit[2]);
+}
+
+
 event PreBeginPlay()
 {
   local int i;
+
+  // EXPERIMENTAL!!!
+  testBool();
 
   super(xTeamGame).PreBeginPlay();
   GameReplicationInfo.bNoTeamSkins = true;
@@ -314,7 +342,7 @@ function Bot SpawnBot(optional string botName)
   Chosen = BotTeam.ChooseBotClass(botName);
 
   if (Chosen.PawnClass == none)
-    Chosen.Init(); //amb
+    Chosen.Init(); // amb
   NewBot = spawn(class'KFGGBot');
 
   if (NewBot != none)
@@ -342,37 +370,38 @@ function PlayEndOfMatchMessage()
 {
   local Controller C;
 
-  for ( C = Level.ControllerList; C != none; C = C.NextController )
+  for (C = Level.ControllerList; C != none; C = C.NextController)
   {
-    if ( C.IsA('PlayerController') )
+    if (C.IsA('PlayerController'))
     {
-      //PlayerController(C).ClientPlaySound(Sound'KF_MaleVoiceOne.Insult_Specimens_9',true,2.f,SLOT_Talk);
-      if( FRand() < 0.25 )
+      // PlayerController(C).ClientPlaySound(Sound'KF_MaleVoiceOne.Insult_Specimens_9', true, 2.f, SLOT_Talk);
+      if (FRand() < 0.25)
       {
-                PlayerController(C).ClientPlaySound(Sound'KF_BasePatriarch.Kev_Victory5',true,2.f,SLOT_Talk);
+        PlayerController(C).ClientPlaySound(Sound'KF_BasePatriarch.Kev_Victory5', true, 2.f, SLOT_Talk);
       }
-            else if( FRand() < 0.25 )
+      else if (FRand() < 0.25)
       {
-                PlayerController(C).ClientPlaySound(Sound'KF_BasePatriarch.Kev_Victory3',true,2.f,SLOT_Talk);
+        PlayerController(C).ClientPlaySound(Sound'KF_BasePatriarch.Kev_Victory3', true, 2.f, SLOT_Talk);
       }
-            else if( FRand() < 0.25 )
+      else if (FRand() < 0.25)
       {
-                PlayerController(C).ClientPlaySound(Sound'KF_BasePatriarch.Kev_Victory2',true,2.f,SLOT_Talk);
+        PlayerController(C).ClientPlaySound(Sound'KF_BasePatriarch.Kev_Victory2', true, 2.f, SLOT_Talk);
       }
-            else
+      else
       {
-                PlayerController(C).ClientPlaySound(Sound'KF_BasePatriarch.Kev_Talk3',true,2.f,SLOT_Talk);
+        PlayerController(C).ClientPlaySound(Sound'KF_BasePatriarch.Kev_Talk3', true, 2.f, SLOT_Talk);
       }
     }
   }
 }
+
 
 function bool CheckEndGame(PlayerReplicationInfo Winner, string Reason)
 {
   local Controller P, NextController;
   local PlayerController Player;
 
-  if ( (GameRulesModifiers != none) && !GameRulesModifiers.CheckEndGame(Winner, Reason) )
+  if ((GameRulesModifiers != none) && !GameRulesModifiers.CheckEndGame(Winner, Reason))
     return false;
 
 //  if ( Winner == none )
@@ -403,18 +432,18 @@ function bool CheckEndGame(PlayerReplicationInfo Winner, string Reason)
   GameReplicationInfo.Winner = Winner;
 
   EndGameFocus = Controller(Winner.Owner).Pawn;
-  if ( EndGameFocus != none )
+  if (EndGameFocus != none)
     EndGameFocus.bAlwaysRelevant = true;
-  for ( P=Level.ControllerList; P!=none; P=NextController )
+  for (P = Level.ControllerList; P != none; P = NextController)
   {
     NextController = P.NextController;
     Player = PlayerController(P);
-    if ( Player != none )
+    if (Player != none)
     {
-      //if ( !Player.PlayerReplicationInfo.bOnlySpectator )
+      //if (!Player.PlayerReplicationInfo.bOnlySpectator)
       //  PlayWinMessage(Player, (Player.PlayerReplicationInfo == Winner));
       Player.ClientSetBehindView(true);
-      if ( EndGameFocus != none )
+      if (EndGameFocus != none)
       {
         Player.ClientSetViewTarget(EndGameFocus);
         Player.SetViewTarget(EndGameFocus);
@@ -426,85 +455,86 @@ function bool CheckEndGame(PlayerReplicationInfo Winner, string Reason)
   return true;
 }
 
+
 // Function used for debugging levelling up
 function ForceLevelUp(Controller Killer)
 {
-    local class<Weapon> WeaponClass;
+  local class<Weapon> WeaponClass;
 
-    WeaponClass = class<Weapon>(BaseMutator.GetInventoryClass(WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel + 1]));
+  WeaponClass = class<Weapon>(BaseMutator.GetInventoryClass(WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel + 1]));
 
-    if( KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel < (WeaponList.Length - 1) )
+  if (KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel < (WeaponList.Length - 1))
+  {
+    if (KFGGHumanPawn(Killer.Pawn) != none)
     {
-        if( KFGGHumanPawn(Killer.Pawn) != none )
-        {
-            KFGGHumanPawn(Killer.Pawn).ClearOutCurrentWeapons();
-        }
-
-        KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel++;
-        Killer.PlayerReplicationInfo.Score += 1;
-
-        if( KFGGHumanPawn(Killer.Pawn) != none )
-        {
-            KFGGHumanPawn(Killer.Pawn).CreateInventory(WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel]);
-            Killer.SwitchToBestWeapon();
-        }
-
-        if( PlayerController(Killer) != none )
-        {
-            PlayerController(Killer).ClientPlaySound(Sound'KF_PlayerGlobalSnd.Zedtime_Exit',true,2.f,SLOT_None);
-        }
-
-        if( KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel == int(WeaponList.Length * 0.25) )
-        {
-            BroadcastLocalizedMessage(class'GGAnnouncementMessage', 0,Killer.PlayerReplicationInfo,,WeaponClass);
-        }
-        else if( KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel == int(WeaponList.Length * 0.5) )
-        {
-            BroadcastLocalizedMessage(class'GGAnnouncementMessage', 0,Killer.PlayerReplicationInfo,,WeaponClass);
-        }
-        else if( KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel == int(WeaponList.Length * 0.75) )
-        {
-            BroadcastLocalizedMessage(class'GGAnnouncementMessage', 0,Killer.PlayerReplicationInfo,,WeaponClass);
-        }
-        else if( KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel == (WeaponList.Length - 1) )
-        {
-            BroadcastLocalizedMessage(class'GGAnnouncementMessage', 1,Killer.PlayerReplicationInfo,,WeaponClass);
-        }
+      KFGGHumanPawn(Killer.Pawn).ClearOutCurrentWeapons();
     }
-    else if( KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel < WeaponList.Length )
+
+    KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel++;
+    Killer.PlayerReplicationInfo.Score += 1;
+
+    if (KFGGHumanPawn(Killer.Pawn) != none)
     {
-        KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel++;
-        Killer.PlayerReplicationInfo.Score += 1;
+      KFGGHumanPawn(Killer.Pawn).CreateInventory(WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel]);
+      Killer.SwitchToBestWeapon();
     }
+
+    if (PlayerController(Killer) != none)
+    {
+      PlayerController(Killer).ClientPlaySound(Sound'KF_PlayerGlobalSnd.Zedtime_Exit', true, 2.f, SLOT_None);
+    }
+
+    if (KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel == int(WeaponList.Length * 0.25))
+    {
+      BroadcastLocalizedMessage(class'GGAnnouncementMessage', 0, Killer.PlayerReplicationInfo,, WeaponClass);
+    }
+    else if (KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel == int(WeaponList.Length * 0.5))
+    {
+      BroadcastLocalizedMessage(class'GGAnnouncementMessage', 0, Killer.PlayerReplicationInfo,, WeaponClass);
+    }
+    else if (KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel == int(WeaponList.Length * 0.75))
+    {
+      BroadcastLocalizedMessage(class'GGAnnouncementMessage', 0, Killer.PlayerReplicationInfo,, WeaponClass);
+    }
+    else if (KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel == (WeaponList.Length - 1))
+    {
+      BroadcastLocalizedMessage(class'GGAnnouncementMessage', 1, Killer.PlayerReplicationInfo,, WeaponClass);
+    }
+  }
+  else if (KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel < WeaponList.Length)
+  {
+    KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel++;
+    Killer.PlayerReplicationInfo.Score += 1;
+  }
 }
+
 
 function Killed(Controller Killer, Controller Killed, Pawn KilledPawn, class<DamageType> damageType)
 {
-    local bool bKilledWithRightWeapon;
-    local bool bKnifeKill;
-    local Controller C;
-    local string S;
-    local class<Weapon> WeaponClass;
+  local bool bKilledWithRightWeapon;
+  local bool bKnifeKill;
+  local Controller C;
+  local string S;
+  local class<Weapon> WeaponClass;
 
-  super(DeathMatch).Killed(Killer,Killed,KilledPawn,DamageType);
+  super(DeathMatch).Killed(Killer, Killed, KilledPawn, DamageType);
 
-    if( KFGGPRI(Killer.PlayerReplicationInfo) != none &&
+  if (KFGGPRI(Killer.PlayerReplicationInfo) != none &&
         Killer.PlayerReplicationInfo.Team.TeamIndex != Killed.PlayerReplicationInfo.Team.TeamIndex )
+  {
+    if (class<DamTypeKnife>(damageType) != none && KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel < (WeaponList.Length - 1) && KFGGPRI(Killed.PlayerReplicationInfo).WeaponLevel > 0 )
     {
-        if( class<DamTypeKnife>(damageType) != none && KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel < (WeaponList.Length - 1)
-            && KFGGPRI(Killed.PlayerReplicationInfo).WeaponLevel > 0 )
-        {
-            bKnifeKill = true;
-            bKilledWithRightWeapon = true;
-        }
+      bKnifeKill = true;
+      bKilledWithRightWeapon = true;
+    }
 
-        if( !bKnifeKill )
-        {
-            // Check to make sure they got a kill with the right weapon
-            if( class<WeaponDamageType>(damageType).default.WeaponClass == BaseMutator.GetInventoryClass(WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel]) )
-            {
-                bKilledWithRightWeapon = true;
-            }
+    if (!bKnifeKill)
+    {
+      // Check to make sure they got a kill with the right weapon
+      if (class<WeaponDamageType>(damageType).default.WeaponClass == BaseMutator.GetInventoryClass(WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel]))
+      {
+        bKilledWithRightWeapon = true;
+      }
             // Special handling for weapons that don't apparantly have the weapon class plugged into the damage type
             // TODO: fix up the base damage classes to have thier weapon class plugged
             // in!!! - Ramm
@@ -664,10 +694,12 @@ function Killed(Controller Killer, Controller Killed, Pawn KilledPawn, class<Dam
     }
 }
 
+
 function AmmoPickedUp(KFAmmoPickup PickedUp)
 {
   PickedUp.Destroy(); // Kill all ammo pickups.
 }
+
 
 //event PlayerController Login
 //(
@@ -701,7 +733,8 @@ function AmmoPickedUp(KFAmmoPickup PickedUp)
 //  return NewPlayer;
 //}
 
-function int ReduceDamage( int Damage, pawn injured, pawn instigatedBy, vector HitLocation, out vector Momentum, class<DamageType> DamageType )
+
+function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector HitLocation, out vector Momentum, class<DamageType> DamageType)
 {
 
 //    WeaponList(0)="KFMod.Single"
@@ -732,24 +765,23 @@ function int ReduceDamage( int Damage, pawn injured, pawn instigatedBy, vector H
 //    WeaponList(25)="KFGunGame.GG_LAW"
 //    WeaponList(26)="KFMod.Katana"
 
-    // Adjust damage for gungame, as KF weapons were all balanced for shooting zombies not players! :)
-    if( class<DamTypeDualies>(damageType) != none || class<DamTypeMK23Pistol>(damageType) != none
-        || class<DamTypeDualMK23Pistol>(damageType) != none)
-    {
-        Damage *= 0.5;
-    }
-    else if( class<DamTypeMagnum44Pistol>(damageType) != none || class<DamTypeDual44Magnum>(damageType) != none )
-    {
-        Damage *= 0.5;
-    }
-    else if( class<DamTypeWinchester>(damageType) != none )
-    {
-        Damage *= 0.75;
-    }
-    else if( class<DamTypeMAC10MP>(damageType) != none )
-    {
-        Damage *= 0.65;
-    }
+  // Adjust damage for gungame, as KF weapons were all balanced for shooting zombies not players! :)
+  if (class<DamTypeDualies>(damageType) != none || class<DamTypeMK23Pistol>(damageType) != none || class<DamTypeDualMK23Pistol>(damageType) != none)
+  {
+    Damage *= 0.5;
+  }
+  else if (class<DamTypeMagnum44Pistol>(damageType) != none || class<DamTypeDual44Magnum>(damageType) != none)
+  {
+    Damage *= 0.5;
+  }
+  else if( class<DamTypeWinchester>(damageType) != none )
+  {
+    Damage *= 0.75;
+  }
+  else if( class<DamTypeMAC10MP>(damageType) != none )
+  {
+    Damage *= 0.65;
+  }
     else if( class<DamTypeMP7M>(damageType) != none )
     {
         Damage *= 0.65;
@@ -887,17 +919,14 @@ final function UpdateViewsNow()
 }
 
 
-function CheckScore(PlayerReplicationInfo Scorer);
-
-
 function RestartPlayer(Controller aPlayer)
 {
   if (aPlayer.PlayerReplicationInfo.bOutOfLives || aPlayer.Pawn != none)
     return;
   if (aPlayer.PlayerReplicationInfo.Team.TeamIndex == 0)
-    aPlayer.PawnClass = class'KFRedGGPlayer';
+    aPlayer.PawnClass = class'KFGGPlayer_Red';
   else
-    aPlayer.PawnClass = class'KFBlueGGPlayer';
+    aPlayer.PawnClass = class'KFGGPlayer_Blue';
   aPlayer.PreviousPawnClass = aPlayer.PawnClass;
   KFPlayerReplicationInfo(aPlayer.PlayerReplicationInfo).ClientVeteranSkill = class'KFVeterancyTypes';
   aPlayer.PlayerReplicationInfo.Score = Max(MinRespawnCash, int(aPlayer.PlayerReplicationInfo.Score));
@@ -953,13 +982,13 @@ auto State PendingMatch
     // check if players are ready
     bReady = true;
     StartupStage = 1;
-    if (!bStartedCountDown && (bTournament /*|| bPlayersMustBeReady*/ || (Level.NetMode == NM_Standalone)))
+    if (!bStartedCountDown && (bTournament || (Level.NetMode == NM_Standalone))) // bPlayersMustBeReady
     {
-      for (P=Level.ControllerList; P!=none; P=P.NextController )
-                if ( P.IsA('PlayerController') && (P.PlayerReplicationInfo != none)
-                    && P.bIsPlayer && P.PlayerReplicationInfo.bWaitingPlayer
-                    && !P.PlayerReplicationInfo.bReadyToPlay )
-                    bReady = false;
+      for (P = Level.ControllerList; P != none; P = P.NextController)
+      {
+        if (P.IsA('PlayerController') && (P.PlayerReplicationInfo != none) && P.bIsPlayer && P.PlayerReplicationInfo.bWaitingPlayer && !P.PlayerReplicationInfo.bReadyToPlay)
+          bReady = false;
+      }
     }
     if (bReady && !bReviewingJumpspots)
     {
@@ -1042,36 +1071,35 @@ state MatchInProgress
        && C.IsA('PlayerController') && C.IsInState('PlayerWaiting')*/ )
         RestartPlayer(C);
 
-    if ( !bFinalStartup )
+    if (!bFinalStartup)
     {
       bFinalStartup = true;
-            UpdateViewsNow();
+      UpdateViewsNow();
     }
 
-    if ( NeedPlayers() && AddBot() && (RemainingBots > 0) )
+    if (NeedPlayers() && AddBot() && (RemainingBots > 0))
       RemainingBots--;
     ElapsedTime++;
     GameReplicationInfo.ElapsedTime = ElapsedTime;
 
-        if( !bDidWarmup && WarmupTime > 0 )
-        {
-            WarmupCountDown--;
+    if (!bDidWarmup && WarmupTime > 0)
+    {
+      WarmupCountDown--;
 
-            if( WarmupCountDown <= (default.CountDown - 1) && WarmupCountDown > 0 )
-            {
-                StartupStage = 5 - WarmupCountDown;
+      if (WarmupCountDown <= (default.CountDown - 1) && WarmupCountDown > 0)
+      {
+        StartupStage = 5 - WarmupCountDown;
+        PlayStartupMessage();
+      }
 
-                PlayStartupMessage();
-            }
+      if (WarmupCountDown <= 0)
+      {
+        ResetBeforeMatchStart();
+        bDidWarmup = true;
+        bDoingWarmup = false;
+        StartMatch();
 
-            if( WarmupCountDown <= 0 )
-            {
-                ResetBeforeMatchStart();
-                bDidWarmup = true;
-                bDoingWarmup = false;
-                StartMatch();
-
-                for( C=Level.ControllerList; C!=none; C=C.nextController )
+        for (C=Level.ControllerList; C!=none; C=C.nextController)
                     if( C.PlayerReplicationInfo!=none && !C.PlayerReplicationInfo.bOnlySpectator && C.Pawn == none/*C.PlayerReplicationInfo.bReadyToPlay
                     && C.IsA('PlayerController') && C.IsInState('PlayerWaiting')*/ )
                 {
@@ -1082,32 +1110,30 @@ state MatchInProgress
                 PlayStartupMessage();
                 StartupStage = 6;
 
-            }
-            else
-            {
-                bDoingWarmup = true;
-            }
+      }
+      else
+      {
+        bDoingWarmup = true;
+      }
+    }
+    else
+    {
+      bDidWarmup = true;
+    }
 
-        }
-        else
-        {
-            bDidWarmup = true;
-        }
-
-    if ( bOverTime )
-      EndGame(none,"TimeLimit");
-    else if ( TimeLimit > 0 )
+    if (bOverTime)
+      EndGame(none, "TimeLimit");
+    else if (TimeLimit > 0)
     {
       GameReplicationInfo.bStopCountDown = false;
       RemainingTime--;
       GameReplicationInfo.RemainingTime = RemainingTime;
-      if ( RemainingTime % 60 == 0 )
+      if (RemainingTime % 60 == 0)
         GameReplicationInfo.RemainingMinute = RemainingTime;
-      if( RemainingTime==600 || RemainingTime==300 || RemainingTime==180 || RemainingTime==120 || RemainingTime==60
-         || RemainingTime==30 || RemainingTime==20 || (RemainingTime<=10 && RemainingTime>=1) )
+      if (RemainingTime==600 || RemainingTime==300 || RemainingTime==180 || RemainingTime==120 || RemainingTime==60 || RemainingTime==30 || RemainingTime==20 || (RemainingTime<=10 && RemainingTime>=1))
         BroadcastLocalizedMessage(class'KFGGTimeMessage', RemainingTime);
-      if ( RemainingTime <= 0 )
-        EndGame(none,"TimeLimit");
+      if (RemainingTime <= 0)
+        EndGame(none, "TimeLimit");
     }
   }
 
@@ -1132,6 +1158,7 @@ state MatchInProgress
   }
 }
 
+
 function ResetBeforeMatchStart()
 {
   local Controller P, NextC;
@@ -1155,28 +1182,28 @@ function ResetBeforeMatchStart()
     if (P.Pawn != none && P.PlayerReplicationInfo != none)
       P.Pawn.Destroy();
 
-    if ( P.PlayerReplicationInfo == none || !P.PlayerReplicationInfo.bOnlySpectator )
+    if (P.PlayerReplicationInfo == none || !P.PlayerReplicationInfo.bOnlySpectator)
     {
-      if ( PlayerController(P) != none )
+      if (PlayerController(P) != none)
         PlayerController(P).ClientReset();
       P.Reset();
 
-      if( P.PlayerReplicationInfo != none )
+      if (P.PlayerReplicationInfo != none)
       {
-              P.PlayerReplicationInfo.Score = 0;
-              P.PlayerReplicationInfo.Deaths = 0;
-              P.PlayerReplicationInfo.GoalsScored = 0;
-              P.PlayerReplicationInfo.Kills = 0;
-                if( TeamPlayerReplicationInfo(P.PlayerReplicationInfo) != none )
-          {
-                    TeamPlayerReplicationInfo(P.PlayerReplicationInfo).bFirstBlood = false;
-                }
+        P.PlayerReplicationInfo.Score = 0;
+        P.PlayerReplicationInfo.Deaths = 0;
+        P.PlayerReplicationInfo.GoalsScored = 0;
+        P.PlayerReplicationInfo.Kills = 0;
+        if (TeamPlayerReplicationInfo(P.PlayerReplicationInfo) != none)
+        {
+          TeamPlayerReplicationInfo(P.PlayerReplicationInfo).bFirstBlood = false;
+        }
 
-                if( KFGGPRI(P.PlayerReplicationInfo) != none )
-          {
-                    KFGGPRI(P.PlayerReplicationInfo).WeaponLevel = 0;
-                }
-          }
+        if (KFGGPRI(P.PlayerReplicationInfo) != none)
+        {
+          KFGGPRI(P.PlayerReplicationInfo).WeaponLevel = 0;
+        }
+      }
     }
 
     P = NextC;
@@ -1185,28 +1212,33 @@ function ResetBeforeMatchStart()
   // Reset ALL actors (except Controllers)
   foreach AllActors(class'Actor', A)
   {
+    // none log spam fix
+    if (A == none)
+      continue;
+
     if (!A.IsA('Controller'))
       A.Reset();
 
-        // Destroy any active projectiles
-        if (A.IsA('Projectile'))
+    // Destroy any active projectiles
+    if (A.IsA('Projectile'))
       A.Destroy();
   }
 
-  for( P=Level.ControllerList; P!=none; P=NextC )
+  for (P = Level.ControllerList; P != none; P = NextC)
   {
     NextC = P.nextController;
-    if( P.PlayerReplicationInfo!=none && !P.PlayerReplicationInfo.bOnlySpectator && P.PlayerReplicationInfo.Team!=none )
+    if (P.PlayerReplicationInfo != none && !P.PlayerReplicationInfo.bOnlySpectator && P.PlayerReplicationInfo.Team != none)
     {
       P.PlayerReplicationInfo.bOutOfLives = false;
       RestartPlayer(P);
     }
   }
 
-  log("End RemainingBots = "$RemainingBots);
+  log("End RemainingBots = " $ RemainingBots);
 
   bFinalStartup = false;
 }
+
 
 //final function StartNewRound()
 //{
@@ -1287,6 +1319,7 @@ function ResetBeforeMatchStart()
 //  bFinalStartup = false;
 //}
 
+
 state MatchOver
 {
   function Timer()
@@ -1295,28 +1328,32 @@ state MatchOver
 
     Global.Timer();
 
-    if ( !bGameRestarted && (Level.TimeSeconds > EndTime + RestartWait) )
+    if (!bGameRestarted && (Level.TimeSeconds > EndTime + RestartWait))
       RestartGame();
 
-    if ( EndGameFocus != none )
+    if (EndGameFocus != none)
     {
       EndGameFocus.bAlwaysRelevant = true;
-      for ( C = Level.ControllerList; C != none; C = C.NextController )
-        if ( PlayerController(C) != none )
+      for (C = Level.ControllerList; C != none; C = C.NextController)
+      {
+        if (PlayerController(C) != none)
           PlayerController(C).ClientSetViewtarget(EndGameFocus);
+      }
     }
 
     // play end-of-match message for winner/losers (for single and muli-player)
     EndMessageCounter++;
-    if ( EndMessageCounter == EndMessageWait )
+    if (EndMessageCounter == EndMessageWait)
       PlayEndOfMatchMessage();
   }
+
   function BeginState()
   {
     GameReplicationInfo.bStopCountDown = true;
     KFGameReplicationInfo(GameReplicationInfo).EndGameType = 2;
   }
 }
+
 
 defaultproperties
 {
