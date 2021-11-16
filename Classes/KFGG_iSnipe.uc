@@ -189,27 +189,4 @@ defaultproperties
   HUDType="KFGunGame.GGHUDKillingFloor_IS"
   TeamClass[0]=class'KFGGPlayer_Red_IS'
   TeamClass[1]=class'KFGGPlayer_Blue_IS'
-  // FIXME
-  StandardWeaponList(0)="iSnipe.GG_M99SniperRifle"
-  StandardWeaponList(1)="iSnipe.GG_M99SniperRifle"
-  StandardWeaponList(2)="iSnipe.GG_M99SniperRifle"
-  StandardWeaponList(3)="iSnipe.GG_M99SniperRifle"
-  StandardWeaponList(4)="iSnipe.GG_M99SniperRifle"
-  StandardWeaponList(5)="iSnipe.GG_M99SniperRifle"
-  StandardWeaponList(6)="iSnipe.GG_M99SniperRifle"
-  StandardWeaponList(7)="iSnipe.GG_M99SniperRifle"
-  StandardWeaponList(8)="iSnipe.GG_M99SniperRifle"
-  StandardWeaponList(9)="iSnipe.GG_M99SniperRifle"
-  StandardWeaponList(10)="iSnipe.GG_M99SniperRifle"
-  StandardWeaponList(11)="iSnipe.GG_M99SniperRifle"
-  StandardWeaponList(12)="iSnipe.GG_M99SniperRifle"
-  StandardWeaponList(13)="iSnipe.GG_M99SniperRifle"
-  StandardWeaponList(14)="iSnipe.GG_M99SniperRifle"
-  StandardWeaponList(15)="iSnipe.GG_M99SniperRifle"
-  ShortWeaponList(0)="iSnipe.GG_M99SniperRifle"
-  ShortWeaponList(1)="iSnipe.GG_M99SniperRifle"
-  ShortWeaponList(2)="iSnipe.GG_M99SniperRifle"
-  ShortWeaponList(3)="iSnipe.GG_M99SniperRifle"
-  ShortWeaponList(4)="iSnipe.GG_M99SniperRifle"
-  ShortWeaponList(5)="iSnipe.GG_M99SniperRifle"
 }

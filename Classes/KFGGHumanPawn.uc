@@ -206,6 +206,7 @@ function TossWeapon(Vector TossVel)
   }
 }
 
+
 function AddDefaultInventory()
 {
   local int i;

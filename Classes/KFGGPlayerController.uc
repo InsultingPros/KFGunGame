@@ -1,4 +1,5 @@
-class KFGGPlayerController extends KFPlayerController;
+class KFGGPlayerController extends KFPlayerController
+  config(KFGunGame);
 
 
 // this is a very big no-no

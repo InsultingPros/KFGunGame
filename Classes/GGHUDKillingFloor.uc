@@ -82,7 +82,8 @@ simulated function DrawHud(Canvas C)
   {
     if (PlayerOwner.Pawn == none)
       KFPlayerController(PlayerOwner).ActiveNote = none;
-    else KFPlayerController(PlayerOwner).ActiveNote.RenderNote(C);
+    else
+      KFPlayerController(PlayerOwner).ActiveNote.RenderNote(C);
   }
 
   PassStyle = STY_None;
@@ -99,9 +100,11 @@ simulated function DrawHud(Canvas C)
   {
     if (KFGameReplicationInfo(Level.GRI).EndGameType == 2)
       DrawEndGameHUD(C, true);
-    else DrawEndGameHUD(C, false);
+    else
+      DrawEndGameHUD(C, false);
   }
-  else DrawKFHUDTextElements(C);
+  else
+    DrawKFHUDTextElements(C);
 
   if (bShowNotification)
     DrawPopupNotification(C);
