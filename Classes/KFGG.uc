@@ -26,6 +26,7 @@ var localized string WarmupDescription;
 var localized string ReverseDescription;
 var localized string ShortListDescription;
 
+var protected class TeamClass[2];
 
 // none fix 
 static function Texture GetRandomTeamSymbol(int base)
@@ -503,10 +504,9 @@ function Killed(Controller Killer, Controller Killed, Pawn KilledPawn, class<Dam
 
   super(DeathMatch).Killed(Killer, Killed, KilledPawn, DamageType);
 
-  if (KFGGPRI(Killer.PlayerReplicationInfo) != none &&
-        Killer.PlayerReplicationInfo.Team.TeamIndex != Killed.PlayerReplicationInfo.Team.TeamIndex )
+  if (KFGGPRI(Killer.PlayerReplicationInfo) != none && Killer.PlayerReplicationInfo.Team.TeamIndex != Killed.PlayerReplicationInfo.Team.TeamIndex)
   {
-    if (class<DamTypeKnife>(damageType) != none && KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel < (WeaponList.Length - 1) && KFGGPRI(Killed.PlayerReplicationInfo).WeaponLevel > 0 )
+    if (class<DamTypeKnife>(damageType) != none && KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel < (WeaponList.Length - 1) && KFGGPRI(Killed.PlayerReplicationInfo).WeaponLevel > 0)
     {
       bKnifeKill = true;
       bKilledWithRightWeapon = true;
@@ -519,163 +519,153 @@ function Killed(Controller Killer, Controller Killed, Pawn KilledPawn, class<Dam
       {
         bKilledWithRightWeapon = true;
       }
-            // Special handling for weapons that don't apparantly have the weapon class plugged into the damage type
-            // TODO: fix up the base damage classes to have thier weapon class plugged
-            // in!!! - Ramm
-            else if( WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel] == "KFMod.Single" &&
-                class<DamTypeDualies>(damageType) != none )
-            {
-                bKilledWithRightWeapon = true;
-            }
-            else if( WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel] == "KFMod.BoomStick" &&
-                class<DamTypeDBShotgun>(damageType) != none )
-            {
-                bKilledWithRightWeapon = true;
-            }
-            else if( WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel] == "KFMod.Crossbow" &&
-                class<DamTypeCrossbow>(damageType) != none || class<DamTypeCrossbowHeadShot>(damageType) != none )
-            {
-                bKilledWithRightWeapon = true;
-            }
-            else if( WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel] == "KFMod.FlameThrower" &&
-                class<DamTypeBurned>(damageType) != none )
-            {
-                bKilledWithRightWeapon = true;
-            }
-            else if( WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel] == "KFGunGame.GG_M79GrenadeLauncher" &&
-                class<DamTypeM79Grenade>(damageType) != none )
-            {
-                bKilledWithRightWeapon = true;
-            }
-            else if( WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel] == "KFGunGame.GG_M4203AssaultRifle" &&
-                class<DamTypeM203Grenade>(damageType) != none || class<DamTypeM4203AssaultRifle>(damageType) != none )
-            {
-                bKilledWithRightWeapon = true;
-            }
-            else if( WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel] == "KFGunGame.GG_M32GrenadeLauncher" &&
-                class<DamTypeM32Grenade>(damageType) != none )
-            {
-                bKilledWithRightWeapon = true;
-            }
-            else if( WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel] == "KFGunGame.GG_HuskGun" &&
-                class<DamTypeBurned>(damageType) != none || class<DamTypeHuskGun>(damageType) != none
-                || class<DamTypeHuskGunProjectileImpact>(damageType) != none )
-            {
-                bKilledWithRightWeapon = true;
-            }
-            else if( WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel] == "KFGunGame.GG_LAW" &&
-                class<DamTypeLAW>(damageType) != none )
-            {
-                bKilledWithRightWeapon = true;
-            }
-        }
-
-        if( bKilledWithRightWeapon )
-        {
-            if( KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel < (WeaponList.Length - 1) )
-            {
-                if( KFGGHumanPawn(Killer.Pawn) != none )
-                {
-                    KFGGHumanPawn(Killer.Pawn).ClearOutCurrentWeapons();
-                }
-
-                KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel++;
-                Killer.PlayerReplicationInfo.Score += 1;
-
-                if( KFGGHumanPawn(Killer.Pawn) != none )
-                {
-                    KFGGHumanPawn(Killer.Pawn).CreateInventory(WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel]);
-                    Killer.SwitchToBestWeapon();
-                }
-
-                if( PlayerController(Killer) != none )
-                {
-                    PlayerController(Killer).ClientPlaySound(Sound'KF_PlayerGlobalSnd.Zedtime_Exit',true,2.f,SLOT_None);
-                }
-
-                if( bKnifeKill && KFGGPRI(Killed.PlayerReplicationInfo).WeaponLevel > 0 )
-                {
-//                    if( Killer.Pawn != none )
-//                    {
-//                        Killer.Pawn.PlayOwnedSound(Sound'KF_MaleVoiceOne.Insult_Specimens_9', SLOT_Talk,2.0,true,500);
-//                        PlayerController(Killer).ClientPlaySound(Sound'KF_MaleVoiceOne.Insult_Specimens_9',true,2.f,SLOT_Talk);
-//                    }
-
-                    BroadcastLocalizedMessage(class'GGAnnouncementMessage', 2,Killer.PlayerReplicationInfo,Killed.PlayerReplicationInfo);
-
-                    if( KFGGHumanPawn(Killed.Pawn) != none )
-                    {
-                        KFGGHumanPawn(Killed.Pawn).ClearOutCurrentWeapons();
-                    }
-
-                    KFGGPRI(Killed.PlayerReplicationInfo).WeaponLevel--;
-                    Killed.PlayerReplicationInfo.Score -= 1;
-
-                    if( KFGGHumanPawn(Killed.Pawn) != none )
-                    {
-                        KFGGHumanPawn(Killed.Pawn).CreateInventory(WeaponList[KFGGPRI(Killed.PlayerReplicationInfo).WeaponLevel]);
-                        Killed.SwitchToBestWeapon();
-                    }
-                    PlayerController(Killed).ClientPlaySound(Sound'KF_PlayerGlobalSnd.Zedtime_Enter',true,2.f,SLOT_None);
-                }
-
-                if( KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel == int(WeaponList.Length * 0.25) )
-                {
-                    WeaponClass = class<Weapon>(BaseMutator.GetInventoryClass(WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel + 1]));
-                    BroadcastLocalizedMessage(class'GGAnnouncementMessage', 0,Killer.PlayerReplicationInfo,Killed.PlayerReplicationInfo,WeaponClass);
-                }
-                else if( KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel == int(WeaponList.Length * 0.5) )
-                {
-                    WeaponClass = class<Weapon>(BaseMutator.GetInventoryClass(WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel + 1]));
-                    BroadcastLocalizedMessage(class'GGAnnouncementMessage', 0,Killer.PlayerReplicationInfo,Killed.PlayerReplicationInfo,WeaponClass);
-                }
-                else if( KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel == int(WeaponList.Length * 0.75) )
-                {
-                    WeaponClass = class<Weapon>(BaseMutator.GetInventoryClass(WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel + 1]));
-                    BroadcastLocalizedMessage(class'GGAnnouncementMessage', 0,Killer.PlayerReplicationInfo,Killed.PlayerReplicationInfo,WeaponClass);
-                }
-                else if( KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel == (WeaponList.Length - 1) )
-                {
-                    WeaponClass = class<Weapon>(BaseMutator.GetInventoryClass(WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel + 1]));
-                    BroadcastLocalizedMessage(class'GGAnnouncementMessage', 1,Killer.PlayerReplicationInfo,Killed.PlayerReplicationInfo,WeaponClass);
-                }
-            }
-            else if( KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel < WeaponList.Length )
-            {
-                KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel++;
-                Killer.PlayerReplicationInfo.Score += 1;
-            }
-        }
-
-      if( !bDoingWarmup && KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel >= WeaponList.Length )
+      // Special handling for weapons that don't apparantly have the weapon class plugged into the damage type
+      // TODO: fix up the base damage classes to have thier weapon class plugged
+      // in!!! - Ramm
+      else if (WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel] == "KFMod.Single" && class<DamTypeDualies>(damageType) != none)
       {
-            MusicPlaying = true;
-        CalmMusicPlaying = false;
+        bKilledWithRightWeapon = true;
+      }
+      else if (WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel] == "KFMod.BoomStick" && class<DamTypeDBShotgun>(damageType) != none )
+      {
+        bKilledWithRightWeapon = true;
+      }
+      else if (WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel] == "KFMod.Crossbow" && class<DamTypeCrossbow>(damageType) != none || class<DamTypeCrossbowHeadShot>(damageType) != none)
+      {
+        bKilledWithRightWeapon = true;
+      }
+      else if (WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel] == "KFMod.FlameThrower" && class<DamTypeBurned>(damageType) != none)
+      {
+        bKilledWithRightWeapon = true;
+      }
+      else if (WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel] == "KFGunGame.GG_M79GrenadeLauncher" && class<DamTypeM79Grenade>(damageType) != none)
+      {
+        bKilledWithRightWeapon = true;
+      }
+      else if (WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel] == "KFGunGame.GG_M4203AssaultRifle" && class<DamTypeM203Grenade>(damageType) != none || class<DamTypeM4203AssaultRifle>(damageType) != none)
+      {
+        bKilledWithRightWeapon = true;
+      }
+      else if (WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel] == "KFGunGame.GG_M32GrenadeLauncher" && class<DamTypeM32Grenade>(damageType) != none)
+      {
+        bKilledWithRightWeapon = true;
+      }
+      else if (WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel] == "KFGunGame.GG_HuskGun" && class<DamTypeBurned>(damageType) != none || class<DamTypeHuskGun>(damageType) != none || class<DamTypeHuskGunProjectileImpact>(damageType) != none)
+      {
+        bKilledWithRightWeapon = true;
+      }
+      else if (WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel] == "KFGunGame.GG_LAW" && class<DamTypeLAW>(damageType) != none)
+      {
+        bKilledWithRightWeapon = true;
+      }
+    }
 
-            // Give the guy that won 100% health so we won't get any weird dying hud effects or sounds
-            if( Killer.Pawn != none )
-            {
-                Killer.Pawn.GiveHealth(100,Killer.Pawn.HealthMax);
-            }
+    if (bKilledWithRightWeapon)
+    {
+      if (KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel < (WeaponList.Length - 1))
+      {
+        if (KFGGHumanPawn(Killer.Pawn) != none)
+        {
+          KFGGHumanPawn(Killer.Pawn).ClearOutCurrentWeapons();
+        }
 
-            if( FRand() < 0.5 )
-            {
-                S = "DirgeDisunion1";
-            }
-            else
-            {
-                S = "KF_Containment";
-            }
+        KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel++;
+        Killer.PlayerReplicationInfo.Score += 1;
 
-            for( C=Level.ControllerList;C!=none;C=C.NextController )
+        if (KFGGHumanPawn(Killer.Pawn) != none)
+        {
+          KFGGHumanPawn(Killer.Pawn).CreateInventory(WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel]);
+          Killer.SwitchToBestWeapon();
+        }
+
+        if (PlayerController(Killer) != none)
+        {
+          PlayerController(Killer).ClientPlaySound(Sound'KF_PlayerGlobalSnd.Zedtime_Exit', true, 2.f, SLOT_None);
+        }
+
+        if (bKnifeKill && KFGGPRI(Killed.PlayerReplicationInfo).WeaponLevel > 0)
+        {
+          //  if (Killer.Pawn != none)
+          //  {
+          //     Killer.Pawn.PlayOwnedSound(Sound'KF_MaleVoiceOne.Insult_Specimens_9', SLOT_Talk,2.0,true,500);
+          //     PlayerController(Killer).ClientPlaySound(Sound'KF_MaleVoiceOne.Insult_Specimens_9',true,2.f,SLOT_Talk);
+          //  }
+
+          BroadcastLocalizedMessage(class'GGAnnouncementMessage', 2,Killer.PlayerReplicationInfo,Killed.PlayerReplicationInfo);
+
+          if (KFGGHumanPawn(Killed.Pawn) != none)
           {
-            if (KFPlayerController(C)!= none)
-              KFPlayerController(C).NetPlayMusic(S, 0.25,1.0);
+            KFGGHumanPawn(Killed.Pawn).ClearOutCurrentWeapons();
           }
 
-            EndGame(Killer.PlayerReplicationInfo,"fraglimit");
+          KFGGPRI(Killed.PlayerReplicationInfo).WeaponLevel--;
+          Killed.PlayerReplicationInfo.Score -= 1;
+
+          if (KFGGHumanPawn(Killed.Pawn) != none)
+          {
+            KFGGHumanPawn(Killed.Pawn).CreateInventory(WeaponList[KFGGPRI(Killed.PlayerReplicationInfo).WeaponLevel]);
+            Killed.SwitchToBestWeapon();
+          }
+          PlayerController(Killed).ClientPlaySound(Sound'KF_PlayerGlobalSnd.Zedtime_Enter',true,2.f,SLOT_None);
         }
+
+        if (KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel == int(WeaponList.Length * 0.25))
+        {
+          WeaponClass = class<Weapon>(BaseMutator.GetInventoryClass(WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel + 1]));
+          BroadcastLocalizedMessage(class'GGAnnouncementMessage', 0,Killer.PlayerReplicationInfo,Killed.PlayerReplicationInfo,WeaponClass);
+        }
+        else if (KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel == int(WeaponList.Length * 0.5))
+        {
+          WeaponClass = class<Weapon>(BaseMutator.GetInventoryClass(WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel + 1]));
+          BroadcastLocalizedMessage(class'GGAnnouncementMessage', 0,Killer.PlayerReplicationInfo,Killed.PlayerReplicationInfo,WeaponClass);
+        }
+        else if (KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel == int(WeaponList.Length * 0.75))
+        {
+          WeaponClass = class<Weapon>(BaseMutator.GetInventoryClass(WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel + 1]));
+          BroadcastLocalizedMessage(class'GGAnnouncementMessage', 0,Killer.PlayerReplicationInfo,Killed.PlayerReplicationInfo,WeaponClass);
+        }
+        else if (KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel == (WeaponList.Length - 1))
+        {
+          WeaponClass = class<Weapon>(BaseMutator.GetInventoryClass(WeaponList[KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel + 1]));
+          BroadcastLocalizedMessage(class'GGAnnouncementMessage', 1,Killer.PlayerReplicationInfo,Killed.PlayerReplicationInfo,WeaponClass);
+        }
+      }
+      else if (KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel < WeaponList.Length)
+      {
+        KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel++;
+        Killer.PlayerReplicationInfo.Score += 1;
+      }
     }
+
+    if (!bDoingWarmup && KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel >= WeaponList.Length)
+    {
+      MusicPlaying = true;
+      CalmMusicPlaying = false;
+
+      // Give the guy that won 100% health so we won't get any weird dying hud effects or sounds
+      if (Killer.Pawn != none)
+      {
+        Killer.Pawn.GiveHealth(100, Killer.Pawn.HealthMax);
+      }
+
+      if (FRand() < 0.5)
+      {
+        S = "DirgeDisunion1";
+      }
+      else
+      {
+        S = "KF_Containment";
+      }
+
+      for (C = Level.ControllerList; C != none; C = C.NextController)
+      {
+        if (KFPlayerController(C)!= none)
+          KFPlayerController(C).NetPlayMusic(S, 0.25,1.0);
+      }
+
+      EndGame(Killer.PlayerReplicationInfo,"fraglimit");
+    }
+  }
 }
 
 
@@ -906,10 +896,12 @@ function RestartPlayer(Controller aPlayer)
 {
   if (aPlayer.PlayerReplicationInfo.bOutOfLives || aPlayer.Pawn != none)
     return;
+
   if (aPlayer.PlayerReplicationInfo.Team.TeamIndex == 0)
-    aPlayer.PawnClass = class'KFGGPlayer_Red';
+    aPlayer.PawnClass = TeamClass[0];
   else
-    aPlayer.PawnClass = class'KFGGPlayer_Blue';
+    aPlayer.PawnClass = TeamClass[1];
+
   aPlayer.PreviousPawnClass = aPlayer.PawnClass;
   KFPlayerReplicationInfo(aPlayer.PlayerReplicationInfo).ClientVeteranSkill = class'KFVeterancyTypes';
   aPlayer.PlayerReplicationInfo.Score = Max(MinRespawnCash, int(aPlayer.PlayerReplicationInfo.Score));
@@ -923,7 +915,7 @@ function Timer()
 }
 
 
-auto State PendingMatch
+auto state PendingMatch
 {
   function RestartPlayer(Controller aPlayer)
   {
@@ -1344,6 +1336,8 @@ defaultproperties
   GameName="KF Gun Game"
   Description="Gun Game With Killing Floor Weapons. Every kill instantly gets you the next weapon in the list. Be the first player to get a kill with every weapon on the list to win!"
   Acronym="GG"
+  TeamClass[0]=class'KFGGPlayer_Red'
+  TeamClass[1]=class'KFGGPlayer_Blue'
   WarmUpTime=30
   StandardWeaponList(0)="KFMod.Single"
   StandardWeaponList(1)="KFMod.MK23Pistol"

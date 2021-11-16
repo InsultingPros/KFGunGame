@@ -4,24 +4,6 @@
 class KFGG_iSnipe extends KFGG;
 
 
-// we have a pyro party here! redefine
-function RestartPlayer(Controller aPlayer)
-{
-  if (aPlayer.PlayerReplicationInfo.bOutOfLives || aPlayer.Pawn != none)
-    return;
-
-  if (aPlayer.PlayerReplicationInfo.Team.TeamIndex == 0)
-    aPlayer.PawnClass = class'KFGGPlayer_Red_IS';
-  else
-    aPlayer.PawnClass = class'KFGGPlayer_Blue_IS';
-
-  aPlayer.PreviousPawnClass = aPlayer.PawnClass;
-  KFPlayerReplicationInfo(aPlayer.PlayerReplicationInfo).ClientVeteranSkill = class'KFVeterancyTypes';
-  aPlayer.PlayerReplicationInfo.Score = Max(MinRespawnCash, int(aPlayer.PlayerReplicationInfo.Score));
-  super(Invasion).RestartPlayer(aPlayer);
-}
-
-
 // FIX ME
 // Function used for debugging levelling up
 function ForceLevelUp(Controller Killer)
@@ -51,18 +33,7 @@ function ForceLevelUp(Controller Killer)
       PlayerController(Killer).ClientPlaySound(Sound'KF_PlayerGlobalSnd.Zedtime_Exit',true,2.f,SLOT_None);
     }
 
-    if (KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel == int(WeaponList.Length * 0.25))
-    {
-    }
-    else if( KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel == int(WeaponList.Length * 0.5) )
-    {
-    }
-    else if( KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel == int(WeaponList.Length * 0.75) )
-    {
-    }
-    else if( KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel == (WeaponList.Length - 1) )
-    {
-    }
+    // broadcasting removed for iSnipe!!!
   }
   else if (KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel < WeaponList.Length)
   {
@@ -216,6 +187,8 @@ defaultproperties
   GameName="iSnipe"
   Description="Sniper party! Every kill instantly gets you fresh M99. Be the first player to get 16 kills to win!"
   HUDType="KFGunGame.GGHUDKillingFloor_IS"
+  TeamClass[0]=class'KFGGPlayer_Red_IS'
+  TeamClass[1]=class'KFGGPlayer_Blue_IS'
   // FIXME
   StandardWeaponList(0)="iSnipe.GG_M99SniperRifle"
   StandardWeaponList(1)="iSnipe.GG_M99SniperRifle"
