@@ -26,7 +26,7 @@ simulated function PostBeginPlay()
 }
 
 
-// yyup, this is much cleaner than if-else walls
+// yyup, this is much cleaner than walls of if-else
 simulated function bool IsTeamColorCharacter(string CheckString)
 {
   local int i;

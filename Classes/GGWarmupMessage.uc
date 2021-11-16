@@ -3,7 +3,7 @@ class GGWarmupMessage extends CriticalEventPlus;
 #EXEC OBJ LOAD FILE=Miscsounds.uax
 
 var localized string Stage[8], NotReady, SinglePlayer;
-var sound  Riff;
+var sound Riff;
 
 
 static simulated function ClientReceive(

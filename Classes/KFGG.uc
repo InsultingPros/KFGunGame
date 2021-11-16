@@ -9,6 +9,7 @@
 //=============================================================================
 class KFGG extends KFGameType;
 
+
 var config int NumAmmoSpawns;
 var config int WarmupTime; // How long to do a pre match warmup before starting the round
 var config bool bReverseList; // Do the weapon list backwards
@@ -24,9 +25,8 @@ var localized string WarmupDescription;
 var localized string ReverseDescription;
 var localized string ShortListDescription;
 
-var array<bool> boolshit;
 
-
+// none fix 
 static function Texture GetRandomTeamSymbol(int base)
 {
   return Texture'Engine.S_Actor';
@@ -129,26 +129,9 @@ function bool CheckMaxLives(PlayerReplicationInfo Scorer)
 }
 
 
-// EXPERIMENTAL!!!
-function testBool()
-{
-  // local array<int> boolshit;
-
-  boolshit.length = 5;
-  boolshit[0] = false;
-  boolshit[1] = false;
-  boolshit[2] = true;
-
-  Log("WHY IT IS NOT WORKING!!!!" @ boolshit[0] @ boolshit[1] @ boolshit[2]);
-}
-
-
 event PreBeginPlay()
 {
   local int i;
-
-  // EXPERIMENTAL!!!
-  testBool();
 
   super(xTeamGame).PreBeginPlay();
   GameReplicationInfo.bNoTeamSkins = true;
@@ -223,7 +206,7 @@ event PreBeginPlay()
 
   // for ( i = 0; i < WeaponList.Length; i++ )
   // {
-  //      log("i = "$i$" WeaponList.Length = "$WeaponList.Length$" WeaponList[i] = "$WeaponList[i]);
+  //    log("i = "$i$" WeaponList.Length = "$WeaponList.Length$" WeaponList[i] = "$WeaponList[i]);
   // }
 
   KFGGGameReplicationInfo(GameReplicationInfo).MaxWeaponLevel = WeaponList.Length;

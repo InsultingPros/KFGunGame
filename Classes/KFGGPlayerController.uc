@@ -1,7 +1,14 @@
 class KFGGPlayerController extends KFPlayerController;
 
 
-// Overriden to clear shakes/rot no matter what
+// this is a very big no-no
+exec function ToggleBehindView()
+{
+  ClientMessage("This command is disabled, DO NOT TRY TO CHEAT!!!");
+}
+
+
+// Overriden to clear shakes / rot no matter what
 function ViewShake(float DeltaTime)
 {
   if (ShakeOffsetRate != vect(0, 0, 0))
@@ -39,7 +46,7 @@ simulated function DisplayDebug(Canvas Canvas, out float YL, out float YPos)
   super.DisplayDebug(Canvas, YL, YPos);
 
   Canvas.SetDrawColor(255, 255, 255);
-  Canvas.DrawText("ShakeOffset: "$ShakeOffset);
+  Canvas.DrawText("ShakeOffset: " $ ShakeOffset);
   YPos += YL;
   Canvas.SetPos(4, YPos);
 }
