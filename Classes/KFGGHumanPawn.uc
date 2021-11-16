@@ -30,8 +30,9 @@ function Died(Controller Killer, class<DamageType> damageType, vector HitLocatio
   local Projectile PP;
   local FakePlayerPawn FP;
 
+  // already destroyed, or level is being cleaned up
   if (bDeleteMe || Level.bLevelChange || Level.Game == none)
-    return; // already destroyed, or level is being cleaned up
+    return;
 
   if (DamageType.default.bCausedByWorld && (Killer == none || Killer == Controller) && LastHitBy != none)
     Killer = LastHitBy;
@@ -111,7 +112,7 @@ function Died(Controller Killer, class<DamageType> damageType, vector HitLocatio
     foreach TouchingActors(class'NavigationPoint', N)
     {
       if (N.bReceivePlayerToucherDiedNotify)
-        N.PlayerToucherDied( self );
+        N.PlayerToucherDied(self);
     }
   }
   // remove powerup effects, etc.

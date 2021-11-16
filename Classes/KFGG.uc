@@ -7,20 +7,21 @@
 // Copyright (C) 2011 John "Ramm-Jaeger" Gibson
 // Some elements based off of KFTDM by Marco
 //=============================================================================
-class KFGG extends KFGameType;
+class KFGG extends KFGameType
+  config(KFGunGame);
 
 
 var config int NumAmmoSpawns;
-var config int WarmupTime; // How long to do a pre match warmup before starting the round
+var config int WarmupTime;    // How long to do a pre match warmup before starting the round
 var config bool bReverseList; // Do the weapon list backwards
-var config bool bShortList; // Do the weapon list backwards
+var config bool bShortList;   // Do the weapon list backwards
 var bool bDidWarmup, bDoingWarmup;
 var int WarmupCountDown;
 
-var array<string>  WeaponList;      // A list of weapons that the players have to go through to win
-var array<string>  StandardWeaponList;  // A list of weapons that the players have to go through to win that includes the longer list of weapons weapons
-var array<string>  ShortWeaponList;  // A list of weapons that the players have to go through to win that is shortened down
-// var string FinalWeapon;                   // The final weapon to get a kill with to get the victory
+var array<string> WeaponList;          // A list of weapons that the players have to go through to win
+var array<string> StandardWeaponList;  // A list of weapons that the players have to go through to win that includes the longer list of weapons weapons
+var array<string> ShortWeaponList;     // A list of weapons that the players have to go through to win that is shortened down
+// var string FinalWeapon;             // The final weapon to get a kill with to get the victory
 var localized string WarmupDescription;
 var localized string ReverseDescription;
 var localized string ShortListDescription;
@@ -66,15 +67,15 @@ static function FillPlayInfo(PlayInfo PlayInfo)
 {
   super(Info).FillPlayInfo(PlayInfo);  // Always begin with calling parent
 
-  PlayInfo.AddSetting(default.GameGroup,   "TimeLimit",GetDisplayText("TimeLimit"),0, 0, "Text","3;0:999");
-  PlayInfo.AddSetting(default.GameGroup,   "WarmupTime",default.WarmupDescription,0, 0, "Text","3;0:999");
+  PlayInfo.AddSetting(default.GameGroup, "TimeLimit", GetDisplayText("TimeLimit"),0, 0, "Text","3;0:999");
+  PlayInfo.AddSetting(default.GameGroup, "WarmupTime", default.WarmupDescription,0, 0, "Text","3;0:999");
   PlayInfo.AddSetting(default.GameGroup, "bReverseList",  default.ReverseDescription,  0, 0, "Check",       ,  ,true,true);
   PlayInfo.AddSetting(default.GameGroup, "bShortList", default.ShortListDescription,  0, 0, "Check",       ,  ,true,true);
 
   // AddSetting(string Group, string PropertyName, string Description, byte SecLevel, byte Weight, string RenderType, optional string Extras, optional string ExtraPrivs, optional bool bMultiPlayerOnly, optional bool bAdvanced);
-  // PlayInfo.AddSetting(default.GameGroup,   "NumAmmoSpawns","Num Ammo Pickups",0, 0, "Text","2;0:10");
+  // PlayInfo.AddSetting(default.GameGroup, "NumAmmoSpawns","Num Ammo Pickups",0, 0, "Text","2;0:10");
 
-  PlayInfo.AddSetting(default.ServerGroup,   "MinPlayers","Num Bots",0, 0, "Text","2;0:64",,true,true);
+  PlayInfo.AddSetting(default.ServerGroup, "MinPlayers","Num Bots",0, 0, "Text","2;0:64",,true,true);
   PlayInfo.AddSetting(default.ServerGroup, "LobbyTimeOut",  GetDisplayText("LobbyTimeOut"),    0, 1, "Text",  "3;0:120",  ,true,true);
   PlayInfo.AddSetting(default.ServerGroup, "bAdminCanPause",  GetDisplayText("bAdminCanPause"),  1, 1, "Check",       ,  ,true,true);
   PlayInfo.AddSetting(default.ServerGroup, "MaxSpectators",  GetDisplayText("MaxSpectators"),  1, 1, "Text",   "6;0:32",  ,true,true);
@@ -116,8 +117,8 @@ static event string GetDescriptionText(string PropName)
     //case "NumAmmoSpawns":    return "Number of ammo pickups that can be available at once.";
     //case "MinPlayers":    return "Minimum number of players in game (rest will be filled with bots.";
     //case "InitGrenadesCount":  return "Initial amount of grenades players start with.";
-    case "WarmupTime":    return default.WarmupDescription;
-    case "bReverseList":    return default.ReverseDescription;
+    case "WarmupTime": return default.WarmupDescription;
+    case "bReverseList": return default.ReverseDescription;
   }
   return super.GetDescriptionText(PropName);
 }
@@ -719,34 +720,33 @@ function AmmoPickedUp(KFAmmoPickup PickedUp)
 
 function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector HitLocation, out vector Momentum, class<DamageType> DamageType)
 {
-
-//    WeaponList(0)="KFMod.Single"
-//    WeaponList(1)="KFMod.Dualies"
-//    WeaponList(2)="KFMod.Magnum44Pistol"
-//    WeaponList(3)="KFMod.Dual44Magnum"
-//    WeaponList(4)="KFMod.Winchester"
-//    WeaponList(5)="KFMod.MAC10MP"
-//    WeaponList(6)="KFMod.MP7MMedicGun"
-//    WeaponList(7)="KFMod.MP5MMedicGun"
-//    WeaponList(8)="KFMod.Bullpup"
-//    WeaponList(9)="KFMod.Crossbow"
-//    WeaponList(10)="KFMod.Shotgun"
-//    WeaponList(11)="KFMod.FlameThrower"
-//    WeaponList(12)="KFMod.Deagle"
-//    WeaponList(13)="KFMod.M4AssaultRifle"
-//    WeaponList(14)="KFMod.AK47AssaultRifle"
-//    WeaponList(15)="KFMod.BoomStick"
-//    WeaponList(16)="KFMod.M14EBRBattleRifle"
-//    WeaponList(17)="KFMod.DualDeagle"
-//    WeaponList(18)="KFMod.BenelliShotgun"
-//    WeaponList(19)="KFGunGame.GG_M79GrenadeLauncher"
-//    WeaponList(20)="KFMod.SCARMK17AssaultRifle"
-//    WeaponList(21)="KFGunGame.GG_M4203AssaultRifle"
-//    WeaponList(22)="KFGunGame.GG_M32GrenadeLauncher"
-//    WeaponList(23)="KFGunGame.GG_HuskGun"
-//    WeaponList(24)="KFMod.AA12AutoShotgun"
-//    WeaponList(25)="KFGunGame.GG_LAW"
-//    WeaponList(26)="KFMod.Katana"
+  // WeaponList(0)="KFMod.Single"
+  // WeaponList(1)="KFMod.Dualies"
+  // WeaponList(2)="KFMod.Magnum44Pistol"
+  // WeaponList(3)="KFMod.Dual44Magnum"
+  // WeaponList(4)="KFMod.Winchester"
+  // WeaponList(5)="KFMod.MAC10MP"
+  // WeaponList(6)="KFMod.MP7MMedicGun"
+  // WeaponList(7)="KFMod.MP5MMedicGun"
+  // WeaponList(8)="KFMod.Bullpup"
+  // WeaponList(9)="KFMod.Crossbow"
+  // WeaponList(10)="KFMod.Shotgun"
+  // WeaponList(11)="KFMod.FlameThrower"
+  // WeaponList(12)="KFMod.Deagle"
+  // WeaponList(13)="KFMod.M4AssaultRifle"
+  // WeaponList(14)="KFMod.AK47AssaultRifle"
+  // WeaponList(15)="KFMod.BoomStick"
+  // WeaponList(16)="KFMod.M14EBRBattleRifle"
+  // WeaponList(17)="KFMod.DualDeagle"
+  // WeaponList(18)="KFMod.BenelliShotgun"
+  // WeaponList(19)="KFGunGame.GG_M79GrenadeLauncher"
+  // WeaponList(20)="KFMod.SCARMK17AssaultRifle"
+  // WeaponList(21)="KFGunGame.GG_M4203AssaultRifle"
+  // WeaponList(22)="KFGunGame.GG_M32GrenadeLauncher"
+  // WeaponList(23)="KFGunGame.GG_HuskGun"
+  // WeaponList(24)="KFMod.AA12AutoShotgun"
+  // WeaponList(25)="KFGunGame.GG_LAW"
+  // WeaponList(26)="KFMod.Katana"
 
   // Adjust damage for gungame, as KF weapons were all balanced for shooting zombies not players! :)
   if (class<DamTypeDualies>(damageType) != none || class<DamTypeMK23Pistol>(damageType) != none || class<DamTypeDualMK23Pistol>(damageType) != none)
@@ -757,118 +757,118 @@ function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector Hi
   {
     Damage *= 0.5;
   }
-  else if( class<DamTypeWinchester>(damageType) != none )
+  else if (class<DamTypeWinchester>(damageType) != none)
   {
     Damage *= 0.75;
   }
-  else if( class<DamTypeMAC10MP>(damageType) != none )
+  else if (class<DamTypeMAC10MP>(damageType) != none)
   {
     Damage *= 0.65;
   }
-    else if( class<DamTypeMP7M>(damageType) != none )
-    {
-        Damage *= 0.65;
-    }
-    else if( class<DamTypeMP5M>(damageType) != none )
-    {
-        Damage *= 0.65;
-    }
-    else if( class<DamTypeBullpup>(damageType) != none )
-    {
-        Damage *= 1.0;
-    }
-    else if( class<DamTypeCrossbow>(damageType) != none || class<DamTypeCrossbowHeadShot>(damageType) != none
-        || class<DamTypeM99SniperRifle>(damageType) != none || class<DamTypeM99HeadShot>(damageType) != none)
-    {
-        Damage *= 0.65;
-    }
-    else if( class<DamTypeShotgun>(damageType) != none || class<DamTypeKSGShotgun>(damageType) != none )
-    {
-        Damage *= 0.41;// 1 Hit kill if all pellets hit you
-    }
-    else if( class<DamTypeBurned>(damageType) != none )
-    {
-        Damage *= 2.0;
-    }
-    else if( class<DamTypeDeagle>(damageType) != none || class<DamTypeDualDeagle>(damageType) != none )
-    {
-        Damage *= 0.5;
-    }
-    else if( class<DamTypeM4AssaultRifle>(damageType) != none || class<DamTypeM4203AssaultRifle>(damageType) != none )
-    {
-        Damage *= 0.75;
-    }
-    else if( class<DamTypeAK47AssaultRifle>(damageType) != none )
-    {
-        Damage *= 0.75;
-    }
-    else if( class<DamTypeDBShotgun>(damageType) != none )
-    {
-        Damage *= 0.3;
-    }
-    else if( class<DamTypeM14EBR>(damageType) != none || class<DamTypeM7A3M>(damageType) != none )
-    {
-        Damage *= 0.75;
-    }
-    else if( class<DamTypeSCARMK17AssaultRifle>(damageType) != none || class<DamTypeFNFALAssaultRifle>(damageType) != none )
-    {
-        Damage *= 0.65;
-    }
-    else if( class<DamTypeAA12Shotgun>(damageType) != none )
-    {
-        Damage *= 0.35;
-    }
-    else if( class<DamTypeBenelli>(damageType) != none )
-    {
-        Damage *= 0.35;
-    }
-    else if( class<DamTypeM79Grenade>(damageType) != none || class<DamTypeM203Grenade>(damageType) != none)
-    {
-        Damage *= 0.4;
-    }
-    else if( class<DamTypeM32Grenade>(damageType) != none )
-    {
-        Damage *= 0.3;
-    }
-    else if( class<DamTypeLAW>(damageType) != none )
-    {
-        Damage *= 0.15;
-    }
-    else if( class<DamTypeKatana>(damageType) != none )
-    {
-        Damage *= 0.8;
-    }
-    else if( class<DamTypeRocketImpact>(damageType) != none )
-    {
-        Damage *= 0.25;
-    }
-    else if( class<DamTypeHuskGun>(damageType) != none )
-    {
-        Damage *= 1.0;
-    }
-    else if( class<DamTypeHuskGunProjectileImpact>(damageType) != none )
-    {
-        Damage *= 0.3;
-    }
-    else if( class<DamTypeKnife>(damageType) != none )
-    {
-        Damage *= 3.0;
-    }
+  else if (class<DamTypeMP7M>(damageType) != none)
+  {
+    Damage *= 0.65;
+  }
+  else if (class<DamTypeMP5M>(damageType) != none)
+  {
+    Damage *= 0.65;
+  }
+  else if (class<DamTypeBullpup>(damageType) != none)
+  {
+    Damage *= 1.0;
+  }
+  else if (class<DamTypeCrossbow>(damageType) != none || class<DamTypeCrossbowHeadShot>(damageType) != none || class<DamTypeM99SniperRifle>(damageType) != none || class<DamTypeM99HeadShot>(damageType) != none)
+  {
+    Damage *= 0.65;
+  }
+  else if (class<DamTypeShotgun>(damageType) != none || class<DamTypeKSGShotgun>(damageType) != none)
+  {
+    Damage *= 0.41;// 1 Hit kill if all pellets hit you
+  }
+  else if (class<DamTypeBurned>(damageType) != none)
+  {
+    Damage *= 2.0;
+  }
+  else if (class<DamTypeDeagle>(damageType) != none || class<DamTypeDualDeagle>(damageType) != none)
+  {
+    Damage *= 0.5;
+  }
+  else if (class<DamTypeM4AssaultRifle>(damageType) != none || class<DamTypeM4203AssaultRifle>(damageType) != none)
+  {
+    Damage *= 0.75;
+  }
+  else if (class<DamTypeAK47AssaultRifle>(damageType) != none)
+  {
+    Damage *= 0.75;
+  }
+  else if (class<DamTypeDBShotgun>(damageType) != none)
+  {
+    Damage *= 0.3;
+  }
+  else if (class<DamTypeM14EBR>(damageType) != none || class<DamTypeM7A3M>(damageType) != none)
+  {
+    Damage *= 0.75;
+  }
+  else if (class<DamTypeSCARMK17AssaultRifle>(damageType) != none || class<DamTypeFNFALAssaultRifle>(damageType) != none)
+  {
+    Damage *= 0.65;
+  }
+  else if (class<DamTypeAA12Shotgun>(damageType) != none)
+  {
+    Damage *= 0.35;
+  }
+  else if (class<DamTypeBenelli>(damageType) != none)
+  {
+    Damage *= 0.35;
+  }
+  else if (class<DamTypeM79Grenade>(damageType) != none || class<DamTypeM203Grenade>(damageType) != none)
+  {
+    Damage *= 0.4;
+  }
+  else if (class<DamTypeM32Grenade>(damageType) != none)
+  {
+    Damage *= 0.3;
+  }
+  else if (class<DamTypeLAW>(damageType) != none)
+  {
+    Damage *= 0.15;
+  }
+  else if (class<DamTypeKatana>(damageType) != none)
+  {
+    Damage *= 0.8;
+  }
+  else if (class<DamTypeRocketImpact>(damageType) != none)
+  {
+    Damage *= 0.25;
+  }
+  else if (class<DamTypeHuskGun>(damageType) != none)
+  {
+    Damage *= 1.0;
+  }
+  else if (class<DamTypeHuskGunProjectileImpact>(damageType) != none)
+  {
+    Damage *= 0.3;
+  }
+  else if (class<DamTypeKnife>(damageType) != none)
+  {
+    Damage *= 3.0;
+  }
 
-    return super.ReduceDamage( Damage,injured,instigatedBy,HitLocation,Momentum,DamageType );
+  return super.ReduceDamage(Damage, injured, instigatedBy, HitLocation, Momentum, DamageType);
 }
+
 
 function ScoreKill(Controller Killer, Controller Other)
 {
-  if ( GameRulesModifiers != none )
+  if (GameRulesModifiers != none)
     GameRulesModifiers.ScoreKill(Killer, Other);
 
-  if( (killer == Other) || (killer == none) )
+  if (killer == Other || killer == none)
   {
     return;
   }
 
-  if ( Killer.PlayerReplicationInfo==none )
+  if (Killer.PlayerReplicationInfo == none)
     return;
 
   Killer.PlayerReplicationInfo.Kills++;
@@ -1049,10 +1049,11 @@ state MatchInProgress
 
     Global.Timer();
 
-    for( C=Level.ControllerList; C!=none; C=C.nextController )
-      if( C.PlayerReplicationInfo!=none && !C.PlayerReplicationInfo.bOnlySpectator && C.Pawn == none/*C.PlayerReplicationInfo.bReadyToPlay
-       && C.IsA('PlayerController') && C.IsInState('PlayerWaiting')*/ )
+    for (C = Level.ControllerList; C != none; C = C.nextController)
+    {
+      if (C.PlayerReplicationInfo != none && !C.PlayerReplicationInfo.bOnlySpectator && C.Pawn == none) // C.PlayerReplicationInfo.bReadyToPlay && C.IsA('PlayerController') && C.IsInState('PlayerWaiting')
         RestartPlayer(C);
+    }
 
     if (!bFinalStartup)
     {
@@ -1082,17 +1083,17 @@ state MatchInProgress
         bDoingWarmup = false;
         StartMatch();
 
-        for (C=Level.ControllerList; C!=none; C=C.nextController)
-                    if( C.PlayerReplicationInfo!=none && !C.PlayerReplicationInfo.bOnlySpectator && C.Pawn == none/*C.PlayerReplicationInfo.bReadyToPlay
-                    && C.IsA('PlayerController') && C.IsInState('PlayerWaiting')*/ )
-                {
-                    RestartPlayer(C);
-                }
+        for (C = Level.ControllerList; C != none; C = C.nextController)
+        {
+          if (C.PlayerReplicationInfo != none && !C.PlayerReplicationInfo.bOnlySpectator && C.Pawn == none) // C.PlayerReplicationInfo.bReadyToPlay && C.IsA('PlayerController') && C.IsInState('PlayerWaiting')
+          {
+            RestartPlayer(C);
+          }
 
-                StartupStage = 5;
-                PlayStartupMessage();
-                StartupStage = 6;
-
+          StartupStage = 5;
+          PlayStartupMessage();
+          StartupStage = 6;
+        }
       }
       else
       {
@@ -1195,7 +1196,7 @@ function ResetBeforeMatchStart()
   // Reset ALL actors (except Controllers)
   foreach AllActors(class'Actor', A)
   {
-    // none log spam fix
+    // none fix
     if (A == none)
       continue;
 

@@ -1,5 +1,5 @@
 class GGMapList extends MapList
-  config;
+  config(KFGunGame);
 
 
 defaultproperties
