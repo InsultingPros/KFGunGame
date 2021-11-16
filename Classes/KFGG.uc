@@ -11,8 +11,8 @@ class KFGG extends KFGameType
   config(KFGunGame);
 
 
-var config int WarmupTime;    // How long to do a pre match warmup before starting the round
 var config string Selection;  // select weapon lists
+var int WarmupTime;           // How long to do a pre match warmup before starting the round
 
 var bool bDidWarmup, bDoingWarmup;
 var int WarmupCountDown;
@@ -20,8 +20,6 @@ var int WarmupCountDown;
 var array<string> WeaponList;          // A list of weapons that the players have to go through to win
 // var string FinalWeapon;             // The final weapon to get a kill with to get the victory
 var localized string WarmupDescription;
-var localized string ReverseDescription;
-var localized string ShortListDescription;
 
 var protected class TeamClass[2];
 
@@ -80,7 +78,8 @@ event PreBeginPlay()
 
   // add config section selection!!!
   new_WeaponList = new(none, Selection) class'o_WeaponList';
-  WeaponList = new_WeaponList.Get_WeaponList();
+  WeaponList = new_WeaponList.WeaponList;
+  WarmupTime = new_WeaponList.WarmupTime;
 
   KFGGGameReplicationInfo(GameReplicationInfo).MaxWeaponLevel = WeaponList.Length;
 }
@@ -1207,7 +1206,6 @@ static function FillPlayInfo(PlayInfo PlayInfo)
   super(Info).FillPlayInfo(PlayInfo);  // Always begin with calling parent
 
   PlayInfo.AddSetting(default.GameGroup, "TimeLimit", GetDisplayText("TimeLimit"),0, 0, "Text","3;0:999");
-  PlayInfo.AddSetting(default.GameGroup, "WarmupTime", default.WarmupDescription,0, 0, "Text","3;0:999");
 
   // AddSetting(string Group, string PropertyName, string Description, byte SecLevel, byte Weight, string RenderType, optional string Extras, optional string ExtraPrivs, optional bool bMultiPlayerOnly, optional bool bAdvanced);
 
@@ -1252,7 +1250,6 @@ static event string GetDescriptionText(string PropName)
   {
     //case "MinPlayers":    return "Minimum number of players in game (rest will be filled with bots.";
     //case "InitGrenadesCount":  return "Initial amount of grenades players start with.";
-    case "WarmupTime": return default.WarmupDescription;
   }
   return super.GetDescriptionText(PropName);
 }
@@ -1268,10 +1265,7 @@ defaultproperties
   Acronym="GG"
   TeamClass[0]=class'KFGGPlayer_Red'
   TeamClass[1]=class'KFGGPlayer_Blue'
-  WarmUpTime=30
   WarmupDescription="Warmup Time"
-  ReverseDescription="Reverse Weapon List"
-  ShortListDescription="Shorter Weapon List"
   bNoBots=false
   bSpawnInTeamArea=true
   TeamAIType(0)=class'GGTeamAI'

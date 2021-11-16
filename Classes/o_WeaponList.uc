@@ -3,6 +3,7 @@ class o_WeaponList extends Object
   config(KFGunGame);
 
 
+var config int WarmupTime;
 var config array<string> WeaponList;
 
 
