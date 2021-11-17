@@ -3,11 +3,12 @@ class o_WeaponList extends Object
   config(KFGunGame);
 
 
+struct sTeamCharInfo
+{
+  var array<string> Red;
+  var array<string> Blue;
+};
+var config sTeamCharInfo TeamChars;
+
 var config int WarmupTime;
 var config array<string> WeaponList;
-
-
-final function array<string> Get_WeaponList()
-{
-  return WeaponList;
-}

@@ -11,15 +11,13 @@ class KFGG extends KFGameType
   config(KFGunGame);
 
 
-var config string Selection;  // select weapon lists
-var int WarmupTime;           // How long to do a pre match warmup before starting the round
-
-var bool bDidWarmup, bDoingWarmup;
-var int WarmupCountDown;
+var int   WarmupTime;                  // How long to do a pre match warmup before starting the round
+var bool  bDidWarmup, bDoingWarmup;
+var int   WarmupCountDown;
+var localized string WarmupDescription;
 
 var array<string> WeaponList;          // A list of weapons that the players have to go through to win
 // var string FinalWeapon;             // The final weapon to get a kill with to get the victory
-var localized string WarmupDescription;
 
 var protected class TeamClass[2];
 
@@ -30,11 +28,17 @@ static function Texture GetRandomTeamSymbol(int base)
 }
 
 
-// DISABLED FUNCTIONS!!!
+//=============================================================================
+//                              DISABLED FUNCTIONS
+//=============================================================================
+// no zed time
 event Tick(float DeltaTime);
 function DramaticEvent(float BaseZedTimePossibility, optional float DesiredZedTimeDuration);
+// no trader path
 function ShowPathTo(PlayerController P, int TeamNum);
+// no boss death sequence
 function DoBossDeath();
+// game end variables
 function CheckScore(PlayerReplicationInfo Scorer);
 // For now don't dynamically load / unload weapons. TODO: find a way to dynamically
 // load a set of the GG weapons at a time to save on memory
@@ -42,49 +46,10 @@ function WeaponSpawned(Inventory Weapon){}
 function WeaponDestroyed(class<Weapon> WeaponClass){}
 
 
-event PostLogin(PlayerController NewPlayer)
-{
-  local int i;
-
-  super.PostLogin(NewPlayer);
-
-  // Precache all the weapons
-  if (KFPlayerController(NewPlayer) != none)
-  {
-    for (i = 0; i < WeaponList.Length; i++)
-    {
-      KFPlayerController(NewPlayer).ClientWeaponSpawned(class<Weapon>(BaseMutator.GetInventoryClass(WeaponList[i])), none);
-    }
-  }
-}
-
-
-function bool CheckMaxLives(PlayerReplicationInfo Scorer)
-{
-  return false;
-}
-
-
-// CHANGE THE WAY WEAPONS SPAWN!!!
-event PreBeginPlay()
-{
-  local o_WeaponList new_WeaponList;
-
-  super(xTeamGame).PreBeginPlay();
-
-  GameReplicationInfo.bNoTeamSkins = true;
-  GameReplicationInfo.bForceNoPlayerLights = true;
-  GameReplicationInfo.bNoTeamChanges = false;
-
-  // add config section selection!!!
-  new_WeaponList = new(none, Selection) class'o_WeaponList';
-  WeaponList = new_WeaponList.WeaponList;
-  WarmupTime = new_WeaponList.WarmupTime;
-
-  KFGGGameReplicationInfo(GameReplicationInfo).MaxWeaponLevel = WeaponList.Length;
-}
-
-
+//=============================================================================
+//                                   STARTUP
+//=============================================================================
+// ADD GAMEMODE CATCH!!!
 event InitGame(string Options, out string Error)
 {
   local KFLevelRules KFLRit;
@@ -122,6 +87,60 @@ event InitGame(string Options, out string Error)
   // provide default rules if mapper did not need custom one
   if (KFLRules == none)
     KFLRules = spawn(class'KFLevelRules');
+}
+
+
+// CHANGE THE WAY WEAPONS SPAWN!!!
+event PreBeginPlay()
+{
+  super(xTeamGame).PreBeginPlay();
+
+  // get game settings! MOVE TO INITGAME!!!
+  InitGGSettings();
+
+  GameReplicationInfo.bNoTeamSkins = true;
+  GameReplicationInfo.bForceNoPlayerLights = true;
+  GameReplicationInfo.bNoTeamChanges = false;
+
+  KFGGGameReplicationInfo(GameReplicationInfo).MaxWeaponLevel = WeaponList.Length;
+}
+
+
+final protected function InitGGSettings()
+{
+  local o_WeaponList tmpList;
+
+  // add config section selection!!!
+  tmpList = new(none, "Long_KFGG_02") class'o_WeaponList';
+  WeaponList = tmpList.WeaponList;
+  WarmupTime = tmpList.WarmupTime;
+}
+
+
+// Precache all the weapons
+event PostLogin(PlayerController NewPlayer)
+{
+  local int i;
+
+  super.PostLogin(NewPlayer);
+
+  if (KFPlayerController(NewPlayer) != none)
+  {
+    for (i = 0; i < WeaponList.Length; i++)
+    {
+      KFPlayerController(NewPlayer).ClientWeaponSpawned(class<Weapon>(BaseMutator.GetInventoryClass(WeaponList[i])), none);
+    }
+  }
+}
+
+
+//=============================================================================
+//                                   LOGIC
+//=============================================================================
+
+function bool CheckMaxLives(PlayerReplicationInfo Scorer)
+{
+  return false;
 }
 
 
@@ -539,9 +558,10 @@ function Killed(Controller Killer, Controller Killed, Pawn KilledPawn, class<Dam
 }
 
 
+// Kill all ammo pickups
 function AmmoPickedUp(KFAmmoPickup PickedUp)
 {
-  PickedUp.Destroy(); // Kill all ammo pickups.
+  PickedUp.Destroy();
 }
 
 
@@ -737,6 +757,7 @@ function ScoreKill(Controller Killer, Controller Other)
 }
 
 
+// spawn weapons depending on level
 function AddGameSpecificInventory(Pawn p)
 {
   p.CreateInventory(WeaponList[KFGGPRI(p.PlayerReplicationInfo).WeaponLevel]);
@@ -1200,6 +1221,10 @@ state MatchOver
   }
 }
 
+
+//=============================================================================
+//                                  INFO
+//=============================================================================
 
 static function FillPlayInfo(PlayInfo PlayInfo)
 {

@@ -27,13 +27,13 @@ simulated function PostBeginPlay()
 
 
 // yyup, this is much cleaner than walls of if-else
-simulated function bool IsTeamColorCharacter(string CheckString)
+simulated function bool IsTeamColorCharacter(string s)
 {
   local int i;
 
   for (i = 0; i < AvailableChars.Length; i++)
   {
-    if (CheckString ~= AvailableChars[i])
+    if (s ~= AvailableChars[i])
       return true;
   }
 
@@ -41,6 +41,7 @@ simulated function bool IsTeamColorCharacter(string CheckString)
 }
 
 
+// give random skin on each respawn
 simulated function string GetDefaultCharacter()
 {
   return AvailableChars[rand(AvailableChars.Length)];
