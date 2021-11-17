@@ -31,6 +31,12 @@ simulated function bool IsTeamColorCharacter(string s)
 {
   local int i;
 
+  // fallback if our char array is empty
+  if (AvailableChars.Length == 0)
+  {
+    return true;
+  }
+
   for (i = 0; i < AvailableChars.Length; i++)
   {
     if (s ~= AvailableChars[i])
@@ -44,6 +50,11 @@ simulated function bool IsTeamColorCharacter(string s)
 // give random skin on each respawn
 simulated function string GetDefaultCharacter()
 {
+  // fallback if our char array is empty
+  if (AvailableChars.Length == 0)
+  {
+    return "Sergeant_Powers";
+  }
   return AvailableChars[rand(AvailableChars.Length)];
 }
 
@@ -91,6 +102,4 @@ defaultproperties
 {
   bNoTeamBeacon=false
   bScriptPostRender=true
-  // kinda fits - Security_Office_Thorne
-  AvailableChars=("Sergeant_Powers","Corporal_Lewis","Lieutenant_Masterson","Trooper_Clive_Jenkins","LanceCorporal_Lee_Baron","Private_Schnieder")
 }

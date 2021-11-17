@@ -187,6 +187,4 @@ defaultproperties
   GameName="iSnipe"
   Description="Sniper party! Every kill instantly gets you fresh M99. Be the first player to get 16 kills to win!"
   HUDType="KFGunGame.GGHUDKillingFloor_IS"
-  TeamClass[0]=class'KFGGPlayer_Red_IS'
-  TeamClass[1]=class'KFGGPlayer_Blue_IS'
 }

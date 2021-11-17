@@ -114,6 +114,8 @@ final protected function InitGGSettings()
   tmpList = new(none, "Long_KFGG_02") class'o_WeaponList';
   WeaponList = tmpList.WeaponList;
   WarmupTime = tmpList.WarmupTime;
+  class'KFGGPlayer_Red'.default.AvailableChars = tmpList.TeamChars.Red;
+  class'KFGGPlayer_Blue'.default.AvailableChars = tmpList.TeamChars.Blue;
 }
 
 
