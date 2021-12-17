@@ -50,13 +50,14 @@ function WeaponDestroyed(class<Weapon> WeaponClass){}
 //                                   STARTUP
 //=============================================================================
 // ADD GAMEMODE CATCH!!!
-event InitGame(string Options, out string Error)
+simulated function InitGame(string Options, out string Error)
 {
   local KFLevelRules KFLRit;
   local ShopVolume SH;
   local ZombieVolume ZZ;
 
   MaxLives = 0;
+
   super(DeathMatch).InitGame(Options, Error);
 
   foreach DynamicActors(class'KFLevelRules', KFLRit)
@@ -90,23 +91,17 @@ event InitGame(string Options, out string Error)
 }
 
 
-// CHANGE THE WAY WEAPONS SPAWN!!!
+// using PreBeginPlay() coz GameReplicationInfo spawns and inits here
 event PreBeginPlay()
 {
-  super(xTeamGame).PreBeginPlay();
+  super.PreBeginPlay();
 
   // get game settings! MOVE TO INITGAME!!!
   InitGGSettings();
-
-  GameReplicationInfo.bNoTeamSkins = true;
-  GameReplicationInfo.bForceNoPlayerLights = true;
-  GameReplicationInfo.bNoTeamChanges = false;
-
-  KFGGGameReplicationInfo(GameReplicationInfo).MaxWeaponLevel = WeaponList.Length;
 }
 
 
-final protected function InitGGSettings()
+final simulated protected function InitGGSettings()
 {
   local o_WeaponList tmpList;
 
@@ -114,8 +109,18 @@ final protected function InitGGSettings()
   tmpList = new(none, "Long_KFGG_02") class'o_WeaponList';
   WeaponList = tmpList.WeaponList;
   WarmupTime = tmpList.WarmupTime;
-  class'KFGGPlayer_Red'.default.AvailableChars = tmpList.TeamChars.Red;
-  class'KFGGPlayer_Blue'.default.AvailableChars = tmpList.TeamChars.Blue;
+
+  GameReplicationInfo.bNoTeamSkins = true;
+  GameReplicationInfo.bForceNoPlayerLights = true;
+  GameReplicationInfo.bNoTeamChanges = false;
+
+  KFGGGameReplicationInfo(Level.GRI).MaxWeaponLevel = WeaponList.Length;
+
+  tmpList = new(none, "Long_KFGG_02") class'o_WeaponList';
+  KFGGGameReplicationInfo(Level.GRI).TeamChars = tmpList.TeamChars;
+
+  log(">>> KFGG: GetTeamChars RED is " $ tmpList.TeamChars.Red);
+  log(">>> KFGG: GetTeamChars BLUE is " $ tmpList.TeamChars.Blue);
 }
 
 

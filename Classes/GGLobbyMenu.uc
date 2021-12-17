@@ -555,8 +555,8 @@ function OnSteamStatsAndAchievementsReady()
 defaultproperties
 {
   Begin Object class=GUIButton Name=Team1Button
-    Caption="Green Team"
-    Hint="Click to join Green Team"
+    Caption="Red Team"
+    Hint="Click to join Red Team"
     WinTop=0.001000
     WinLeft=0.102422
     WinWidth=0.120000

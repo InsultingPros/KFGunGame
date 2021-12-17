@@ -5,8 +5,8 @@ class o_WeaponList extends Object
 
 struct sTeamCharInfo
 {
-  var array<string> Red;
-  var array<string> Blue;
+  var string Red;
+  var string Blue;
 };
 var config sTeamCharInfo TeamChars;
 

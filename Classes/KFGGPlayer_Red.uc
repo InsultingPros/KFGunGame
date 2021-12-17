@@ -4,12 +4,13 @@ class KFGGPlayer_Red extends KFGGHumanPawn;
 // #exec obj load file="TeamSkins.utx" package="KFGunGame"
 var Material TeamSkinX;
 // available character array
-var array<string> AvailableChars;
+var array<string> TeamCharsArr;
 
 
 simulated function PostBeginPlay()
 {
   super.PostBeginPlay();
+
   // AssignInitialPose();
 
   // if (bActorShadows && bPlayerShadows && (Level.NetMode!=NM_DedicatedServer))
@@ -22,7 +23,31 @@ simulated function PostBeginPlay()
   //  PlayerShadow.LightDirection = Normal(vect(1, 1, 3));
   //  PlayerShadow.InitShadow();
   // }
+
   Skins[0] = TeamSkinX;
+}
+
+
+simulated function GetReplicatedArray()
+{
+  local KFGGGameReplicationInfo GGRI;
+  local string str;
+  local int i;
+
+  GGRI = KFGGGameReplicationInfo(level.GRI);
+  log(">>>KFGGPlayer_Red: PlayerReplicationInfo.Team.TeamIndex is: " $ PlayerReplicationInfo.Team.TeamIndex);
+  if (PlayerReplicationInfo.Team.TeamIndex == 0)
+    str = GGRI.TeamChars.Red;
+  else if (PlayerReplicationInfo.Team.TeamIndex == 1)
+    str = GGRI.TeamChars.Blue;
+
+  // get and fill our char array
+  split(str, ";", TeamCharsArr);
+
+  for (i = 0; i < TeamCharsArr.length; i++)
+  {
+    log(">>>KFGGPlayer_Red: Char is " $ TeamCharsArr[i]);
+  }
 }
 
 
@@ -31,15 +56,18 @@ simulated function bool IsTeamColorCharacter(string s)
 {
   local int i;
 
+  GetReplicatedArray();
+
   // fallback if our char array is empty
-  if (AvailableChars.Length == 0)
+  if (TeamCharsArr.Length == 0)
   {
+    log(">>>KFGGPlayer_Red: Array is empty for ..." $ class.name);
     return true;
   }
 
-  for (i = 0; i < AvailableChars.Length; i++)
+  for (i = 0; i < TeamCharsArr.Length; i++)
   {
-    if (s ~= AvailableChars[i])
+    if (s ~= TeamCharsArr[i])
       return true;
   }
 
@@ -51,11 +79,12 @@ simulated function bool IsTeamColorCharacter(string s)
 simulated function string GetDefaultCharacter()
 {
   // fallback if our char array is empty
-  if (AvailableChars.Length == 0)
+  if (TeamCharsArr.Length == 0)
   {
+    log(">>> KFGGPlayer_Red: FALLBACK in GetDefaultCharacter()");
     return "Sergeant_Powers";
   }
-  return AvailableChars[rand(AvailableChars.Length)];
+  return TeamCharsArr[rand(TeamCharsArr.Length)];
 }
 
 
