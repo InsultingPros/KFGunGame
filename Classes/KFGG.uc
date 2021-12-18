@@ -641,10 +641,10 @@ function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector Hi
   // {
   //   Damage *= 1.0;
   // }
-  else if (class<DamTypeCrossbow>(damageType) != none || class<DamTypeCrossbowHeadShot>(damageType) != none || class<DamTypeM99SniperRifle>(damageType) != none || class<DamTypeM99HeadShot>(damageType) != none)
-  {
-    Damage *= 0.65;
-  }
+  // else if (class<DamTypeCrossbow>(damageType) != none || class<DamTypeCrossbowHeadShot>(damageType) != none || class<DamTypeM99SniperRifle>(damageType) != none || class<DamTypeM99HeadShot>(damageType) != none)
+  // {
+  //   Damage *= 0.65;
+  // }
   else if (class<DamTypeShotgun>(damageType) != none || class<DamTypeKSGShotgun>(damageType) != none)
   {
     Damage *= 0.41;// 1 Hit kill if all pellets hit you
