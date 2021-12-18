@@ -2,7 +2,10 @@ class KFGGPlayerController extends KFPlayerController
   config(KFGunGame);
 
 
-// disable some cheasy shit
+//=============================================================================
+//                              DISABLED FUNCTIONS
+//=============================================================================
+
 // this is a very big no-no
 exec function ToggleBehindView()
 {
@@ -16,6 +19,15 @@ exec function Suicide()
   ClientMessage("Suicide is disabled, DO NOT TRY TO CHEAT!!!");
 }
 
+
+// no perks, at all
+simulated function SendSelectedVeterancyToServer(optional bool bForceChange);
+function SelectVeterancy(class<KFVeterancyTypes> VetSkill, optional bool bForceChange);
+
+
+//=============================================================================
+//                                  OTHER
+//=============================================================================
 
 // Overriden to clear shakes / rot no matter what
 function ViewShake(float DeltaTime)
