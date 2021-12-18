@@ -1,4 +1,4 @@
-class GG_M79GrenadeProjectile extends M79GrenadeProjectile;
+class w_M79_Proj extends KFMod.M79GrenadeProjectile;
 
 
 // Need to override this until we get the KF bug fix patch out otherwise this projectile will be bugged - Ramm
@@ -51,4 +51,8 @@ simulated function ProcessTouch(Actor Other, Vector HitLocation)
 }
 
 
-defaultproperties{}
+defaultproperties
+{
+  // 350 * 0.4
+  Damage=140.000000
+}

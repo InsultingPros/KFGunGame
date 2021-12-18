@@ -116,7 +116,7 @@ simulated function ClientWeaponSpawned(class<Weapon> WClass, Inventory Inv)
   switch (WClass)
   {
     // ADDITION!!!
-    case class'GG_M99SniperRifle':
+    case class'w_M99':
       class'M99SniperRifle'.static.PreloadAssets(Inv);
       class'M99Fire'.static.PreloadAssets(Level);
       class'M99Attachment'.static.PreloadAssets();
@@ -146,7 +146,7 @@ simulated function ClientWeaponSpawned(class<Weapon> WClass, Inventory Inv)
       class'M32Attachment'.static.PreloadAssets();
       break;
 
-    case class'GG_M79GrenadeLauncher':
+    case class'w_M79':
       class'M79GrenadeLauncher'.static.PreloadAssets(Inv);
       class'M79Fire'.static.PreloadAssets(Level);
       class'M79GrenadeProjectile'.static.PreloadAssets();
@@ -171,8 +171,8 @@ simulated function ClientWeaponDestroyed(class<Weapon> WClass)
   switch (WClass)
   {
     // ADDITION!!!
-    case class'GG_M99SniperRifle':
-      if (class'GG_M99SniperRifle'.static.UnloadAssets())
+    case class'w_M99':
+      if (class'M99SniperRifle'.static.UnloadAssets())
       {
         class'M99Fire'.static.UnloadAssets();
         class'M99Attachment'.static.UnloadAssets();
@@ -208,7 +208,7 @@ simulated function ClientWeaponDestroyed(class<Weapon> WClass)
       }
       break;
 
-    case class'GG_M79GrenadeLauncher':
+    case class'w_M79':
       if (class'M79GrenadeLauncher'.static.UnloadAssets())
       {
         class'M79Fire'.static.UnloadAssets();

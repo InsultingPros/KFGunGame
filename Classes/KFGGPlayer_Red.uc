@@ -32,7 +32,7 @@ simulated function GetReplicatedArray()
 {
   local KFGGGameReplicationInfo GGRI;
   local string str;
-  local int i;
+  // local int i;
 
   GGRI = KFGGGameReplicationInfo(level.GRI);
   log(">>>KFGGPlayer_Red: PlayerReplicationInfo.Team.TeamIndex is: " $ PlayerReplicationInfo.Team.TeamIndex);

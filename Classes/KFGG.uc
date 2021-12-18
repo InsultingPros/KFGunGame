@@ -649,6 +649,7 @@ function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector Hi
   {
     Damage *= 0.41;// 1 Hit kill if all pellets hit you
   }
+  // leave this
   else if (class<DamTypeBurned>(damageType) != none)
   {
     Damage *= 2.0;
@@ -685,10 +686,10 @@ function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector Hi
   {
     Damage *= 0.35;
   }
-  else if (class<DamTypeM79Grenade>(damageType) != none || class<DamTypeM203Grenade>(damageType) != none)
-  {
-    Damage *= 0.4;
-  }
+  // else if (class<DamTypeM79Grenade>(damageType) != none || class<DamTypeM203Grenade>(damageType) != none)
+  // {
+  //   Damage *= 0.4;
+  // }
   else if (class<DamTypeM32Grenade>(damageType) != none)
   {
     Damage *= 0.3;
