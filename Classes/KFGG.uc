@@ -124,8 +124,8 @@ final simulated protected function InitGGSettings()
   // set GRI team character array
   KFGGGameReplicationInfo(Level.GRI).TeamChars = tmpList.TeamChars;
 
-  log(">>> KFGG: GetTeamChars RED is " $ tmpList.TeamChars.Red);
-  log(">>> KFGG: GetTeamChars BLUE is " $ tmpList.TeamChars.Blue);
+  // log(">>> KFGG: GetTeamChars RED is " $ tmpList.TeamChars.Red);
+  // log(">>> KFGG: GetTeamChars BLUE is " $ tmpList.TeamChars.Blue);
 }
 
 
@@ -612,63 +612,35 @@ function AmmoPickedUp(KFAmmoPickup PickedUp)
 
 function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector HitLocation, out vector Momentum, class<DamageType> DamageType)
 {
-  // WeaponList(0)="KFMod.Single"
-  // WeaponList(1)="KFMod.Dualies"
-  // WeaponList(2)="KFMod.Magnum44Pistol"
-  // WeaponList(3)="KFMod.Dual44Magnum"
-  // WeaponList(4)="KFMod.Winchester"
-  // WeaponList(5)="KFMod.MAC10MP"
-  // WeaponList(6)="KFMod.MP7MMedicGun"
-  // WeaponList(7)="KFMod.MP5MMedicGun"
-  // WeaponList(8)="KFMod.Bullpup"
-  // WeaponList(9)="KFMod.Crossbow"
-  // WeaponList(10)="KFMod.Shotgun"
-  // WeaponList(11)="KFMod.FlameThrower"
-  // WeaponList(12)="KFMod.Deagle"
-  // WeaponList(13)="KFMod.M4AssaultRifle"
-  // WeaponList(14)="KFMod.AK47AssaultRifle"
-  // WeaponList(15)="KFMod.BoomStick"
-  // WeaponList(16)="KFMod.M14EBRBattleRifle"
-  // WeaponList(17)="KFMod.DualDeagle"
-  // WeaponList(18)="KFMod.BenelliShotgun"
-  // WeaponList(19)="KFGunGame.GG_M79GrenadeLauncher"
-  // WeaponList(20)="KFMod.SCARMK17AssaultRifle"
-  // WeaponList(21)="KFGunGame.GG_M4203AssaultRifle"
-  // WeaponList(22)="KFGunGame.GG_M32GrenadeLauncher"
-  // WeaponList(23)="KFGunGame.GG_HuskGun"
-  // WeaponList(24)="KFMod.AA12AutoShotgun"
-  // WeaponList(25)="KFGunGame.GG_LAW"
-  // WeaponList(26)="KFMod.Katana"
-
   // Adjust damage for gungame, as KF weapons were all balanced for shooting zombies not players! :)
   if (class<DamTypeDualies>(damageType) != none || class<DamTypeMK23Pistol>(damageType) != none || class<DamTypeDualMK23Pistol>(damageType) != none)
   {
     Damage *= 0.5;
   }
-  else if (class<DamTypeMagnum44Pistol>(damageType) != none || class<DamTypeDual44Magnum>(damageType) != none)
-  {
-    Damage *= 0.5;
-  }
-  else if (class<DamTypeWinchester>(damageType) != none)
-  {
-    Damage *= 0.75;
-  }
-  else if (class<DamTypeMAC10MP>(damageType) != none)
-  {
-    Damage *= 0.65;
-  }
-  else if (class<DamTypeMP7M>(damageType) != none)
-  {
-    Damage *= 0.65;
-  }
-  else if (class<DamTypeMP5M>(damageType) != none)
-  {
-    Damage *= 0.65;
-  }
-  else if (class<DamTypeBullpup>(damageType) != none)
-  {
-    Damage *= 1.0;
-  }
+  // else if (class<DamTypeMagnum44Pistol>(damageType) != none || class<DamTypeDual44Magnum>(damageType) != none)
+  // {
+  //   Damage *= 0.5;
+  // }
+  // else if (class<DamTypeWinchester>(damageType) != none)
+  // {
+  //   Damage *= 0.75;
+  // }
+  // else if (class<DamTypeMAC10MP>(damageType) != none)
+  // {
+  //   Damage *= 0.65;
+  // }
+  // else if (class<DamTypeMP7M>(damageType) != none)
+  // {
+  //   Damage *= 0.65;
+  // }
+  // else if (class<DamTypeMP5M>(damageType) != none)
+  // {
+  //   Damage *= 0.65;
+  // }
+  // else if (class<DamTypeBullpup>(damageType) != none)
+  // {
+  //   Damage *= 1.0;
+  // }
   else if (class<DamTypeCrossbow>(damageType) != none || class<DamTypeCrossbowHeadShot>(damageType) != none || class<DamTypeM99SniperRifle>(damageType) != none || class<DamTypeM99HeadShot>(damageType) != none)
   {
     Damage *= 0.65;

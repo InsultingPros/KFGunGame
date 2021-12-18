@@ -44,10 +44,10 @@ simulated function GetReplicatedArray()
   // get and fill our char array
   split(str, ";", TeamCharsArr);
 
-  for (i = 0; i < TeamCharsArr.length; i++)
-  {
-    log(">>>KFGGPlayer_Red: Char is " $ TeamCharsArr[i]);
-  }
+  // for (i = 0; i < TeamCharsArr.length; i++)
+  // {
+  //   log(">>>KFGGPlayer_Red: Char is " $ TeamCharsArr[i]);
+  // }
 }
 
 
