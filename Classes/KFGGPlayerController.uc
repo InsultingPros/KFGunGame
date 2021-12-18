@@ -109,125 +109,145 @@ simulated function StopViewShaking()
 }
 
 
-simulated function ClientWeaponSpawned(class<Weapon> WClass, Inventory Inv)
+//=============================================================================
+//                      MARCO's (SERVER PERKS) COPY-CAT
+//=============================================================================
+
+// Poosh's preloading code fix.
+simulated function PreloadFireModeAssets(class<WeaponFire> WF)
 {
-  log("ClientWeaponSpawned " $ WClass $ " " $ Inv);
-  super.ClientWeaponSpawned(WClass, Inv);
-  switch (WClass)
-  {
-    // ADDITION!!!
-    case class'w_M99':
-      class'M99SniperRifle'.static.PreloadAssets(Inv);
-      class'M99Fire'.static.PreloadAssets(Level);
-      class'M99Attachment'.static.PreloadAssets();
-      class'M99Bullet'.static.PreloadAssets();
-      break;
+  local class<Projectile> P;
 
-    case class'GG_HuskGun':
-      class'HuskGun'.static.PreloadAssets(Inv);
-      class'HuskGunFire'.static.PreloadAssets(Level);
-      class'HuskGunProjectile'.static.PreloadAssets();
-      class'HuskGunProjectile_Weak'.static.PreloadAssets();
-      class'HuskGunProjectile_Strong'.static.PreloadAssets();
-      class'HuskGunAttachment'.static.PreloadAssets();
-      break;
+  if (WF == none || WF == Class'KFMod.NoFire') 
+    return;
 
-    case class'GG_LAW':
-      class'LAW'.static.PreloadAssets(Inv);
-      class'LAWFire'.static.PreloadAssets(Level);
-      class'LAWProj'.static.PreloadAssets();
-      class'LAWAttachment'.static.PreloadAssets();
-      break;
+  if (class<KFFire>(WF) != none && class<KFFire>(WF).default.FireSoundRef != "")
+    class<KFFire>(WF).static.PreloadAssets(Level);
+  else if (class<KFMeleeFire>(WF) != none && class<KFMeleeFire>(WF).default.FireSoundRef != "")
+    class<KFMeleeFire>(WF).static.PreloadAssets();
+  else if (class<KFShotgunFire>(WF) != none && class<KFShotgunFire>(WF).default.FireSoundRef != "")
+    class<KFShotgunFire>(WF).static.PreloadAssets(Level);
 
-    case class'GG_M32GrenadeLauncher':
-      class'M32GrenadeLauncher'.static.PreloadAssets(Inv);
-      class'M32Fire'.static.PreloadAssets(Level);
-      class'M32GrenadeProjectile'.static.PreloadAssets();
-      class'M32Attachment'.static.PreloadAssets();
-      break;
-
-    case class'w_M79':
-      class'M79GrenadeLauncher'.static.PreloadAssets(Inv);
-      class'M79Fire'.static.PreloadAssets(Level);
-      class'M79GrenadeProjectile'.static.PreloadAssets();
-      class'M79Attachment'.static.PreloadAssets();
-      break;
-
-    case class'GG_M4203AssaultRifle':
-      class'M4203AssaultRifle'.static.PreloadAssets(Inv);
-      class'M203Fire'.static.PreloadAssets(Level);
-      class'M4203BulletFire'.static.PreloadAssets(Level);
-      class'M203GrenadeProjectile'.static.PreloadAssets();
-      class'M4203Attachment'.static.PreloadAssets();
-      break;
-  }
+  // preload projectile assets
+  P = WF.default.ProjectileClass;
+  //log("Projectile =" @ P, default.class.outer.name);
+  if (P == none)
+    return;
+        
+  if (class<CrossbuzzsawBlade>(P) != none)
+    class<CrossbuzzsawBlade>(P).static.PreloadAssets();
+  else if (class<LAWProj>(P) != none && class<LAWProj>(P).default.StaticMeshRef != "")
+    class<LAWProj>(P).static.PreloadAssets();
+  else if (class<M79GrenadeProjectile>(P) != none && class<M79GrenadeProjectile>(P).default.StaticMeshRef != "")
+    class<M79GrenadeProjectile>(P).static.PreloadAssets();
+  else if (class<SPGrenadeProjectile>(P) != none && class<SPGrenadeProjectile>(P).default.StaticMeshRef != "")
+    class<SPGrenadeProjectile>(P).static.PreloadAssets();
+  else if (class<HealingProjectile>(P) != none && class<HealingProjectile>(P).default.StaticMeshRef != "")
+    class<HealingProjectile>(P).static.PreloadAssets();
+  else if (class<CrossbowArrow>(P) != none && class<CrossbowArrow>(P).default.MeshRef != "")
+    class<CrossbowArrow>(P).static.PreloadAssets();
+  else if (class<M99Bullet>(P) != none)
+    class<M99Bullet>(P).static.PreloadAssets();
+  else if ( class<PipeBombProjectile>(P) != none && class<PipeBombProjectile>(P).default.StaticMeshRef != "" )
+    class<PipeBombProjectile>(P).static.PreloadAssets();
+  // More DLC
+  else if ( class<SealSquealProjectile>(P) != none && class<SealSquealProjectile>(P).default.StaticMeshRef != "" )
+    class<SealSquealProjectile>(P).static.PreloadAssets();
 }
 
+simulated final function UnloadFireModeAssets(class<WeaponFire> WF)
+{
+  local class<Projectile> P;
+
+  if ( WF==none || WF==Class'KFMod.NoFire' ) 
+    return;
+
+  if ( class<KFFire>(WF) != none && class<KFFire>(WF).default.FireSoundRef != "" )
+    class<KFFire>(WF).static.UnloadAssets();
+  else if ( class<KFMeleeFire>(WF) != none && class<KFMeleeFire>(WF).default.FireSoundRef != "" )
+    class<KFMeleeFire>(WF).static.UnloadAssets();
+  else if ( class<KFShotgunFire>(WF) != none && class<KFShotgunFire>(WF).default.FireSoundRef != "" )
+    class<KFShotgunFire>(WF).static.UnloadAssets();
+
+  // Unload projectile assets only if refs aren't empty (i.e. they have been dynamically loaded)
+  P = WF.default.ProjectileClass;
+  if ( P == none || P.default.StaticMesh != none )
+    return;
+
+  if ( class<CrossbuzzsawBlade>(P) != none )
+    class<CrossbuzzsawBlade>(P).static.UnloadAssets();
+  else if ( class<LAWProj>(P) != none && class<LAWProj>(P).default.StaticMeshRef != "" )
+    class<LAWProj>(P).static.UnloadAssets();
+  else if ( class<M79GrenadeProjectile>(P) != none && class<M79GrenadeProjectile>(P).default.StaticMeshRef != "" )
+    class<M79GrenadeProjectile>(P).static.UnloadAssets();
+  else if ( class<SPGrenadeProjectile>(P) != none && class<SPGrenadeProjectile>(P).default.StaticMeshRef != "" )
+    class<SPGrenadeProjectile>(P).static.UnloadAssets();
+  else if ( class<HealingProjectile>(P) != none && class<HealingProjectile>(P).default.StaticMeshRef != "" )
+    class<HealingProjectile>(P).static.UnloadAssets();
+  else if ( class<CrossbowArrow>(P) != none && class<CrossbowArrow>(P).default.MeshRef != "" )
+    class<CrossbowArrow>(P).static.UnloadAssets();
+  else if ( class<M99Bullet>(P) != none )
+    class<M99Bullet>(P).static.UnloadAssets();
+  else if ( class<PipeBombProjectile>(P) != none && class<PipeBombProjectile>(P).default.StaticMeshRef != "" )
+    class<PipeBombProjectile>(P).static.UnloadAssets();
+  // More DLC
+  else if ( class<SealSquealProjectile>(P) != none && class<SealSquealProjectile>(P).default.StaticMeshRef != "" )
+    class<SealSquealProjectile>(P).static.UnloadAssets();
+}
+
+
+simulated function ClientWeaponSpawned(class<Weapon> WClass, Inventory Inv)
+{
+  local class<KFWeapon> W;
+  local class<KFWeaponAttachment> Att;
+
+  // log("ScrnPlayerController.ClientWeaponSpawned()" @ WClass $ ". Default Mesh = " $ WClass.default.Mesh, default.class.outer.name);
+  // super.ClientWeaponSpawned(WClass, Inv);
+
+  W = class<KFWeapon>(WClass);
+  // preload assets only for weapons that have no static ones
+  // damned Tripwire's code doesn't bother for cheking is there ref set or not!
+  if ( W != none)
+  {
+    log("ClientWeaponSpawned: " $ W $ " " $ Inv);
+    // preload weapon assets
+    if ( W.default.Mesh == none )
+      W.static.PreloadAssets(Inv);
+    Att = class<KFWeaponAttachment>(W.default.AttachmentClass);
+    // 2013/01/22 EDIT: bug fix 
+    if ( Att != none && Att.default.Mesh == none )
+    {
+      if ( Inv != none )
+        Att.static.PreloadAssets(KFWeaponAttachment(Inv.ThirdPersonActor));    
+      else
+        Att.static.PreloadAssets();
+    }
+    PreloadFireModeAssets(W.default.FireModeClass[0]);
+    PreloadFireModeAssets(W.default.FireModeClass[1]);
+  }
+}
 
 simulated function ClientWeaponDestroyed(class<Weapon> WClass)
 {
-  super.ClientWeaponDestroyed(WClass);
+  local class<KFWeapon> W;
+  local class<KFWeaponAttachment> Att;
 
-  switch (WClass)
+  // log(default.class @ "ClientWeaponDestroyed()" @ WClass, default.class.outer.name);
+  // super.ClientWeaponDestroyed(WClass); 
+
+  W = class<KFWeapon>(WClass);
+  // if default mesh is set, then count that weapon has static assets, so don't unload them
+  // that's lame, but not so lame as Tripwire's original code
+  if ( W != none && W.default.MeshRef != "" && W.static.UnloadAssets() )
   {
-    // ADDITION!!!
-    case class'w_M99':
-      if (class'M99SniperRifle'.static.UnloadAssets())
-      {
-        class'M99Fire'.static.UnloadAssets();
-        class'M99Attachment'.static.UnloadAssets();
-        class'M99Bullet'.static.UnloadAssets();
-        break;
-      }
-      break;
-
-    case class'GG_HuskGun':
-      if (class'HuskGun'.static.UnloadAssets())
-      {
-        class'HuskGunFire'.static.UnloadAssets();
-        class'HuskGunProjectile'.static.UnloadAssets();
-        class'HuskGunAttachment'.static.UnloadAssets();
-      }
-      break;
-
-    case class'GG_LAW':
-      if (class'LAW'.static.UnloadAssets())
-      {
-        class'LAWFire'.static.UnloadAssets();
-        class'LAWProj'.static.UnloadAssets();
-        class'LAWAttachment'.static.UnloadAssets();
-      }
-      break;
-
-    case class'GG_M32GrenadeLauncher':
-      if (class'M32GrenadeLauncher'.static.UnloadAssets())
-      {
-        class'M32Fire'.static.UnloadAssets();
-        class'M32GrenadeProjectile'.static.UnloadAssets();
-        class'M32Attachment'.static.UnloadAssets();
-      }
-      break;
-
-    case class'w_M79':
-      if (class'M79GrenadeLauncher'.static.UnloadAssets())
-      {
-        class'M79Fire'.static.UnloadAssets();
-        class'M79GrenadeProjectile'.static.UnloadAssets();
-        class'M79Attachment'.static.UnloadAssets();
-      }
-      break;
-
-    case class'GG_M4203AssaultRifle':
-      if (class'M4203AssaultRifle'.static.UnloadAssets())
-      {
-        class'M4203BulletFire'.static.UnloadAssets();
-        class'M203Fire'.static.UnloadAssets();
-        class'M203GrenadeProjectile'.static.UnloadAssets();
-        class'M4203Attachment'.static.UnloadAssets();
-      }
-      break;
+    Att = class<KFWeaponAttachment>(W.default.AttachmentClass);
+    if ( Att != none && Att.default.Mesh == none )
+      Att.static.UnloadAssets();
+    UnloadFireModeAssets(W.default.FireModeClass[0]);
+    UnloadFireModeAssets(W.default.FireModeClass[1]);
   }
 }
+
 
 
 // exec function M79(optional bool bMaxAmmo)

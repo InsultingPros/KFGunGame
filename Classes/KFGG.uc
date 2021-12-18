@@ -645,10 +645,11 @@ function int ReduceDamage(int Damage, pawn injured, pawn instigatedBy, vector Hi
   // {
   //   Damage *= 0.65;
   // }
-  else if (class<DamTypeShotgun>(damageType) != none || class<DamTypeKSGShotgun>(damageType) != none)
-  {
-    Damage *= 0.41;// 1 Hit kill if all pellets hit you
-  }
+  // else if (class<DamTypeShotgun>(damageType) != none || class<DamTypeKSGShotgun>(damageType) != none)
+  // {
+  //   Damage *= 0.41;// 1 Hit kill if all pellets hit you
+  // }
+
   // leave this
   else if (class<DamTypeBurned>(damageType) != none)
   {
