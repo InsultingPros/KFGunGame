@@ -107,16 +107,21 @@ final simulated protected function InitGGSettings()
 
   // add config section selection!!!
   tmpList = new(none, "Long_KFGG_02") class'o_WeaponList';
+
+  // set weapon list / levels
   WeaponList = tmpList.WeaponList;
+  // set warmup time
   WarmupTime = tmpList.WarmupTime;
+  // set remaining time
+  RemainingTime = tmpList.RemainingTime;
 
   GameReplicationInfo.bNoTeamSkins = true;
   GameReplicationInfo.bForceNoPlayerLights = true;
   GameReplicationInfo.bNoTeamChanges = false;
 
+  // set GRI max weapon level
   KFGGGameReplicationInfo(Level.GRI).MaxWeaponLevel = WeaponList.Length;
-
-  tmpList = new(none, "Long_KFGG_02") class'o_WeaponList';
+  // set GRI team character array
   KFGGGameReplicationInfo(Level.GRI).TeamChars = tmpList.TeamChars;
 
   log(">>> KFGG: GetTeamChars RED is " $ tmpList.TeamChars.Red);

@@ -275,7 +275,7 @@ defaultproperties
 {
   GameTypeTitleString="Killing Floor Gun Game"
   MaxWeaponLevelString="Max Weapon Level"
-  GreenTeamNameString="Green Team"
+  GreenTeamNameString="Red Team"
   BlueTeamNameString="Blue Team"
   WeaponLevelString="Level"
   OutText="Dead"

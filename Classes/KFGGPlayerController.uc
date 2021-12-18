@@ -1,6 +1,6 @@
 class KFGGPlayerController extends KFPlayerController
-  config(KFGunGame);
-
+  config(KFGGUser);
+// just in case something decides to save the config - keep vanilla User.ini clean
 
 //=============================================================================
 //                              DISABLED FUNCTIONS
@@ -9,14 +9,14 @@ class KFGGPlayerController extends KFPlayerController
 // this is a very big no-no
 exec function ToggleBehindView()
 {
-  ClientMessage("ToggleBehindView is disabled, DO NOT TRY TO CHEAT!!!");
+  ClientMessage("DON'T CHEAT!!! ToggleBehindView is disabled.");
 }
 
 
 // allows you to abuse and do not let your opponents to get 'levels'
 exec function Suicide()
 {
-  ClientMessage("Suicide is disabled, DO NOT TRY TO CHEAT!!!");
+  ClientMessage("DON'T CHEAT!!! Suicide is disabled.");
 }
 
 
