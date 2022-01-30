@@ -2,7 +2,7 @@
 
 ![GitHub all releases](https://img.shields.io/github/downloads/InsultingPros/KFGunGame/total)
 
-PLACEHOLDER
+[WIP] PLACEHOLDER
 
 ## Installation
 
@@ -16,7 +16,7 @@ Game=KFGunGame.KFGG_iSnipe
 
 At the moment of 2021.11.05 there are no dependencies.
 
-Use [KFCmdlet and it's batches](https://github.com/InsultingPros/KFCmdlet) for easy compilation.
+Use [KF Compile Tool](https://github.com/InsultingPros/KFCompileTool) for easy compilation.
 
 **EditPackages**
 
