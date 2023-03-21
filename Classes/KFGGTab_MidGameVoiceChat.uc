@@ -20,17 +20,17 @@ var             GUIStyles               PlayerStyle;
 
 function InitComponent(GUIController MyController, GUIComponent MyOwner)
 {
-	local string s;
+    local string s;
     local int i;
     local eFontScale FS;
 
-	Super.InitComponent(MyController, MyOwner);
+    Super.InitComponent(MyController, MyOwner);
 
-	s = GetSizingCaption();
+    s = GetSizingCaption();
 
-	for ( i = 0; i < Controls.Length; i++ )
+    for ( i = 0; i < Controls.Length; i++ )
     {
-    	if ( GUIButton(Controls[i]) != None && /*Controls[i] != b_Team &&*/ Controls[i] != b_Reset)
+        if ( GUIButton(Controls[i]) != None && /*Controls[i] != b_Team &&*/ Controls[i] != b_Reset)
         {
             GUIButton(Controls[i]).bAutoSize = true;
             GUIButton(Controls[i]).SizingCaption = s;
@@ -44,12 +44,12 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
 
 function ShowPanel(bool bShow)
 {
-	super.ShowPanel(bShow);
+    super.ShowPanel(bShow);
 
-	if ( bShow )
-	{
-		InitGRI();
-	}
+    if ( bShow )
+    {
+        InitGRI();
+    }
 }
 
 function string GetSizingCaption()
@@ -61,7 +61,7 @@ function string GetSizingCaption()
     {
         if ( GUIButton(Controls[i]) != none && /*Controls[i] != b_Team &&*/ Controls[i] != b_Reset)
         {
-			if ( s == "" || Len(GUIButton(Controls[i]).Caption) > Len(s) )
+            if ( s == "" || Len(GUIButton(Controls[i]).Caption) > Len(s) )
             {
                 s = GUIButton(Controls[i]).Caption;
             }
@@ -124,7 +124,7 @@ function InitGRI()
     }
 
     SetupGroups();
-	//InitLists();
+    //InitLists();
 }
 
 function float ItemHeight(Canvas C)
@@ -185,18 +185,18 @@ function SetupGroups()
         for ( i = 0; i < Controls.Length; i++ )
         {
             if ( Controls[i] == b_Team ||
-			 	 Controls[i] == b_Settings ||
-				 Controls[i] == b_Browser ||
-				 Controls[i] == b_Quit ||
-				 Controls[i] == b_Favs ||
-				 Controls[i] == b_Leave ||
-				 Controls[i] == b_MapVote ||
-				 Controls[i] == b_KickVote ||
-				 Controls[i] == b_MatchSetup ||
-				 Controls[i] == b_Spec )
-			{
-				RemoveComponent(Controls[i], True);
-			}
+                  Controls[i] == b_Settings ||
+                 Controls[i] == b_Browser ||
+                 Controls[i] == b_Quit ||
+                 Controls[i] == b_Favs ||
+                 Controls[i] == b_Leave ||
+                 Controls[i] == b_MapVote ||
+                 Controls[i] == b_KickVote ||
+                 Controls[i] == b_MatchSetup ||
+                 Controls[i] == b_Spec )
+            {
+                RemoveComponent(Controls[i], True);
+            }
         }
     }
 
@@ -260,16 +260,16 @@ function SetButtonPositions(Canvas C)
     ButtonsLeftInRow = ButtonsPerRow;
 
     for ( i = 0; i < Components.Length; i++)
-	{
-		if ( Components[i].bVisible && GUIButton(Components[i]) != none && /*Components[i] != b_Team &&*/ Components[i] != b_Reset )
-	    {
-			NumButtons++;
-	    }
+    {
+        if ( Components[i].bVisible && GUIButton(Components[i]) != none && /*Components[i] != b_Team &&*/ Components[i] != b_Reset )
+        {
+            NumButtons++;
+        }
     }
 
     if ( NumButtons < ButtonsPerRow )
     {
-    	X = Center - (((Width * float(NumButtons)) + (ButtonSpacing * float(NumButtons - 1))) * 0.5);
+        X = Center - (((Width * float(NumButtons)) + (ButtonSpacing * float(NumButtons - 1))) * 0.5);
     }
     else if ( ButtonsPerRow > 1 )
     {
@@ -281,8 +281,8 @@ function SetButtonPositions(Canvas C)
     }
 
     for ( i = 0; i < Components.Length; i++)
-	{
-		if ( !Components[i].bVisible || GUIButton(Components[i]) == none || /*Components[i]==b_Team ||*/ Components[i] == b_Reset )
+    {
+        if ( !Components[i].bVisible || GUIButton(Components[i]) == none || /*Components[i]==b_Team ||*/ Components[i] == b_Reset )
         {
             continue;
         }
@@ -370,7 +370,7 @@ function bool ButtonClicked(GUIComponent Sender)
         Controller.CloseMenu(false);
     }
     */
-	if ( Sender == b_Settings )
+    if ( Sender == b_Settings )
     {
         //Settings
         Controller.OpenMenu(Controller.GetSettingsPage());
@@ -382,8 +382,8 @@ function bool ButtonClicked(GUIComponent Sender)
     }
     else if ( Sender == b_Leave )
     {
-		//Forfeit/Disconnect
-		PC.ConsoleCommand("DISCONNECT");
+        //Forfeit/Disconnect
+        PC.ConsoleCommand("DISCONNECT");
         KFGUIController(C).ReturnToMainMenu();
     }
     else if ( Sender == b_Favs )
@@ -412,22 +412,22 @@ function bool ButtonClicked(GUIComponent Sender)
         //Match setup
         Controller.OpenMenu(Controller.MatchSetupMenu);
     }
-	else if ( Sender == b_Spec )
-	{
-		Controller.CloseMenu();
+    else if ( Sender == b_Spec )
+    {
+        Controller.CloseMenu();
 
-		//Spectate/rejoin
-		if ( PC.PlayerReplicationInfo.bOnlySpectator )
-		{
-			PC.BecomeActivePlayer();
-		}
-		else
+        //Spectate/rejoin
+        if ( PC.PlayerReplicationInfo.bOnlySpectator )
+        {
+            PC.BecomeActivePlayer();
+        }
+        else
         {
             PC.BecomeSpectator();
         }
-	}
+    }
 
-	return true;
+    return true;
 }
 
 function bool InternalOnPreDraw(Canvas C)
@@ -452,12 +452,12 @@ function bool InternalOnPreDraw(Canvas C)
             EnableComponent(b_Spec);
         }
         else
-		{
-			DisableComponent(b_Spec);
-		}
+        {
+            DisableComponent(b_Spec);
+        }
     }
 
-	return false;
+    return false;
 }
 
 function PopulateLists(GameReplicationInfo GRI)
@@ -471,14 +471,14 @@ function PopulateLists(GameReplicationInfo GRI)
 
         if ( PRI == None || PRI.bBot || xPlayerReplicationInfo(PRI) == none )
         {
-			continue;
-		}
+            continue;
+        }
 
         // If this is the first time seeing this playerid, request the ban/ignore info from our ChatManager
         if ( FindChatListIndex(PRI.PlayerID) == -1 )
         {
-			AddPlayerInfo(PRI.PlayerID);
-		}
+            AddPlayerInfo(PRI.PlayerID);
+        }
 
         if ( PRI.bOnlySpectator )
         {

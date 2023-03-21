@@ -1,98 +1,98 @@
 class GGLobbyMenu extends UT2k4MainPage;
 
-var	automated	GUIButton			TeamButtons[2];
+var    automated    GUIButton            TeamButtons[2];
 
-var automated   moCheckBox			ReadyBox[16];
-var automated   KFPlayerReadyBar	PlayerBox[16];
-var automated   GUIImage			PlayerPerk[16];
-var automated   GUILabel			PlayerVetLabel[16];
+var automated   moCheckBox            ReadyBox[16];
+var automated   KFPlayerReadyBar    PlayerBox[16];
+var automated   GUIImage            PlayerPerk[16];
+var automated   GUILabel            PlayerVetLabel[16];
 
-var automated   moCheckBox			ReadyBox2[16];
-var automated   KFPlayerReadyBar	PlayerBox2[16];
-var automated   GUIImage			PlayerPerk2[16];
-var automated   GUILabel			PlayerVetLabel2[16];
+var automated   moCheckBox            ReadyBox2[16];
+var automated   KFPlayerReadyBar    PlayerBox2[16];
+var automated   GUIImage            PlayerPerk2[16];
+var automated   GUILabel            PlayerVetLabel2[16];
 
-var automated   KFLobbyChat	t_ChatBox;
-var automated   GUILabel	label_TimeOutCounter;
-var automated   GUILabel	SpectatorsLabel;
+var automated   KFLobbyChat    t_ChatBox;
+var automated   GUILabel    label_TimeOutCounter;
+var automated   GUILabel    SpectatorsLabel;
 
-var	bool	bAllowClose;
-var	int		ActivateTimeoutTime;    // When was the lobby timeout turned on?
-var	bool	bTimeoutTimeLogged;     // Was it already logged once?
-var bool	bTimedOut;              // Have we timed out out successfully?
-var	bool	bShouldUpdateVeterancy;
+var    bool    bAllowClose;
+var    int        ActivateTimeoutTime;    // When was the lobby timeout turned on?
+var    bool    bTimeoutTimeLogged;     // Was it already logged once?
+var bool    bTimedOut;              // Have we timed out out successfully?
+var    bool    bShouldUpdateVeterancy;
 
 // Video Ad
-var automated	GUISectionBackground	ADBackground;
-var				LobbyMenuAd				LobbyMenuAd;
-var				float					VideoTimer;
-var				bool					VideoPlayed;
+var automated    GUISectionBackground    ADBackground;
+var                LobbyMenuAd                LobbyMenuAd;
+var                float                    VideoTimer;
+var                bool                    VideoPlayed;
 
 // Localized Strings
-var	localized	string	LvAbbrString;
-var	localized	string	SelectPerkInformationString;
-var	localized	string	WaitingForServerStatus;
-var	localized	string	WaitingForOtherPlayers;
-var	localized	string	AutoCommence;
-var	localized	string	SpectatorsString;
+var    localized    string    LvAbbrString;
+var    localized    string    SelectPerkInformationString;
+var    localized    string    WaitingForServerStatus;
+var    localized    string    WaitingForOtherPlayers;
+var    localized    string    AutoCommence;
+var    localized    string    SpectatorsString;
 
 function InitComponent(GUIController MyC, GUIComponent MyO)
 {
-	local int i;
+    local int i;
 
-	super.InitComponent(MyC, MyO);
+    super.InitComponent(MyC, MyO);
 
-	LobbyMenuAd = new class'LobbyMenuAd';
+    LobbyMenuAd = new class'LobbyMenuAd';
 
-	for ( i = 0; i < 16; i++ )
-	{
-		PlayerPerk[i].WinWidth = PlayerPerk[i].ActualHeight();
-		PlayerPerk[i].WinLeft += ((PlayerBox[i].ActualHeight() - PlayerPerk[i].ActualHeight()) / 2) / MyC.ResX;
+    for ( i = 0; i < 16; i++ )
+    {
+        PlayerPerk[i].WinWidth = PlayerPerk[i].ActualHeight();
+        PlayerPerk[i].WinLeft += ((PlayerBox[i].ActualHeight() - PlayerPerk[i].ActualHeight()) / 2) / MyC.ResX;
 
-		PlayerPerk2[i].WinWidth = PlayerPerk2[i].ActualHeight();
-		PlayerPerk2[i].WinLeft += ((PlayerBox2[i].ActualHeight() - PlayerPerk2[i].ActualHeight()) / 2) / MyC.ResX;
-	}
+        PlayerPerk2[i].WinWidth = PlayerPerk2[i].ActualHeight();
+        PlayerPerk2[i].WinLeft += ((PlayerBox2[i].ActualHeight() - PlayerPerk2[i].ActualHeight()) / 2) / MyC.ResX;
+    }
 }
 
 function bool InternalOnKeyEvent(out byte Key, out byte State, float delta)
 {
-	local int i;
-	local bool bVoiceChatKey;
-	local array<string> BindKeyNames, LocalizedBindKeyNames;
+    local int i;
+    local bool bVoiceChatKey;
+    local array<string> BindKeyNames, LocalizedBindKeyNames;
 
-	Controller.GetAssignedKeys( "VoiceTalk", BindKeyNames, LocalizedBindKeyNames );
+    Controller.GetAssignedKeys( "VoiceTalk", BindKeyNames, LocalizedBindKeyNames );
 
-	for ( i = 0; i < BindKeyNames.Length; i++ )
-	{
-		if ( Mid( GetEnum(enum'EInputKey', Key), 3 ) ~= BindKeyNames[i] )
-		{
-			bVoiceChatKey = true;
-			break;
-		}
-	}
+    for ( i = 0; i < BindKeyNames.Length; i++ )
+    {
+        if ( Mid( GetEnum(enum'EInputKey', Key), 3 ) ~= BindKeyNames[i] )
+        {
+            bVoiceChatKey = true;
+            break;
+        }
+    }
 
-	if ( bVoiceChatKey )
-	{
-		if ( state == 1 || state == 2 )
-		{
-			if ( PlayerOwner() != none )
-			{
-				PlayerOwner().bVoiceTalk = 1;
-			}
-		}
-		else
-		{
-			if ( PlayerOwner() != none )
-			{
-				PlayerOwner().bVoiceTalk = 0;
-				return false;
-			}
-		}
+    if ( bVoiceChatKey )
+    {
+        if ( state == 1 || state == 2 )
+        {
+            if ( PlayerOwner() != none )
+            {
+                PlayerOwner().bVoiceTalk = 1;
+            }
+        }
+        else
+        {
+            if ( PlayerOwner() != none )
+            {
+                PlayerOwner().bVoiceTalk = 0;
+                return false;
+            }
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	return false;
+    return false;
 }
 
 function CheckBotButtonAccess();
@@ -100,439 +100,439 @@ function UpdateBotSlots();
 
 function ClearChatBox()
 {
-	t_ChatBox.lb_Chat.SetContent("");
+    t_ChatBox.lb_Chat.SetContent("");
 }
 
 function TimedOut()
 {
-	bTimedOut = true;
-	PlayerOwner().ServerRestartPlayer();
-	bAllowClose = true;
+    bTimedOut = true;
+    PlayerOwner().ServerRestartPlayer();
+    bAllowClose = true;
 }
 
 function bool InternalOnPreDraw(Canvas C)
 {
-	local int i, z, Team1Index, Team2Index;
-	local KFGameReplicationInfo KFGRI;
-	local PlayerController PC;
-	local PlayerReplicationInfo InList[16], InList2[16];
-	local bool bWasThere, bShowProfilePage;
-	local string SpectatingString;
+    local int i, z, Team1Index, Team2Index;
+    local KFGameReplicationInfo KFGRI;
+    local PlayerController PC;
+    local PlayerReplicationInfo InList[16], InList2[16];
+    local bool bWasThere, bShowProfilePage;
+    local string SpectatingString;
 
-	PC = PlayerOwner();
+    PC = PlayerOwner();
 
-	if ( PC == none || PC.Level == none ) // Error?
-	{
-		return false;
-	}
+    if ( PC == none || PC.Level == none ) // Error?
+    {
+        return false;
+    }
 
-	if ( PC.PlayerReplicationInfo != none && (!PC.PlayerReplicationInfo.bWaitingPlayer || PC.PlayerReplicationInfo.bOnlySpectator) )
-	{
-		PC.ClientCloseMenu(True,False);
-		return false;
-	}
+    if ( PC.PlayerReplicationInfo != none && (!PC.PlayerReplicationInfo.bWaitingPlayer || PC.PlayerReplicationInfo.bOnlySpectator) )
+    {
+        PC.ClientCloseMenu(True,False);
+        return false;
+    }
 
-	t_Footer.InternalOnPreDraw(C);
+    t_Footer.InternalOnPreDraw(C);
 
-   	KFGRI = KFGameReplicationInfo(PC.GameReplicationInfo);
+       KFGRI = KFGameReplicationInfo(PC.GameReplicationInfo);
 
-	if ( KFPlayerController(PC) != none && bShouldUpdateVeterancy )
-	{
-		if ( KFPlayerController(PC).SelectedVeterancy == none )
-		{
-			bShowProfilePage = true;
+    if ( KFPlayerController(PC) != none && bShouldUpdateVeterancy )
+    {
+        if ( KFPlayerController(PC).SelectedVeterancy == none )
+        {
+            bShowProfilePage = true;
 
-			if ( PC.SteamStatsAndAchievements == none )
-			{
-				if ( PC.Level.NetMode != NM_Client )
-				{
-	    			PC.SteamStatsAndAchievements = PC.Spawn(PC.default.SteamStatsAndAchievementsClass, PC);
-					if ( !PC.SteamStatsAndAchievements.Initialize(PC) )
-					{
-		            	Controller.OpenMenu(Controller.QuestionMenuClass);
-				    	GUIQuestionPage(Controller.TopPage()).SetupQuestion(class'KFMainMenu'.default.UnknownSteamErrorText, QBTN_Ok, QBTN_Ok);
-						PC.SteamStatsAndAchievements.Destroy();
-						PC.SteamStatsAndAchievements = none;
-	    			}
-	    			else
-	    			{
-	    				PC.SteamStatsAndAchievements.OnDataInitialized = OnSteamStatsAndAchievementsReady;
-	    			}
-	    		}
+            if ( PC.SteamStatsAndAchievements == none )
+            {
+                if ( PC.Level.NetMode != NM_Client )
+                {
+                    PC.SteamStatsAndAchievements = PC.Spawn(PC.default.SteamStatsAndAchievementsClass, PC);
+                    if ( !PC.SteamStatsAndAchievements.Initialize(PC) )
+                    {
+                        Controller.OpenMenu(Controller.QuestionMenuClass);
+                        GUIQuestionPage(Controller.TopPage()).SetupQuestion(class'KFMainMenu'.default.UnknownSteamErrorText, QBTN_Ok, QBTN_Ok);
+                        PC.SteamStatsAndAchievements.Destroy();
+                        PC.SteamStatsAndAchievements = none;
+                    }
+                    else
+                    {
+                        PC.SteamStatsAndAchievements.OnDataInitialized = OnSteamStatsAndAchievementsReady;
+                    }
+                }
 
-   				bShowProfilePage = false;
-			}
-    		else if ( !PC.SteamStatsAndAchievements.bInitialized )
-    		{
-   				PC.SteamStatsAndAchievements.OnDataInitialized = OnSteamStatsAndAchievementsReady;
-   				PC.SteamStatsAndAchievements.GetStatsAndAchievements();
-   				bShowProfilePage = false;
-    		}
+                   bShowProfilePage = false;
+            }
+            else if ( !PC.SteamStatsAndAchievements.bInitialized )
+            {
+                   PC.SteamStatsAndAchievements.OnDataInitialized = OnSteamStatsAndAchievementsReady;
+                   PC.SteamStatsAndAchievements.GetStatsAndAchievements();
+                   bShowProfilePage = false;
+            }
 
-			if ( KFSteamStatsAndAchievements(PC.SteamStatsAndAchievements) != none )
-			{
-	    		for ( i = 0; i < class'KFGameType'.default.LoadedSkills.Length; i++ )
-	    		{
-	    			if ( KFSteamStatsAndAchievements(PC.SteamStatsAndAchievements).GetPerkProgress(i) < 0.0 )
-	    			{
-	    				PC.SteamStatsAndAchievements.OnDataInitialized = OnSteamStatsAndAchievementsReady;
-	    				PC.SteamStatsAndAchievements.GetStatsAndAchievements();
-				    	bShowProfilePage = false;
-	    			}
-	    		}
-	    	}
+            if ( KFSteamStatsAndAchievements(PC.SteamStatsAndAchievements) != none )
+            {
+                for ( i = 0; i < class'KFGameType'.default.LoadedSkills.Length; i++ )
+                {
+                    if ( KFSteamStatsAndAchievements(PC.SteamStatsAndAchievements).GetPerkProgress(i) < 0.0 )
+                    {
+                        PC.SteamStatsAndAchievements.OnDataInitialized = OnSteamStatsAndAchievementsReady;
+                        PC.SteamStatsAndAchievements.GetStatsAndAchievements();
+                        bShowProfilePage = false;
+                    }
+                }
+            }
 
-			if ( bShowProfilePage )
-			{
-				OnSteamStatsAndAchievementsReady();
-			}
-		}
-		else if ( PC.SteamStatsAndAchievements != none && PC.SteamStatsAndAchievements.bInitialized )
-		{
-			KFPlayerController(PC).SendSelectedVeterancyToServer();
-		}
-	}
+            if ( bShowProfilePage )
+            {
+                OnSteamStatsAndAchievementsReady();
+            }
+        }
+        else if ( PC.SteamStatsAndAchievements != none && PC.SteamStatsAndAchievements.bInitialized )
+        {
+            KFPlayerController(PC).SendSelectedVeterancyToServer();
+        }
+    }
 
-	// First fill in non-ready players.
-	if ( KFGRI != none )
-	{
-		for ( i = 0; i < KFGRI.PRIArray.Length; i++ )
-		{
-			if ( KFGRI.PRIArray[i] == none || KFGRI.PRIArray[i].bReadyToPlay )
-			{
-				continue;
-			}
+    // First fill in non-ready players.
+    if ( KFGRI != none )
+    {
+        for ( i = 0; i < KFGRI.PRIArray.Length; i++ )
+        {
+            if ( KFGRI.PRIArray[i] == none || KFGRI.PRIArray[i].bReadyToPlay )
+            {
+                continue;
+            }
 
-			if ( KFGRI.PRIArray[i].Team == none || KFGRI.PRIArray[i].bOnlySpectator  )
-			{
-				if ( SpectatingString != "" )
-				{
-					SpectatingString $= ", ";
-				}
+            if ( KFGRI.PRIArray[i].Team == none || KFGRI.PRIArray[i].bOnlySpectator  )
+            {
+                if ( SpectatingString != "" )
+                {
+                    SpectatingString $= ", ";
+                }
 
-				SpectatingString $= Left(KFGRI.PRIArray[i].PlayerName, 20);
+                SpectatingString $= Left(KFGRI.PRIArray[i].PlayerName, 20);
 
-				continue;
-			}
+                continue;
+            }
 
-			if ( KFGRI.PRIArray[i].Team.TeamIndex == 0 )
-			{
-				if ( Team1Index >= 16 )
-					continue;
+            if ( KFGRI.PRIArray[i].Team.TeamIndex == 0 )
+            {
+                if ( Team1Index >= 16 )
+                    continue;
 
-				PlayerPerk[Team1Index].Image = none;
-				ReadyBox[Team1Index].Checked(false);
-				ReadyBox[Team1Index].SetCaption(Left(KFGRI.PRIArray[i].PlayerName, 20));
+                PlayerPerk[Team1Index].Image = none;
+                ReadyBox[Team1Index].Checked(false);
+                ReadyBox[Team1Index].SetCaption(Left(KFGRI.PRIArray[i].PlayerName, 20));
 
-				if ( KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkill != none )
-				{
-					PlayerVetLabel[Team1Index].Caption = LvAbbrString @ KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkillLevel;
-					PlayerPerk[Team1Index].Image = KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkill.default.OnHUDIcon;
-				}
+                if ( KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkill != none )
+                {
+                    PlayerVetLabel[Team1Index].Caption = LvAbbrString @ KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkillLevel;
+                    PlayerPerk[Team1Index].Image = KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkill.default.OnHUDIcon;
+                }
 
-				InList[Team1Index] = KFGRI.PRIArray[i];
-				Team1Index++;
-			}
-			else
-			{
-				if ( Team2Index >= 16 )
-					continue;
+                InList[Team1Index] = KFGRI.PRIArray[i];
+                Team1Index++;
+            }
+            else
+            {
+                if ( Team2Index >= 16 )
+                    continue;
 
-				PlayerPerk2[Team2Index].Image = none;
-				ReadyBox2[Team2Index].Checked(false);
-				ReadyBox2[Team2Index].SetCaption(Left(KFGRI.PRIArray[i].PlayerName, 20));
+                PlayerPerk2[Team2Index].Image = none;
+                ReadyBox2[Team2Index].Checked(false);
+                ReadyBox2[Team2Index].SetCaption(Left(KFGRI.PRIArray[i].PlayerName, 20));
 
-				if ( KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkill != none )
-				{
-					PlayerVetLabel2[Team2Index].Caption = LvAbbrString @ KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkillLevel;
-					PlayerPerk2[Team2Index].Image = KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkill.default.OnHUDIcon;
-				}
+                if ( KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkill != none )
+                {
+                    PlayerVetLabel2[Team2Index].Caption = LvAbbrString @ KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkillLevel;
+                    PlayerPerk2[Team2Index].Image = KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkill.default.OnHUDIcon;
+                }
 
-				InList2[Team2Index] = KFGRI.PRIArray[i];
-				Team2Index++;
-			}
-		}
+                InList2[Team2Index] = KFGRI.PRIArray[i];
+                Team2Index++;
+            }
+        }
 
-		// Then comes rest.
-		for ( i = 0; i < KFGRI.PRIArray.Length; i++ )
-		{
-			if ( KFGRI.PRIArray[i] == none || KFGRI.PRIArray[i].bOnlySpectator || KFGRI.PRIArray[i].Team == none )
-			{
-				continue;
-			}
+        // Then comes rest.
+        for ( i = 0; i < KFGRI.PRIArray.Length; i++ )
+        {
+            if ( KFGRI.PRIArray[i] == none || KFGRI.PRIArray[i].bOnlySpectator || KFGRI.PRIArray[i].Team == none )
+            {
+                continue;
+            }
 
-			bWasThere = false;
+            bWasThere = false;
 
-			for ( z = 0; z < 16; z++ )
-			{
-				if ( InList[z] == KFGRI.PRIArray[i] || InList2[z] == KFGRI.PRIArray[i] )
-				{
-					bWasThere = true;
-					break;
-				}
-			}
+            for ( z = 0; z < 16; z++ )
+            {
+                if ( InList[z] == KFGRI.PRIArray[i] || InList2[z] == KFGRI.PRIArray[i] )
+                {
+                    bWasThere = true;
+                    break;
+                }
+            }
 
-			if ( bWasThere )
-			{
-				continue;
-			}
+            if ( bWasThere )
+            {
+                continue;
+            }
 
-			if ( KFGRI.PRIArray[i].Team == none || KFGRI.PRIArray[i].Team.TeamIndex == 0 )
-			{
-				if ( Team1Index >= 16 )
-					continue;
+            if ( KFGRI.PRIArray[i].Team == none || KFGRI.PRIArray[i].Team.TeamIndex == 0 )
+            {
+                if ( Team1Index >= 16 )
+                    continue;
 
-				PlayerPerk[Team1Index].Image = none;
-				ReadyBox[Team1Index].Checked(KFGRI.PRIArray[i].bReadyToPlay);
-				ReadyBox[Team1Index].SetCaption(Left(KFGRI.PRIArray[i].PlayerName, 20));
+                PlayerPerk[Team1Index].Image = none;
+                ReadyBox[Team1Index].Checked(KFGRI.PRIArray[i].bReadyToPlay);
+                ReadyBox[Team1Index].SetCaption(Left(KFGRI.PRIArray[i].PlayerName, 20));
 
-				if ( KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkill != none )
-				{
-					PlayerVetLabel[Team1Index].Caption = LvAbbrString @ KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkillLevel;
-					PlayerPerk[Team1Index].Image = KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkill.default.OnHUDIcon;
-				}
+                if ( KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkill != none )
+                {
+                    PlayerVetLabel[Team1Index].Caption = LvAbbrString @ KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkillLevel;
+                    PlayerPerk[Team1Index].Image = KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkill.default.OnHUDIcon;
+                }
 
-				Team1Index++;
-			}
-			else
-			{
-				if ( Team2Index >= 16 )
-					continue;
+                Team1Index++;
+            }
+            else
+            {
+                if ( Team2Index >= 16 )
+                    continue;
 
-				PlayerPerk2[Team2Index].Image = none;
-				ReadyBox2[Team2Index].Checked(KFGRI.PRIArray[i].bReadyToPlay);
-				ReadyBox2[Team2Index].SetCaption(Left(KFGRI.PRIArray[i].PlayerName, 20));
+                PlayerPerk2[Team2Index].Image = none;
+                ReadyBox2[Team2Index].Checked(KFGRI.PRIArray[i].bReadyToPlay);
+                ReadyBox2[Team2Index].SetCaption(Left(KFGRI.PRIArray[i].PlayerName, 20));
 
-				if ( KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkill != none )
-				{
-					PlayerVetLabel2[Team2Index].Caption = LvAbbrString @ KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkillLevel;
-					PlayerPerk2[Team2Index].Image = KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkill.default.OnHUDIcon;
-				}
+                if ( KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkill != none )
+                {
+                    PlayerVetLabel2[Team2Index].Caption = LvAbbrString @ KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkillLevel;
+                    PlayerPerk2[Team2Index].Image = KFPlayerReplicationInfo(KFGRI.PRIArray[i]).ClientVeteranSkill.default.OnHUDIcon;
+                }
 
-				Team2Index++;
-			}
+                Team2Index++;
+            }
 
-			if ( KFGRI.PRIArray[i].bReadyToPlay )
-			{
-				if ( !bTimeoutTimeLogged )
-				{
-					ActivateTimeoutTime = PC.Level.TimeSeconds;
-					bTimeoutTimeLogged = true;
-				}
-			}
-		}
-	}
+            if ( KFGRI.PRIArray[i].bReadyToPlay )
+            {
+                if ( !bTimeoutTimeLogged )
+                {
+                    ActivateTimeoutTime = PC.Level.TimeSeconds;
+                    bTimeoutTimeLogged = true;
+                }
+            }
+        }
+    }
 
-	while( Team1Index < 16 )
-	{
-		PlayerPerk[Team1Index].Image = none;
-		ReadyBox[Team1Index].Checked(False);
-		ReadyBox[Team1Index].SetCaption("");
-		PlayerVetLabel[Team1Index].Caption = "";
-		Team1Index++;
-	}
+    while( Team1Index < 16 )
+    {
+        PlayerPerk[Team1Index].Image = none;
+        ReadyBox[Team1Index].Checked(False);
+        ReadyBox[Team1Index].SetCaption("");
+        PlayerVetLabel[Team1Index].Caption = "";
+        Team1Index++;
+    }
 
-	while( Team2Index < 16 )
-	{
-		PlayerPerk2[Team2Index].Image = none;
-		ReadyBox2[Team2Index].Checked(False);
-		ReadyBox2[Team2Index].SetCaption("");
-		PlayerVetLabel2[Team2Index].Caption = "";
-		Team2Index++;
-	}
+    while( Team2Index < 16 )
+    {
+        PlayerPerk2[Team2Index].Image = none;
+        ReadyBox2[Team2Index].Checked(False);
+        ReadyBox2[Team2Index].SetCaption("");
+        PlayerVetLabel2[Team2Index].Caption = "";
+        Team2Index++;
+    }
 
-	SpectatorsLabel.Caption = SpectatorsString @ SpectatingString;
+    SpectatorsLabel.Caption = SpectatorsString @ SpectatingString;
 
-	return false;
+    return false;
 }
 
 function bool OnTeam1ButtonClick(GUIComponent Sender)
 {
-	local PlayerController PC;
+    local PlayerController PC;
 
-	PC = PlayerOwner();
+    PC = PlayerOwner();
 
-	if ( PC != none )
-	{
-		PC.ServerChangeTeam(1);
-	}
+    if ( PC != none )
+    {
+        PC.ServerChangeTeam(1);
+    }
 
-	return true;
+    return true;
 }
 
 function bool OnTeam2ButtonClick(GUIComponent Sender)
 {
-	local PlayerController PC;
+    local PlayerController PC;
 
-	PC = PlayerOwner();
+    PC = PlayerOwner();
 
-	if ( PC != none )
-	{
-		PC.ServerChangeTeam(1);
-	}
+    if ( PC != none )
+    {
+        PC.ServerChangeTeam(1);
+    }
 
-	return true;
+    return true;
 }
 
 function bool StopClose(optional bool bCancelled)
 {
-	ClearChatBox();
+    ClearChatBox();
 
-	// this is for the OnCanClose delegate
-	// can't close now unless done by call to CloseAll,
-	// or the bool has been set to true by LobbyFooter
-	return false;
+    // this is for the OnCanClose delegate
+    // can't close now unless done by call to CloseAll,
+    // or the bool has been set to true by LobbyFooter
+    return false;
 }
 
 event Opened(GUIComponent Sender)                   // Called when the Menu Owner is opened
 {
-	if ( LobbyMenuAd == none)
-	{
-		LobbyMenuAd = new class'LobbyMenuAd';
-	}
+    if ( LobbyMenuAd == none)
+    {
+        LobbyMenuAd = new class'LobbyMenuAd';
+    }
 
-	bShouldUpdateVeterancy = true;
-	SetTimer(1,true);
-	VideoTimer = 0.0;
-	VideoPlayed = false;
+    bShouldUpdateVeterancy = true;
+    SetTimer(1,true);
+    VideoTimer = 0.0;
+    VideoPlayed = false;
 }
 
 function InternalOnClosed(bool bCancelled)
 {
-	if ( PlayerOwner() != none)
-	{
-		PlayerOwner().Advertising_ExitZone();
-	}
+    if ( PlayerOwner() != none)
+    {
+        PlayerOwner().Advertising_ExitZone();
+    }
 
-	if ( LobbyMenuAd != none )
-	{
-		LobbyMenuAd.DestroyMovie();
-		LobbyMenuAd = none;
-	}
+    if ( LobbyMenuAd != none )
+    {
+        LobbyMenuAd.DestroyMovie();
+        LobbyMenuAd = none;
+    }
 }
 
 event Timer()
 {
-	local KFGameReplicationInfo KF;
+    local KFGameReplicationInfo KF;
 
-	if ( PlayerOwner().PlayerReplicationInfo.bOnlySpectator )
-	{
-		label_TimeOutCounter.caption = "You are a spectator.";
-		Return;
-	}
+    if ( PlayerOwner().PlayerReplicationInfo.bOnlySpectator )
+    {
+        label_TimeOutCounter.caption = "You are a spectator.";
+        Return;
+    }
 
-	KF = KFGameReplicationInfo(PlayerOwner().GameReplicationInfo);
+    KF = KFGameReplicationInfo(PlayerOwner().GameReplicationInfo);
 
-	if ( KF == none )
-	{
-		label_TimeOutCounter.caption = WaitingForServerStatus;
-	}
-//	else if ( KF.LobbyTimeout <= 0 )
-//	{
-		label_TimeOutCounter.caption = WaitingForOtherPlayers;
-//	}
-//	else
-//	{
-//		label_TimeOutCounter.caption = AutoCommence$":" @ KF.LobbyTimeout;
-//	}
+    if ( KF == none )
+    {
+        label_TimeOutCounter.caption = WaitingForServerStatus;
+    }
+//    else if ( KF.LobbyTimeout <= 0 )
+//    {
+        label_TimeOutCounter.caption = WaitingForOtherPlayers;
+//    }
+//    else
+//    {
+//        label_TimeOutCounter.caption = AutoCommence$":" @ KF.LobbyTimeout;
+//    }
 }
 
 function DrawAd(Canvas Canvas)
 {
-	local float X;
-	local AdAsset.AdAssetState adState;
-	local bool bFocused;
+    local float X;
+    local AdAsset.AdAssetState adState;
+    local bool bFocused;
 
-	bFocused = Controller.ActivePage == self;
+    bFocused = Controller.ActivePage == self;
 
-	if ( bFocused )
-	{
-		VideoTimer += Controller.RenderDelta;
-	}
-	else
-	{
-		if ( LobbyMenuAd == None || !LobbyMenuAd.MenuMovie.IsPlaying() )
-		{
-			VideoTimer = 0.0;
-		}
+    if ( bFocused )
+    {
+        VideoTimer += Controller.RenderDelta;
+    }
+    else
+    {
+        if ( LobbyMenuAd == None || !LobbyMenuAd.MenuMovie.IsPlaying() )
+        {
+            VideoTimer = 0.0;
+        }
 
-		VideoPlayed = false;
-	}
+        VideoPlayed = false;
+    }
 
-	if ( bFocused && LobbyMenuAd != none )
-	{
-		Canvas.SetPos(0.349700 * Canvas.ClipX + 5, 0.037343 * Canvas.ClipY + 30);
-		X = Canvas.ClipX / 1024; // X & Y scale
+    if ( bFocused && LobbyMenuAd != none )
+    {
+        Canvas.SetPos(0.349700 * Canvas.ClipX + 5, 0.037343 * Canvas.ClipY + 30);
+        X = Canvas.ClipX / 1024; // X & Y scale
 
-		AdBackground.WinWidth = 320 * X + 10;
-		AdBackground.WinHeight = 240 * X + 37;
+        AdBackground.WinWidth = 320 * X + 10;
+        AdBackground.WinHeight = 240 * X + 37;
 
-		// refresh state from ad
-		VideoPlayed = LobbyMenuAd.HasBeenDisplayed();
+        // refresh state from ad
+        VideoPlayed = LobbyMenuAd.HasBeenDisplayed();
 
-		adState = LobbyMenuAd.GetState();
-		if (adState == 2) // ADASSET_STATE_DOWNLOADED
-		{
-			if ( !VideoPlayed && !LobbyMenuAd.MenuMovie.IsPlaying() )
-			{
-				// Start video
-				VideoPlayed = true;
-				LobbyMenuAd.MenuMovie.Play(false);
-			}
+        adState = LobbyMenuAd.GetState();
+        if (adState == 2) // ADASSET_STATE_DOWNLOADED
+        {
+            if ( !VideoPlayed && !LobbyMenuAd.MenuMovie.IsPlaying() )
+            {
+                // Start video
+                VideoPlayed = true;
+                LobbyMenuAd.MenuMovie.Play(false);
+            }
 
-			// Hold on the first frame for 3 seconds so it doesn't
-			// Overwhelm the player
-			if (VideoTimer < 3.0 )
-			{
-				LobbyMenuAd.MenuMovie.Pause(true);
-			}
-			else
-			{
-				LobbyMenuAd.MenuMovie.Pause(false);
+            // Hold on the first frame for 3 seconds so it doesn't
+            // Overwhelm the player
+            if (VideoTimer < 3.0 )
+            {
+                LobbyMenuAd.MenuMovie.Pause(true);
+            }
+            else
+            {
+                LobbyMenuAd.MenuMovie.Pause(false);
 
-				if (!VideoPlayed)
-				{
-					VideoPlayed = true;
+                if (!VideoPlayed)
+                {
+                    VideoPlayed = true;
 
-					// Report interaction on advertisement
-					LobbyMenuAd.Displayed();
-				}
+                    // Report interaction on advertisement
+                    LobbyMenuAd.Displayed();
+                }
 
-			}
+            }
 
-			Canvas.DrawTile(LobbyMenuAd.MenuMovie, 320 * X, 240 * X,
-					0, 0, 320, 240);
-		}
-		else if (VideoTimer >= 30.0)
-		{
-			if (!VideoPlayed)
-			{
-				VideoPlayed = true;
+            Canvas.DrawTile(LobbyMenuAd.MenuMovie, 320 * X, 240 * X,
+                    0, 0, 320, 240);
+        }
+        else if (VideoTimer >= 30.0)
+        {
+            if (!VideoPlayed)
+            {
+                VideoPlayed = true;
 
-				// Assume it timed out
-				// Report interaction on the default advertisement
-				LobbyMenuAd.Displayed();
-			}
-		}
-	}
+                // Assume it timed out
+                // Report interaction on the default advertisement
+                LobbyMenuAd.Displayed();
+            }
+        }
+    }
 }
 
 function bool ShowPerkMenu(GUIComponent Sender)
 {
-	if ( PlayerOwner() != none)
-	{
-		PlayerOwner().ClientOpenMenu("KFGUI.KFProfilePage", false);
-	}
+    if ( PlayerOwner() != none)
+    {
+        PlayerOwner().ClientOpenMenu("KFGUI.KFProfilePage", false);
+    }
 
-	return true;
+    return true;
 }
 
 function OnSteamStatsAndAchievementsReady()
 {
-	Controller.OpenMenu("KFGUI.KFProfilePage");
+    Controller.OpenMenu("KFGUI.KFProfilePage");
 
-	Controller.OpenMenu(Controller.QuestionMenuClass);
-	GUIQuestionPage(Controller.TopPage()).SetupQuestion(SelectPerkInformationString, QBTN_Ok, QBTN_Ok);
+    Controller.OpenMenu(Controller.QuestionMenuClass);
+    GUIQuestionPage(Controller.TopPage()).SetupQuestion(SelectPerkInformationString, QBTN_Ok, QBTN_Ok);
 }
 
 defaultproperties

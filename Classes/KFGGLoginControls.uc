@@ -27,7 +27,7 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
     Super.InitComponent(MyController, MyOwner);
 
     li_Red  = lb_Red.List;
-	li_Blue = lb_Blue.List;
+    li_Blue = lb_Blue.List;
     li_FFA  = lb_FFA.List;
 
     s = GetSizingCaption();
@@ -43,8 +43,8 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
     }
     PlayerStyle = MyController.GetStyle(PlayerStyleName, fs);
 
-	sb_Red.Managecomponent(lb_Red);
-	sb_Blue.ManageComponent(lb_Blue);
+    sb_Red.Managecomponent(lb_Red);
+    sb_Blue.ManageComponent(lb_Blue);
     //sb_FFA.ManageComponent(lb_FFA);
 }
 
@@ -88,8 +88,8 @@ function InitGRI()
     local GameReplicationInfo GRI;
 
     GRI = GetGRI();
-	if ( GRI == None )
-		return;
+    if ( GRI == None )
+        return;
 
     PC = PlayerOwner();
 
@@ -173,19 +173,19 @@ function InitLists()
         return;
     }
 
-	if (bTeamGame)
-	{
-		i_JoinRed.Image = GRI.TeamSymbols[0];
-		i_JoinBlue.Image = GRI.TeamSymbols[1];
+    if (bTeamGame)
+    {
+        i_JoinRed.Image = GRI.TeamSymbols[0];
+        i_JoinBlue.Image = GRI.TeamSymbols[1];
 
-		li_Red.OnDrawItem = OnDrawRedPlayer;
-		li_Red.OnChange = ListChange;
-		li_Red.GetItemHeight = ItemHeight;
+        li_Red.OnDrawItem = OnDrawRedPlayer;
+        li_Red.OnChange = ListChange;
+        li_Red.GetItemHeight = ItemHeight;
 
-		li_Blue.OnDrawItem = OnDrawBluePlayer;
-		li_Blue.OnChange = ListChange;
-		li_Blue.GetItemHeight = ItemHeight;
-	}
+        li_Blue.OnDrawItem = OnDrawBluePlayer;
+        li_Blue.OnChange = ListChange;
+        li_Blue.GetItemHeight = ItemHeight;
+    }
 
     SetupGroups();
     InitializePlayerLists();
@@ -207,13 +207,13 @@ function InitializePlayerLists()
     if ( bTeamGame )
     {
         li_Red.bNotify = False;
-		li_Blue.bNotify = False;
+        li_Blue.bNotify = False;
 
         li_Red.Clear();
-		li_Blue.Clear();
+        li_Blue.Clear();
 
         li_Red.bNotify = True;
-		li_Blue.bNotify = True;
+        li_Blue.bNotify = True;
 
         for ( i = 0; i < GRI.PRIArray.Length; i++ )
         {
@@ -228,7 +228,7 @@ function InitializePlayerLists()
             }
             else if ( GRI.PRIArray[i].Team.TeamIndex == 1 )
             {
-				li_Blue.Add(GRI.PRIArray[i].PlayerName,none,""$GRI.PRIArray[i].PlayerID);
+                li_Blue.Add(GRI.PRIArray[i].PlayerName,none,""$GRI.PRIArray[i].PlayerID);
             }
         }
     }
@@ -272,12 +272,12 @@ function SetupGroups()
     }
     else if ( bFFAGame )
     {
-		RemoveComponent(i_JoinRed, True);
-		RemoveComponent(i_JoinBlue, True);
-		RemoveComponent(lb_Red, True);
-		RemoveComponent(lb_Blue, True);
+        RemoveComponent(i_JoinRed, True);
+        RemoveComponent(i_JoinBlue, True);
+        RemoveComponent(lb_Red, True);
+        RemoveComponent(lb_Blue, True);
         RemoveComponent(sb_Red, true);
-		RemoveComponent(sb_Blue, true);
+        RemoveComponent(sb_Blue, true);
         RemoveComponent(b_Team, true);
     }
     else
@@ -333,59 +333,59 @@ function SetupGroups()
 
 function bool InternalOnPreDraw(Canvas C)
 {
-	local GameReplicationInfo GRI;
+    local GameReplicationInfo GRI;
 
-	GRI = GetGRI();
+    GRI = GetGRI();
 
     if ( GRI != none )
-	{
-		if ( bInit )
-		{
-			InitGRI();
-		}
+    {
+        if ( bInit )
+        {
+            InitGRI();
+        }
 
-		if ( bTeamGame )
-		{
-			if ( GRI.Teams[0] != None )
-				sb_Red.Caption = RedTeam@string(int(GRI.Teams[0].Score));
+        if ( bTeamGame )
+        {
+            if ( GRI.Teams[0] != None )
+                sb_Red.Caption = RedTeam@string(int(GRI.Teams[0].Score));
 
-			if ( GRI.Teams[1] != None )
-				sb_Blue.Caption = BlueTeam@string(int(GRI.Teams[1].Score));
+            if ( GRI.Teams[1] != None )
+                sb_Blue.Caption = BlueTeam@string(int(GRI.Teams[1].Score));
 
-			if ( PlayerOwner().PlayerReplicationInfo.Team != none )
-			{
-				sb_Red.HeaderBase = texture'KF_InterfaceArt_tex.Menu.thin_border_SlightTransparent';
-			}
+            if ( PlayerOwner().PlayerReplicationInfo.Team != none )
+            {
+                sb_Red.HeaderBase = texture'KF_InterfaceArt_tex.Menu.thin_border_SlightTransparent';
+            }
 
-			if (PlayerOwner().PlayerReplicationInfo.Team != None)
-			{
-				if (PlayerOwner().PlayerReplicationInfo.Team.TeamIndex == 0)
-				{
-					sb_Red.HeaderBase = texture'KF_InterfaceArt_tex.Menu.thin_border_SlightTransparent';
-					sb_Blue.HeaderBase = sb_blue.default.headerbase;
-				}
-				else
-				{
-					sb_Blue.HeaderBase = texture'KF_InterfaceArt_tex.Menu.thin_border_SlightTransparent';
-					sb_Red.HeaderBase = sb_blue.default.headerbase;
-				}
-			}
+            if (PlayerOwner().PlayerReplicationInfo.Team != None)
+            {
+                if (PlayerOwner().PlayerReplicationInfo.Team.TeamIndex == 0)
+                {
+                    sb_Red.HeaderBase = texture'KF_InterfaceArt_tex.Menu.thin_border_SlightTransparent';
+                    sb_Blue.HeaderBase = sb_blue.default.headerbase;
+                }
+                else
+                {
+                    sb_Blue.HeaderBase = texture'KF_InterfaceArt_tex.Menu.thin_border_SlightTransparent';
+                    sb_Red.HeaderBase = sb_blue.default.headerbase;
+                }
+            }
 
 
-		}
+        }
 
-	    //sb_Red.SetPosition((ActualWidth() / 2.0) - ((sb_Red.WinWidth * ActualWidth()) / 2.0), sb_Red.WinTop, sb_Red.WinWidth, sb_Red.WinHeight);
+        //sb_Red.SetPosition((ActualWidth() / 2.0) - ((sb_Red.WinWidth * ActualWidth()) / 2.0), sb_Red.WinTop, sb_Red.WinWidth, sb_Red.WinHeight);
 
-		SetButtonPositions(C);
-		UpdatePlayerLists();
+        SetButtonPositions(C);
+        UpdatePlayerLists();
 
-		if ( ((PlayerOwner().myHUD == None) || !PlayerOwner().myHUD.IsInCinematic()) && GRI.bMatchHasBegun && !PlayerOwner().IsInState('GameEnded') && (GRI.MaxLives <= 0 || !PlayerOwner().PlayerReplicationInfo.bOnlySpectator) )
-			EnableComponent(b_Spec);
-		else
-			DisableComponent(b_Spec);
-	}
+        if ( ((PlayerOwner().myHUD == None) || !PlayerOwner().myHUD.IsInCinematic()) && GRI.bMatchHasBegun && !PlayerOwner().IsInState('GameEnded') && (GRI.MaxLives <= 0 || !PlayerOwner().PlayerReplicationInfo.bOnlySpectator) )
+            EnableComponent(b_Spec);
+        else
+            DisableComponent(b_Spec);
+    }
 
-	return false;
+    return false;
 }
 
 function ValidatePlayer(string PlayerID, GUIList List, int Index)
@@ -443,26 +443,26 @@ protected function UpdatePlayerLists()
             i++;
         }
 
-		i=0;
-		while (i<li_Blue.ItemCount)
-		{
-			ValidatePlayer(li_Blue.GetExtraAtIndex(i),li_Blue,i);
-			i++;
-		}
+        i=0;
+        while (i<li_Blue.ItemCount)
+        {
+            ValidatePlayer(li_Blue.GetExtraAtIndex(i),li_Blue,i);
+            i++;
+        }
 
 
-		for ( i = 0; i < GRI.PRIArray.Length; i++ )
-		{
-			if ( GRI.PRIArray[i] == None || GRI.PRIArray[i].Team == None ||
-				 GRI.PRIArray[i].bOnlySpectator ||
-				 (GRI.PRIArray[i].bIsSpectator && !GRI.PRIArray[i].bWaitingPlayer) )
-				continue;
+        for ( i = 0; i < GRI.PRIArray.Length; i++ )
+        {
+            if ( GRI.PRIArray[i] == None || GRI.PRIArray[i].Team == None ||
+                 GRI.PRIArray[i].bOnlySpectator ||
+                 (GRI.PRIArray[i].bIsSpectator && !GRI.PRIArray[i].bWaitingPlayer) )
+                continue;
 
-			if ( GRI.PRIArray[i].Team.TeamIndex == 0 )
-				AddPlayer(GRI,i,li_Red);
-			else
-				AddPlayer(GRI,i,li_Blue);
-		}
+            if ( GRI.PRIArray[i].Team.TeamIndex == 0 )
+                AddPlayer(GRI,i,li_Red);
+            else
+                AddPlayer(GRI,i,li_Blue);
+        }
     }
 
     else if ( bFFAGame )
@@ -488,66 +488,66 @@ protected function UpdatePlayerLists()
 
 function SetButtonPositions(Canvas C)
 {
-	local int i, j, ButtonsPerRow, ButtonsLeftInRow;
-	local float Width, Center, X, Y, XL, YL;
+    local int i, j, ButtonsPerRow, ButtonsLeftInRow;
+    local float Width, Center, X, Y, XL, YL;
 
-	bInit = False;
+    bInit = False;
 
-	Width = b_Settings.ActualWidth();
-	Center = ActualLeft() + ActualWidth() / 2;
+    Width = b_Settings.ActualWidth();
+    Center = ActualLeft() + ActualWidth() / 2;
 
-	XL = Width * 1.05;
-	YL = b_Settings.ActualHeight() * 1.2;
-	Y = b_Settings.ActualTop();
+    XL = Width * 1.05;
+    YL = b_Settings.ActualHeight() * 1.2;
+    Y = b_Settings.ActualTop();
 
-	ButtonsPerRow = ActualWidth() / XL;
-	ButtonsLeftInRow = ButtonsPerRow;
+    ButtonsPerRow = ActualWidth() / XL;
+    ButtonsLeftInRow = ButtonsPerRow;
 
-	if (ButtonsPerRow > 1)
-		X = Center - (0.5 * (XL * float(ButtonsPerRow - 1) + Width));
-	else
-		X = Center - Width / 2;
+    if (ButtonsPerRow > 1)
+        X = Center - (0.5 * (XL * float(ButtonsPerRow - 1) + Width));
+    else
+        X = Center - Width / 2;
 
-	for (i = 0; i < Components.Length; i++)
-	{
-		if (!Components[i].bVisible || GUIButton(Components[i]) == none || Components[i]==b_Team )
-			continue;
+    for (i = 0; i < Components.Length; i++)
+    {
+        if (!Components[i].bVisible || GUIButton(Components[i]) == none || Components[i]==b_Team )
+            continue;
 
-		Components[i].SetPosition( X, Y, Components[i].WinWidth, Components[i].WinHeight, True );
-		if ( --ButtonsLeftInRow > 0 )
-			X += XL;
-		else
-		{
-			Y += YL;
-			for (j = i + 1; j < Components.Length && ButtonsLeftInRow < ButtonsPerRow; j++)
-				if ( GUIButton(Components[j]) != None )
-					ButtonsLeftInRow++;
+        Components[i].SetPosition( X, Y, Components[i].WinWidth, Components[i].WinHeight, True );
+        if ( --ButtonsLeftInRow > 0 )
+            X += XL;
+        else
+        {
+            Y += YL;
+            for (j = i + 1; j < Components.Length && ButtonsLeftInRow < ButtonsPerRow; j++)
+                if ( GUIButton(Components[j]) != None )
+                    ButtonsLeftInRow++;
 
-			if (ButtonsLeftInRow > 1)
-				X = Center - (0.5 * (XL * float(ButtonsLeftInRow - 1) + Width));
-			else
-				X = Center - Width / 2;
-		}
-	}
+            if (ButtonsLeftInRow > 1)
+                X = Center - (0.5 * (XL * float(ButtonsLeftInRow - 1) + Width));
+            else
+                X = Center - Width / 2;
+        }
+    }
 }
 
 // When a list item is selected, clear the indexes of the other lists
 function ListChange( GUIComponent Sender )
 {
-	local GUIList List;
+    local GUIList List;
 
-	List = GUIList(Sender);
-	if ( List == None )
-		return;
+    List = GUIList(Sender);
+    if ( List == None )
+        return;
 
-	if ( List != li_Red )
-		li_Red.SilentSetIndex(-1);
+    if ( List != li_Red )
+        li_Red.SilentSetIndex(-1);
 
-	if ( List != li_FFA )
-		li_FFA.SilentSetIndex(-1);
+    if ( List != li_FFA )
+        li_FFA.SilentSetIndex(-1);
 
-	if ( List != li_Blue && li_Blue != None )
-		li_Blue.SilentSetIndex(-1);
+    if ( List != li_Blue && li_Blue != None )
+        li_Blue.SilentSetIndex(-1);
 }
 
 // See if we already have this server in our favorites
@@ -591,22 +591,22 @@ function bool ButtonClicked(GUIComponent Sender)
 
     PC = PlayerOwner();
 
-	if (Sender == i_JoinRed)
-	{
-		//Join Red team
-		if ( PC.PlayerReplicationInfo == None || PC.PlayerReplicationInfo.Team == None
-		     || PC.PlayerReplicationInfo.Team.TeamIndex != 0)
-			PC.ChangeTeam(0);
-		Controller.CloseMenu(false);
-	}
-	else if (Sender == i_JoinBlue)
-	{
-		//Join Blue team
-		if ( PC.PlayerReplicationInfo == None || PC.PlayerReplicationInfo.Team == None
-		     || PC.PlayerReplicationInfo.Team.TeamIndex != 1)
-			PC.ChangeTeam(1);
-		Controller.CloseMenu(false);
-	}
+    if (Sender == i_JoinRed)
+    {
+        //Join Red team
+        if ( PC.PlayerReplicationInfo == None || PC.PlayerReplicationInfo.Team == None
+             || PC.PlayerReplicationInfo.Team.TeamIndex != 0)
+            PC.ChangeTeam(0);
+        Controller.CloseMenu(false);
+    }
+    else if (Sender == i_JoinBlue)
+    {
+        //Join Blue team
+        if ( PC.PlayerReplicationInfo == None || PC.PlayerReplicationInfo.Team == None
+             || PC.PlayerReplicationInfo.Team.TeamIndex != 1)
+            PC.ChangeTeam(1);
+        Controller.CloseMenu(false);
+    }
     else if ( Sender == b_Settings )
     {
         //Settings
@@ -615,12 +615,12 @@ function bool ButtonClicked(GUIComponent Sender)
     else if ( Sender == b_Browser )
     {
         //Server browser
-		Controller.OpenMenu(Controller.GetServerBrowserPage());
+        Controller.OpenMenu(Controller.GetServerBrowserPage());
     }
     else if ( Sender == b_Leave )
     {
-		//Forfeit/Disconnect
-		PC.ConsoleCommand("DISCONNECT");
+        //Forfeit/Disconnect
+        PC.ConsoleCommand("DISCONNECT");
         KFGUIController(C).ReturnToMainMenu();
     }
     else if ( Sender == b_Favs )
@@ -649,22 +649,22 @@ function bool ButtonClicked(GUIComponent Sender)
         //Match setup
         Controller.OpenMenu(Controller.MatchSetupMenu);
     }
-	else if ( Sender == b_Spec )
-	{
-		Controller.CloseMenu();
+    else if ( Sender == b_Spec )
+    {
+        Controller.CloseMenu();
 
-		//Spectate/rejoin
-		if ( PC.PlayerReplicationInfo.bOnlySpectator )
-		{
-			PC.BecomeActivePlayer();
-		}
-		else
+        //Spectate/rejoin
+        if ( PC.PlayerReplicationInfo.bOnlySpectator )
+        {
+            PC.BecomeActivePlayer();
+        }
+        else
         {
             PC.BecomeSpectator();
         }
-	}
+    }
 
-	return true;
+    return true;
 }
 
 simulated function DrawPlayerItem(KFPlayerReplicationInfo PRI, Canvas Canvas, float X, float Y, float W, float H, bool bSelected, bool bPending)
@@ -755,16 +755,16 @@ function OnDrawRedPlayer(Canvas Canvas, int i, float X, float Y, float W, float 
 
 function OnDrawBluePlayer(Canvas Canvas, int i, float X, float Y, float W, float H, bool bSelected, bool bPending)
 {
-	local PlayerReplicationInfo PRI;
-	local GameReplicationInfo GRI;
+    local PlayerReplicationInfo PRI;
+    local GameReplicationInfo GRI;
 
-	GRI = GetGRI();
-	if ( GRI == None )
-		return;
+    GRI = GetGRI();
+    if ( GRI == None )
+        return;
 
-	PRI = GRI.FindPlayerByID(int(li_Blue.GetExtraAtIndex(i)));
-	if (PRI!=None)
-		DrawPlayerItem(KFPlayerReplicationInfo(PRI),Canvas,X,Y,W,H,bSelected,bPending);
+    PRI = GRI.FindPlayerByID(int(li_Blue.GetExtraAtIndex(i)));
+    if (PRI!=None)
+        DrawPlayerItem(KFPlayerReplicationInfo(PRI),Canvas,X,Y,W,H,bSelected,bPending);
 }
 
 function OnDrawFFAPlayer(Canvas Canvas, int i, float X, float Y, float W, float H, bool bSelected, bool bPending)
@@ -962,7 +962,7 @@ event Closed(GUIComponent Sender, bool bCancelled)
     Super.Closed(Sender, bCancelled);
 
     li_Red.SilentSetIndex(-1);
-	li_Blue.SilentSetIndex(-1);
+    li_Blue.SilentSetIndex(-1);
     li_FFA.SilentSetIndex(-1);
 }
 
@@ -977,7 +977,7 @@ function bool TeamChange(GUIComponent Sender)
 function bool RedDraw(Canvas C)
 {
     i_JoinRed.WinHeight=i_JoinRed.WinWidth;
-	i_JoinBlue.WinHeight=i_JoinBlue.WinWidth;
+    i_JoinBlue.WinHeight=i_JoinBlue.WinWidth;
     return false;
 }
 

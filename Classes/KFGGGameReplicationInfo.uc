@@ -4,8 +4,8 @@ var byte MaxWeaponLevel; // The maximum weapon level before someone wins the mat
 
 replication
 {
-	reliable if(Role == ROLE_Authority)
-		MaxWeaponLevel;
+    reliable if(Role == ROLE_Authority)
+        MaxWeaponLevel;
 }
 
 defaultproperties

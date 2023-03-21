@@ -3,9 +3,9 @@ class GG_M32GrenadeProjectile extends M32GrenadeProjectile;
 // Need to override this until we get the KF bug fix patch out otherwise this projectile will be bugged - Ramm
 simulated function ProcessTouch(Actor Other, Vector HitLocation)
 {
-	// Don't let it hit this player, or blow up on another player
+    // Don't let it hit this player, or blow up on another player
     if ( Other == none || Other == Instigator || Other.Base == Instigator )
-		return;
+        return;
 
     // Don't collide with bullet whip attachments
     if( KFBulletWhipAttachment(Other) != none )
@@ -46,8 +46,8 @@ simulated function ProcessTouch(Actor Other, Vector HitLocation)
 
     if( !bDud )
     {
-	   Explode(HitLocation,Normal(HitLocation-Other.Location));
-	}
+       Explode(HitLocation,Normal(HitLocation-Other.Location));
+    }
 }
 
 defaultproperties

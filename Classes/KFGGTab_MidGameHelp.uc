@@ -17,17 +17,17 @@ var             GUIStyles               PlayerStyle;
 
 function InitComponent(GUIController MyController, GUIComponent MyOwner)
 {
-	local string s;
+    local string s;
     local int i;
     local eFontScale FS;
 
-	Super.InitComponent(MyController, MyOwner);
+    Super.InitComponent(MyController, MyOwner);
 
-	s = GetSizingCaption();
+    s = GetSizingCaption();
 
-	for ( i = 0; i < Controls.Length; i++ )
+    for ( i = 0; i < Controls.Length; i++ )
     {
-    	if ( GUIButton(Controls[i]) != None /*&& Controls[i] != b_Team && Controls[i] != PrevHintButton && Controls[i] != NextHintButton*/ )
+        if ( GUIButton(Controls[i]) != None /*&& Controls[i] != b_Team && Controls[i] != PrevHintButton && Controls[i] != NextHintButton*/ )
         {
             GUIButton(Controls[i]).bAutoSize = true;
             GUIButton(Controls[i]).SizingCaption = s;
@@ -38,28 +38,28 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
 
     PlayerStyle = MyController.GetStyle(PlayerStyleName, fs);
 
-	sb_GameDesc.ManageComponent(GameDescriptionBox);
-	sb_Hints.ManageComponent(HintsBox);
+    sb_GameDesc.ManageComponent(GameDescriptionBox);
+    sb_Hints.ManageComponent(HintsBox);
 
-	PrevHintButton.bBoundToParent=false;  PrevHintButton.bScaleToParent=false;
-	NextHintButton.bBoundToParent=false;  NextHintButton.bScaleToParent=false;
-	HintCountLabel.bBoundToParent=false;  HintCountLabel.bScaleToParent=false;
+    PrevHintButton.bBoundToParent=false;  PrevHintButton.bScaleToParent=false;
+    NextHintButton.bBoundToParent=false;  NextHintButton.bScaleToParent=false;
+    HintCountLabel.bBoundToParent=false;  HintCountLabel.bScaleToParent=false;
 }
 
 function ShowPanel(bool bShow)
 {
-	Super.ShowPanel(bShow);
+    Super.ShowPanel(bShow);
 
-	if ( bShow )
-	{
-		InitGRI();
+    if ( bShow )
+    {
+        InitGRI();
 
-		if ( !bReceivedGameClass )
-		{
-			SetTimer(1.0, true);
-			Timer();
-		}
-	}
+        if ( !bReceivedGameClass )
+        {
+            SetTimer(1.0, true);
+            Timer();
+        }
+    }
 }
 
 function string GetSizingCaption()
@@ -71,7 +71,7 @@ function string GetSizingCaption()
     {
         if ( GUIButton(Controls[i]) != none && /*Controls[i] != b_Team &&*/ Controls[i] != PrevHintButton && Controls[i] != NextHintButton)
         {
-			if ( s == "" || Len(GUIButton(Controls[i]).Caption) > Len(s) )
+            if ( s == "" || Len(GUIButton(Controls[i]).Caption) > Len(s) )
             {
                 s = GUIButton(Controls[i]).Caption;
             }
@@ -134,7 +134,7 @@ function InitGRI()
     }
 
     SetupGroups();
-	//InitLists();
+    //InitLists();
 }
 
 function float ItemHeight(Canvas C)
@@ -195,18 +195,18 @@ function SetupGroups()
         for ( i = 0; i < Controls.Length; i++ )
         {
             if ( Controls[i] == b_Team ||
-			 	 Controls[i] == b_Settings ||
-				 Controls[i] == b_Browser ||
-				 Controls[i] == b_Quit ||
-				 Controls[i] == b_Favs ||
-				 Controls[i] == b_Leave ||
-				 Controls[i] == b_MapVote ||
-				 Controls[i] == b_KickVote ||
-				 Controls[i] == b_MatchSetup ||
-				 Controls[i] == b_Spec )
-			{
-				RemoveComponent(Controls[i], True);
-			}
+                  Controls[i] == b_Settings ||
+                 Controls[i] == b_Browser ||
+                 Controls[i] == b_Quit ||
+                 Controls[i] == b_Favs ||
+                 Controls[i] == b_Leave ||
+                 Controls[i] == b_MapVote ||
+                 Controls[i] == b_KickVote ||
+                 Controls[i] == b_MatchSetup ||
+                 Controls[i] == b_Spec )
+            {
+                RemoveComponent(Controls[i], True);
+            }
         }
     }
 
@@ -270,16 +270,16 @@ function SetButtonPositions(Canvas C)
     ButtonsLeftInRow = ButtonsPerRow;
 
     for ( i = 0; i < Components.Length; i++)
-	{
-		if ( Components[i].bVisible && GUIButton(Components[i]) != none && /*Components[i] != b_Team &&*/ Components[i] != PrevHintButton && Components[i] != NextHintButton )
-	    {
-			NumButtons++;
-	    }
+    {
+        if ( Components[i].bVisible && GUIButton(Components[i]) != none && /*Components[i] != b_Team &&*/ Components[i] != PrevHintButton && Components[i] != NextHintButton )
+        {
+            NumButtons++;
+        }
     }
 
     if ( NumButtons < ButtonsPerRow )
     {
-    	X = Center - (((Width * float(NumButtons)) + (ButtonSpacing * float(NumButtons - 1))) * 0.5);
+        X = Center - (((Width * float(NumButtons)) + (ButtonSpacing * float(NumButtons - 1))) * 0.5);
     }
     else if ( ButtonsPerRow > 1 )
     {
@@ -291,8 +291,8 @@ function SetButtonPositions(Canvas C)
     }
 
     for ( i = 0; i < Components.Length; i++)
-	{
-		if ( !Components[i].bVisible || GUIButton(Components[i]) == none || /*Components[i]==b_Team ||*/ Components[i] == PrevHintButton || Components[i] == NextHintButton )
+    {
+        if ( !Components[i].bVisible || GUIButton(Components[i]) == none || /*Components[i]==b_Team ||*/ Components[i] == PrevHintButton || Components[i] == NextHintButton )
         {
             continue;
         }
@@ -380,7 +380,7 @@ function bool ButtonClicked(GUIComponent Sender)
         Controller.CloseMenu(false);
     }
     */
-	if ( Sender == b_Settings )
+    if ( Sender == b_Settings )
     {
         //Settings
         Controller.OpenMenu(Controller.GetSettingsPage());
@@ -392,8 +392,8 @@ function bool ButtonClicked(GUIComponent Sender)
     }
     else if ( Sender == b_Leave )
     {
-		//Forfeit/Disconnect
-		PC.ConsoleCommand("DISCONNECT");
+        //Forfeit/Disconnect
+        PC.ConsoleCommand("DISCONNECT");
         KFGUIController(C).ReturnToMainMenu();
     }
     else if ( Sender == b_Favs )
@@ -422,78 +422,78 @@ function bool ButtonClicked(GUIComponent Sender)
         //Match setup
         Controller.OpenMenu(Controller.MatchSetupMenu);
     }
-	else if ( Sender == b_Spec )
-	{
-		Controller.CloseMenu();
+    else if ( Sender == b_Spec )
+    {
+        Controller.CloseMenu();
 
-		//Spectate/rejoin
-		if ( PC.PlayerReplicationInfo.bOnlySpectator )
-		{
-			PC.BecomeActivePlayer();
-		}
-		else
+        //Spectate/rejoin
+        if ( PC.PlayerReplicationInfo.bOnlySpectator )
+        {
+            PC.BecomeActivePlayer();
+        }
+        else
         {
             PC.BecomeSpectator();
         }
-	}
-	else if (Sender == PrevHintButton)
-	{
-		CurrentHintIndex--;
-		if (CurrentHintIndex < 0)
-			CurrentHintIndex = AllGameHints.length - 1;
-	}
-	else if (Sender == NextHintButton)
-	{
-		CurrentHintIndex++;
-		if (CurrentHintIndex >= AllGameHints.length)
-			CurrentHintIndex = 0;
-	}
+    }
+    else if (Sender == PrevHintButton)
+    {
+        CurrentHintIndex--;
+        if (CurrentHintIndex < 0)
+            CurrentHintIndex = AllGameHints.length - 1;
+    }
+    else if (Sender == NextHintButton)
+    {
+        CurrentHintIndex++;
+        if (CurrentHintIndex >= AllGameHints.length)
+            CurrentHintIndex = 0;
+    }
 
-	HintsBox.SetContent(AllGameHints[CurrentHintIndex]);
-	HintCountLabel.Caption = string(CurrentHintIndex + 1) @ "/" @ string(AllGameHints.length);
+    HintsBox.SetContent(AllGameHints[CurrentHintIndex]);
+    HintCountLabel.Caption = string(CurrentHintIndex + 1) @ "/" @ string(AllGameHints.length);
 
-	return true;
+    return true;
 }
 
 function bool InternalOnPreDraw(Canvas C)
 {
-	local GameReplicationInfo GRI;
+    local GameReplicationInfo GRI;
 
-	GRI = GetGRI();
+    GRI = GetGRI();
 
     if ( GRI != none )
-	{
-		if ( bInit )
-		{
-			InitGRI();
-		}
-
-		/*
-		if ( bTeamGame )
-		{
-			if ( PlayerOwner().PlayerReplicationInfo.Team != none )
-			{
-				sb_Red.HeaderBase = texture'InterfaceArt_tex.Menu.RODisplay';
-			}
-		}
-
-	    sb_Red.SetPosition((ActualWidth() / 2.0) - ((sb_Red.WinWidth * ActualWidth()) / 2.0), sb_Red.WinTop, sb_Red.WinWidth, sb_Red.WinHeight);
-		*/
-
-		SetButtonPositions(C);
-		//UpdatePlayerLists();
-
-		if ( (PlayerOwner().myHUD == None || !PlayerOwner().myHUD.IsInCinematic()) && GRI != none && GRI.bMatchHasBegun && !PlayerOwner().IsInState('GameEnded') )
-		{
-        	EnableComponent(b_Spec);
+    {
+        if ( bInit )
+        {
+            InitGRI();
         }
-		else
+
+        /*
+        if ( bTeamGame )
+        {
+            if ( PlayerOwner().PlayerReplicationInfo.Team != none )
+            {
+                sb_Red.HeaderBase = texture'InterfaceArt_tex.Menu.RODisplay';
+            }
+        }
+
+        sb_Red.SetPosition((ActualWidth() / 2.0) - ((sb_Red.WinWidth * ActualWidth()) / 2.0), sb_Red.WinTop, sb_Red.WinWidth, sb_Red.WinHeight);
+        */
+
+        SetButtonPositions(C);
+        //UpdatePlayerLists();
+
+        if ( (PlayerOwner().myHUD == None || !PlayerOwner().myHUD.IsInCinematic()) && GRI != none && GRI.bMatchHasBegun && !PlayerOwner().IsInState('GameEnded') )
+        {
+            EnableComponent(b_Spec);
+        }
+        else
         {
             DisableComponent(b_Spec);
         }
-	}
+    }
 
-	return false;
+    return false;
 }
 
 function bool ContextMenuOpened(GUIContextMenu Menu)
@@ -666,90 +666,90 @@ function bool TeamChange(GUIComponent Sender)
 
 function Timer()
 {
-	local PlayerController PC;
-	local int i;
+    local PlayerController PC;
+    local int i;
 
-	PC = PlayerOwner();
-	if (PC != None && PC.GameReplicationInfo != None && PC.GameReplicationInfo.GameClass != "")
-	{
-		GameClass = class<GameInfo>(DynamicLoadObject(PC.GameReplicationInfo.GameClass, class'Class'));
-		if (GameClass != None)
-		{
-			//get game description and hints from game class
-			GameDescriptionBox.SetContent(GameClass.default.Description);
-			AllGameHints = GameClass.static.GetAllLoadHints();
-			if (AllGameHints.length > 0)
-			{
-				for (i = 0; i < AllGameHints.length; i++)
-				{
-					AllGameHints[i] = GameClass.static.ParseLoadingHint(AllGameHints[i], PC, HintsBox.Style.FontColors[HintsBox.MenuState]);
-					if (AllGameHints[i] == "")
-					{
-						AllGameHints.Remove(i, 1);
-						i--;
-					}
-				}
-				HintsBox.SetContent(AllGameHints[CurrentHintIndex]);
-				HintCountLabel.Caption = string(CurrentHintIndex + 1) @ "/" @ string(AllGameHints.length);
-				EnableComponent(PrevHintButton);
-				EnableComponent(NextHintButton);
-			}
+    PC = PlayerOwner();
+    if (PC != None && PC.GameReplicationInfo != None && PC.GameReplicationInfo.GameClass != "")
+    {
+        GameClass = class<GameInfo>(DynamicLoadObject(PC.GameReplicationInfo.GameClass, class'Class'));
+        if (GameClass != None)
+        {
+            //get game description and hints from game class
+            GameDescriptionBox.SetContent(GameClass.default.Description);
+            AllGameHints = GameClass.static.GetAllLoadHints();
+            if (AllGameHints.length > 0)
+            {
+                for (i = 0; i < AllGameHints.length; i++)
+                {
+                    AllGameHints[i] = GameClass.static.ParseLoadingHint(AllGameHints[i], PC, HintsBox.Style.FontColors[HintsBox.MenuState]);
+                    if (AllGameHints[i] == "")
+                    {
+                        AllGameHints.Remove(i, 1);
+                        i--;
+                    }
+                }
+                HintsBox.SetContent(AllGameHints[CurrentHintIndex]);
+                HintCountLabel.Caption = string(CurrentHintIndex + 1) @ "/" @ string(AllGameHints.length);
+                EnableComponent(PrevHintButton);
+                EnableComponent(NextHintButton);
+            }
 
-			KillTimer();
-			bReceivedGameClass = true;
-		}
-	}
+            KillTimer();
+            bReceivedGameClass = true;
+        }
+    }
 }
 /*
 function bool ButtonClicked(GUIComponent Sender)
 {
-	if (Sender == PrevHintButton)
-	{
-		CurrentHintIndex--;
-		if (CurrentHintIndex < 0)
-			CurrentHintIndex = AllGameHints.length - 1;
-	}
-	else if (Sender == NextHintButton)
-	{
-		CurrentHintIndex++;
-		if (CurrentHintIndex >= AllGameHints.length)
-			CurrentHintIndex = 0;
-	}
+    if (Sender == PrevHintButton)
+    {
+        CurrentHintIndex--;
+        if (CurrentHintIndex < 0)
+            CurrentHintIndex = AllGameHints.length - 1;
+    }
+    else if (Sender == NextHintButton)
+    {
+        CurrentHintIndex++;
+        if (CurrentHintIndex >= AllGameHints.length)
+            CurrentHintIndex = 0;
+    }
 
-	HintsBox.SetContent(AllGameHints[CurrentHintIndex]);
-	HintCountLabel.Caption = string(CurrentHintIndex + 1) @ "/" @ string(AllGameHints.length);
+    HintsBox.SetContent(AllGameHints[CurrentHintIndex]);
+    HintCountLabel.Caption = string(CurrentHintIndex + 1) @ "/" @ string(AllGameHints.length);
 
-	return true;
+    return true;
 }
 */
 function bool FixUp(Canvas C)
 {
-	local float t,h,l,w,xl;
+    local float t,h,l,w,xl;
 
-	h = 18;
-	t = sb_Hints.ActualTop() + sb_Hints.ActualHeight() -  50;
+    h = 18;
+    t = sb_Hints.ActualTop() + sb_Hints.ActualHeight() -  50;
 
-	PrevHintButton.WinLeft = sb_Hints.ActualLeft() + 40;
-	PrevHintButton.WinTop = t;
-	PrevHintButton.WinHeight=h;
+    PrevHintButton.WinLeft = sb_Hints.ActualLeft() + 40;
+    PrevHintButton.WinTop = t;
+    PrevHintButton.WinHeight=h;
 
-	NextHintButton.WinLeft = sb_Hints.ActualLeft() + sb_Hints.ActualWidth() - 40 - NextHintButton.ActualWidth();
-	NextHintButton.WinTop = t;
-	NextHintButton.WinHeight=h;
+    NextHintButton.WinLeft = sb_Hints.ActualLeft() + sb_Hints.ActualWidth() - 40 - NextHintButton.ActualWidth();
+    NextHintButton.WinTop = t;
+    NextHintButton.WinHeight=h;
 
-	l = PrevHintButton.ActualLeft() + PrevHintButton.ActualWidth();
-	w = NextHintButton.ActualLeft() - L;
+    l = PrevHintButton.ActualLeft() + PrevHintButton.ActualWidth();
+    w = NextHintButton.ActualLeft() - L;
 
-	XL = HintCountLabel.ActualWidth();
-	l = l + (w/2) - (xl/2);
-	HintCountLabel.WinLeft=l;
-	HintCountLabel.WinTop=t;
-	HintCountLabel.WinWidth = xl;
-	HintCountLabel.WinHeight=h;
+    XL = HintCountLabel.ActualWidth();
+    l = l + (w/2) - (xl/2);
+    HintCountLabel.WinLeft=l;
+    HintCountLabel.WinTop=t;
+    HintCountLabel.WinWidth = xl;
+    HintCountLabel.WinHeight=h;
 
-	InternalOnPreDraw(C);
+    InternalOnPreDraw(C);
 
-	return false;
+    return false;
 }
 
 defaultproperties

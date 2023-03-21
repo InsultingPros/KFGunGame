@@ -1,79 +1,79 @@
 class GGWarmupMessage extends CriticalEventPlus;
 
 var localized string Stage[8], NotReady, SinglePlayer;
-var sound	Riff;
+var sound    Riff;
 
 #EXEC OBJ LOAD FILE=Miscsounds.uax
 
 static simulated function ClientReceive(
-	PlayerController P,
-	optional int Switch,
-	optional PlayerReplicationInfo RelatedPRI_1,
-	optional PlayerReplicationInfo RelatedPRI_2,
-	optional Object OptionalObject
-	)
+    PlayerController P,
+    optional int Switch,
+    optional PlayerReplicationInfo RelatedPRI_1,
+    optional PlayerReplicationInfo RelatedPRI_2,
+    optional Object OptionalObject
+    )
 {
-	Super.ClientReceive(P, Switch, RelatedPRI_1, RelatedPRI_2, OptionalObject);
-	if ( Switch < 7 )
-	{
-		P.Level.FillPrecacheMaterialsArray(false);
-		P.Level.FillPrecacheStaticMeshesArray(false);
-		P.PrecacheAnnouncements();
-	}
-	// don't play sound if quickstart=true, so no 'play' voiceover at start of tutorials
-	if ( Switch == 5 && P != none )
-	{
-    	//P.PlayStatusAnnouncement('Play',1,true);
-    	P.ClientPlaySound(sound'KF_BasePatriarch.Kev_Entrance1', false, 2.0);
-    	P.ClientPlaySound(sound'KF_FoundrySnd.Alarm_BellWarning01', false, 2.0);
+    Super.ClientReceive(P, Switch, RelatedPRI_1, RelatedPRI_2, OptionalObject);
+    if ( Switch < 7 )
+    {
+        P.Level.FillPrecacheMaterialsArray(false);
+        P.Level.FillPrecacheStaticMeshesArray(false);
+        P.PrecacheAnnouncements();
     }
-	else if ( (Switch > 1) && (Switch < 5) )
-		P.ClientPlaySound(sound'Miscsounds.Enter', true, 2.0);
-	else if ( Switch == 7 )
-		P.ClientPlaySound(Default.Riff);
+    // don't play sound if quickstart=true, so no 'play' voiceover at start of tutorials
+    if ( Switch == 5 && P != none )
+    {
+        //P.PlayStatusAnnouncement('Play',1,true);
+        P.ClientPlaySound(sound'KF_BasePatriarch.Kev_Entrance1', false, 2.0);
+        P.ClientPlaySound(sound'KF_FoundrySnd.Alarm_BellWarning01', false, 2.0);
+    }
+    else if ( (Switch > 1) && (Switch < 5) )
+        P.ClientPlaySound(sound'Miscsounds.Enter', true, 2.0);
+    else if ( Switch == 7 )
+        P.ClientPlaySound(Default.Riff);
 }
 
 static function string GetString(
-	optional int Switch,
-	optional PlayerReplicationInfo RelatedPRI_1,
-	optional PlayerReplicationInfo RelatedPRI_2,
-	optional Object OptionalObject
-	)
+    optional int Switch,
+    optional PlayerReplicationInfo RelatedPRI_1,
+    optional PlayerReplicationInfo RelatedPRI_2,
+    optional Object OptionalObject
+    )
 {
-	local int i, PlayerCount;
-	local GameReplicationInfo GRI;
+    local int i, PlayerCount;
+    local GameReplicationInfo GRI;
 
-	if ( (RelatedPRI_1 != None) && (RelatedPRI_1.Level.NetMode == NM_Standalone) )
-	{
-		if ( (DeathMatch(RelatedPRI_1.Level.Game) != None) && DeathMatch(RelatedPRI_1.Level.Game).bQuickstart )
-			return "";
-		if ( Switch < 2 )
-			return Default.SinglePlayer;
-	}
-	else if ( Switch == 0 && RelatedPRI_1 != None )
-	{
-		GRI = RelatedPRI_1.Level.GRI;
-		if (GRI == None)
-			return Default.Stage[0];
-		for (i = 0; i < GRI.PRIArray.Length; i++)
-		{
-			if ( GRI.PRIArray[i] != None && !GRI.PRIArray[i].bOnlySpectator
-			     && (!GRI.PRIArray[i].bIsSpectator || GRI.PRIArray[i].bWaitingPlayer) )
-				PlayerCount++;
-		}
-		if (GRI.MinNetPlayers - PlayerCount > 0)
-			return Default.Stage[0]@"("$(GRI.MinNetPlayers - PlayerCount)$")";
-	}
-	else if ( switch == 1 )
-	{
-		if ( (RelatedPRI_1 == None) || !RelatedPRI_1.bWaitingPlayer )
-			return Default.Stage[0];
-		else if ( RelatedPRI_1.bReadyToPlay )
-			return Default.Stage[1];
-		else
-			return Default.NotReady;
-	}
-	return Default.Stage[Switch];
+    if ( (RelatedPRI_1 != None) && (RelatedPRI_1.Level.NetMode == NM_Standalone) )
+    {
+        if ( (DeathMatch(RelatedPRI_1.Level.Game) != None) && DeathMatch(RelatedPRI_1.Level.Game).bQuickstart )
+            return "";
+        if ( Switch < 2 )
+            return Default.SinglePlayer;
+    }
+    else if ( Switch == 0 && RelatedPRI_1 != None )
+    {
+        GRI = RelatedPRI_1.Level.GRI;
+        if (GRI == None)
+            return Default.Stage[0];
+        for (i = 0; i < GRI.PRIArray.Length; i++)
+        {
+            if ( GRI.PRIArray[i] != None && !GRI.PRIArray[i].bOnlySpectator
+                 && (!GRI.PRIArray[i].bIsSpectator || GRI.PRIArray[i].bWaitingPlayer) )
+                PlayerCount++;
+        }
+        if (GRI.MinNetPlayers - PlayerCount > 0)
+            return Default.Stage[0]@"("$(GRI.MinNetPlayers - PlayerCount)$")";
+    }
+    else if ( switch == 1 )
+    {
+        if ( (RelatedPRI_1 == None) || !RelatedPRI_1.bWaitingPlayer )
+            return Default.Stage[0];
+        else if ( RelatedPRI_1.bReadyToPlay )
+            return Default.Stage[1];
+        else
+            return Default.NotReady;
+    }
+    return Default.Stage[Switch];
 }
 
 defaultproperties
