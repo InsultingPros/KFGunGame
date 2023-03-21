@@ -2,5 +2,5 @@ class GG_M32Fire extends M32Fire;
 
 defaultproperties
 {
-     ProjectileClass=Class'KFGunGame.GG_M32GrenadeProjectile'
+     ProjectileClass=Class'GG_M32GrenadeProjectile'
 }

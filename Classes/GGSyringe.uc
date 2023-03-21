@@ -10,6 +10,6 @@ simulated function PostBeginPlay()
 
 defaultproperties
 {
-     FireModeClass(0)=Class'KFGunGame.GGSyringeFire'
-     PickupClass=Class'KFGunGame.GGSyringePickup'
+     FireModeClass(0)=Class'GGSyringeFire'
+     PickupClass=Class'GGSyringePickup'
 }

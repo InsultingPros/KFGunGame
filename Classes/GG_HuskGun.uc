@@ -11,5 +11,5 @@ class GG_HuskGun extends HuskGun;
 
 defaultproperties
 {
-     FireModeClass(0)=Class'KFGunGame.GG_HuskGunFire'
+     FireModeClass(0)=Class'GG_HuskGunFire'
 }

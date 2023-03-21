@@ -5,5 +5,5 @@ class GGSyringePickup extends SyringePickup;
 
 defaultproperties
 {
-     InventoryType=Class'KFGunGame.GGSyringe'
+     InventoryType=Class'GGSyringe'
 }

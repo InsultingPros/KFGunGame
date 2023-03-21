@@ -1360,8 +1360,8 @@ defaultproperties
      ShortListDescription="Shorter Weapon List"
      bNoBots=False
      bSpawnInTeamArea=True
-     TeamAIType(0)=Class'KFGunGame.GGTeamAI'
-     TeamAIType(1)=Class'KFGunGame.GGTeamAI'
+     TeamAIType(0)=Class'GGTeamAI'
+     TeamAIType(1)=Class'GGTeamAI'
      RestartWait=30
      SpawnProtectionTime=2.000000
      DefaultMaxLives=0
@@ -1376,9 +1376,9 @@ defaultproperties
      MaxLives=0
      TimeLimit=15
      MutatorClass="KFGunGame.KFGGBaseMut"
-     PlayerControllerClass=Class'KFGunGame.KFGGPlayerController'
+     PlayerControllerClass=Class'KFGGPlayerController'
      PlayerControllerClassName="KFGunGame.KFGGPlayerController"
-     GameReplicationInfoClass=Class'KFGunGame.KFGGGameReplicationInfo'
+     GameReplicationInfoClass=Class'KFGGGameReplicationInfo'
      GameName="KF Gun Game"
      Description="Gun Game With Killing Floor Weapons. Every kill instantly gets you the next weapon in the list. Be the first player to get a kill with every weapon on the list to win!"
      Acronym="GG"
