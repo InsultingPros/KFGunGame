@@ -14,7 +14,7 @@ simulated function SetGRI(GameReplicationInfo GRI);
 
 function Reset()
 {
-    Super.Reset();
+    super.Reset();
     bReadyToPlay = true;
 }
 

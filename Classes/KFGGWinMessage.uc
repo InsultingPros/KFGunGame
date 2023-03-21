@@ -19,10 +19,10 @@ static function string GetString(
 {
 
     if( Switch==-1 )
-        return Default.Draw;
+        return default.Draw;
     else if( Switch<=2 )
-        return Default.RedWin;
-    else return Default.BlueWin;
+        return default.RedWin;
+    else return default.BlueWin;
 }
 static simulated function ClientReceive(
     PlayerController P,
@@ -53,7 +53,7 @@ static simulated function ClientReceive(
 //        P.ClientPlaySound(Sound'BlueInc',true,2.f,SLOT_Talk);
 //        break;
 //    }
-    Super.ClientReceive(P,Switch);
+    super.ClientReceive(P,Switch);
 }
 static function color GetColor(
     optional int Switch,
@@ -61,10 +61,10 @@ static function color GetColor(
     optional PlayerReplicationInfo RelatedPRI_2 )
 {
     if( Switch==-1 )
-        return Default.DrawColor;
+        return default.DrawColor;
     if( Switch<=2 )
-        return Class'Hud'.Default.RedColor;
-    return Class'Hud'.Default.BlueColor;
+        return class'Hud'.default.RedColor;
+    return class'Hud'.default.BlueColor;
 }
 
 defaultproperties

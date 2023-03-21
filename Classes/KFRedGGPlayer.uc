@@ -7,7 +7,7 @@ var Material TeamSkinX;
 
 simulated function PostBeginPlay()
 {
-    Super.PostBeginPlay();
+    super.PostBeginPlay();
 //    AssignInitialPose();
 //
 //    if( bActorShadows && bPlayerShadows && (Level.NetMode!=NM_DedicatedServer) )
@@ -42,7 +42,7 @@ simulated function Setup(xUtil.PlayerRecord rec, optional bool bLoadNow)
 {
     if( IsTeamColorCharacter(rec.DefaultName) )
     {
-        if( rec.Species==None || Class<SPECIES_KFMaleHuman>(rec.Species)==None )
+        if( rec.Species==none || class<SPECIES_KFMaleHuman>(rec.Species)==none )
             rec = class'xUtil'.static.FindPlayerRecord(GetDefaultCharacter());
     }
     else
@@ -51,7 +51,7 @@ simulated function Setup(xUtil.PlayerRecord rec, optional bool bLoadNow)
     }
     Species = rec.Species;
     RagdollOverride = rec.Ragdoll;
-    if ( Species!=None && !Species.static.Setup(self,rec) )
+    if ( Species!=none && !Species.static.Setup(self,rec) )
     {
         rec = class'xUtil'.static.FindPlayerRecord(GetDefaultCharacter());
         Species = rec.Species;
@@ -59,10 +59,10 @@ simulated function Setup(xUtil.PlayerRecord rec, optional bool bLoadNow)
         if ( !Species.static.Setup(self,rec) )
             return;
     }
-    if( Class<SPECIES_KFMaleHuman>(Species) != none )
+    if( class<SPECIES_KFMaleHuman>(Species) != none )
     {
-        DetachedArmClass = Class<SPECIES_KFMaleHuman>(Species).default.DetachedArmClass;
-        DetachedLegClass = Class<SPECIES_KFMaleHuman>(Species).default.DetachedLegClass;
+        DetachedArmClass = class<SPECIES_KFMaleHuman>(Species).default.DetachedArmClass;
+        DetachedLegClass = class<SPECIES_KFMaleHuman>(Species).default.DetachedLegClass;
     }
     //Skins[0] = TeamSkinX;
     ResetPhysicsBasedAnim();
@@ -71,12 +71,12 @@ function bool CanBuyNow()
 {
 //    local TDMShopTrigger Sh;
 
-//    if( PlayerReplicationInfo==None || PlayerReplicationInfo.Team==None )
-//        return False;
-//    foreach TouchingActors(Class'TDMShopTrigger',Sh)
+//    if( PlayerReplicationInfo==none || PlayerReplicationInfo.Team==none )
+//        return false;
+//    foreach TouchingActors(class'TDMShopTrigger',Sh)
 //        if( Sh.Team==PlayerReplicationInfo.Team.TeamIndex )
-//            return True;
-    Return False;
+//            return true;
+    return false;
 }
 
 simulated function string GetDefaultCharacter()
@@ -116,6 +116,6 @@ simulated function string GetDefaultCharacter()
 
 defaultproperties
 {
-     bNoTeamBeacon=False
-     bScriptPostRender=True
+     bNoTeamBeacon=false
+     bScriptPostRender=true
 }

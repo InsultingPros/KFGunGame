@@ -12,7 +12,7 @@ class GG_HuskGunFire extends HuskGunFire;
 
 defaultproperties
 {
-     WeakProjectileClass=Class'GG_HuskGunProjectile_Weak'
-     StrongProjectileClass=Class'GG_HuskGunProjectile_Strong'
-     ProjectileClass=Class'GG_HuskGunProjectile'
+     WeakProjectileClass=class'GG_HuskGunProjectile_Weak'
+     StrongProjectileClass=class'GG_HuskGunProjectile_Strong'
+     ProjectileClass=class'GG_HuskGunProjectile'
 }

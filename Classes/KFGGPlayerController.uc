@@ -35,7 +35,7 @@ function ViewShake(float DeltaTime)
 
 simulated function DisplayDebug(Canvas Canvas, out float YL, out float YPos)
 {
-    Super.DisplayDebug(Canvas, YL, YPos);
+    super.DisplayDebug(Canvas, YL, YPos);
 
     Canvas.SetDrawColor(255, 255, 255);
     Canvas.DrawText("ShakeOffset: "$ShakeOffset);

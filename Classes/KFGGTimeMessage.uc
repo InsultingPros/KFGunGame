@@ -14,25 +14,25 @@ static function string GetString(
 {
 
     if( Switch<0 )
-        return Default.OvertimeMessage;
+        return default.OvertimeMessage;
     if( Switch<=10 )
         return Switch$"...";
     switch( Switch )
     {
     case 600:
-        return Default.TimeMessages[6];
+        return default.TimeMessages[6];
     case 300:
-        return Default.TimeMessages[5];
+        return default.TimeMessages[5];
     case 180:
-        return Default.TimeMessages[4];
+        return default.TimeMessages[4];
     case 120:
-        return Default.TimeMessages[3];
+        return default.TimeMessages[3];
     case 60:
-        return Default.TimeMessages[2];
+        return default.TimeMessages[2];
     case 30:
-        return Default.TimeMessages[1];
+        return default.TimeMessages[1];
     case 20:
-        return Default.TimeMessages[0];
+        return default.TimeMessages[0];
     }
 }
 static simulated function ClientReceive(
@@ -45,7 +45,7 @@ static simulated function ClientReceive(
 {
 //    if( Switch<0 )
 //        P.ClientPlaySound(Sound'UT2K3Fanfare01',true,2.f,SLOT_Talk); // Overtime sound.
-    Super.ClientReceive(P,Switch);
+    super.ClientReceive(P,Switch);
 }
 
 defaultproperties

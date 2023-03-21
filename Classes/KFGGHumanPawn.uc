@@ -23,10 +23,10 @@ function Died(Controller Killer, class<DamageType> damageType, vector HitLocatio
     local Projectile PP;
     local FakePlayerPawn FP;
 
-    if ( bDeleteMe || Level.bLevelChange || Level.Game == None )
+    if ( bDeleteMe || Level.bLevelChange || Level.Game == none )
         return; // already destroyed, or level is being cleaned up
 
-    if ( DamageType.default.bCausedByWorld && (Killer == None || Killer == Controller) && LastHitBy != None )
+    if ( DamageType.default.bCausedByWorld && (Killer == none || Killer == Controller) && LastHitBy != none )
         Killer = LastHitBy;
 
     // mutator hook to prevent deaths
@@ -44,12 +44,12 @@ function Died(Controller Killer, class<DamageType> damageType, vector HitLocatio
     }
 
     // Hack fix for team-killing.
-    if( KFPlayerReplicationInfo(PlayerReplicationInfo)!=None )
+    if( KFPlayerReplicationInfo(PlayerReplicationInfo)!=none )
     {
         FP = KFPlayerReplicationInfo(PlayerReplicationInfo).GetBlamePawn();
-        if( FP!=None )
+        if( FP!=none )
         {
-            ForEach DynamicActors(Class'Projectile',PP)
+            ForEach DynamicActors(class'Projectile',PP)
             {
                 if( PP.Instigator==Self )
                     PP.Instigator = FP;
@@ -57,39 +57,39 @@ function Died(Controller Killer, class<DamageType> damageType, vector HitLocatio
         }
     }
 
-    D = Spawn(Class'PlayerDeathMark');
-    if( D!=None )
+    D = Spawn(class'PlayerDeathMark');
+    if( D!=none )
         D.Velocity = Velocity;
 
     Health = Min(0, Health);
 
-    if ( Weapon != None && (DrivenVehicle == None || DrivenVehicle.bAllowWeaponToss) )
+    if ( Weapon != none && (DrivenVehicle == none || DrivenVehicle.bAllowWeaponToss) )
     {
-        if ( Controller != None )
-            Controller.LastPawnWeapon = Weapon.Class;
+        if ( Controller != none )
+            Controller.LastPawnWeapon = Weapon.class;
         Weapon.HolderDied();
 //        TossVel = Vector(GetViewRotation());
 //        TossVel = TossVel * ((Velocity Dot TossVel) + 500) + Vect(0,0,200);
 //        TossWeapon(TossVel);
     }
-    if ( DrivenVehicle != None )
+    if ( DrivenVehicle != none )
     {
         Velocity = DrivenVehicle.Velocity;
         DrivenVehicle.DriverDied();
     }
 
-    if ( Controller != None )
+    if ( Controller != none )
     {
         Controller.WasKilledBy(Killer);
         Level.Game.Killed(Killer, Controller, self, damageType);
     }
     else Level.Game.Killed(Killer, Controller(Owner), self, damageType);
 
-    DrivenVehicle = None;
+    DrivenVehicle = none;
 
-    if ( Killer != None )
+    if ( Killer != none )
         TriggerEvent(Event, self, Killer.Pawn);
-    else TriggerEvent(Event, self, None);
+    else TriggerEvent(Event, self, none);
 
     // make sure to untrigger any triggers requiring player touch
     if ( IsPlayerPawn() || WasPlayerPawn() )
@@ -111,7 +111,7 @@ function Died(Controller Killer, class<DamageType> damageType, vector HitLocatio
     if ( IsHumanControlled() )
         PlayerController(Controller).ForceDeathUpdate();
 
-    NetUpdateFrequency = Default.NetUpdateFrequency;
+    NetUpdateFrequency = default.NetUpdateFrequency;
     PlayDying(DamageType, HitLocation);
     if ( !bPhysicsAnimUpdate && !IsLocallyControlled() )
         ClientDying(DamageType, HitLocation);
@@ -129,7 +129,7 @@ simulated function ClearOutCurrentWeapons()
 
     I = Inventory;
 
-    SetAiming(False);
+    SetAiming(false);
 
     if( Level.NetMode != NM_DedicatedServer && KFPlayerController(Controller) != none )
     {
@@ -147,7 +147,7 @@ simulated function ClearOutCurrentWeapons()
             if( RequiredEquipment[j] != "" )
             {
                 InventoryClass = Level.Game.BaseMutator.GetInventoryClass(RequiredEquipment[j]);
-                if( InventoryClass != none && I.Class == InventoryClass)
+                if( InventoryClass != none && I.class == InventoryClass)
                 {
                     bEquipmentIsRequired = true;
                     break;
@@ -185,7 +185,7 @@ function TossWeapon(Vector TossVel)
     GetAxes(Rotation,X,Y,Z);
     X = Location + 0.8 * CollisionRadius * X - 0.5 * CollisionRadius * Y;
     Weapon.DropFrom(X);
-    foreach CollidingActors(Class'WeaponPickup',W,100,X)
+    foreach CollidingActors(class'WeaponPickup',W,100,X)
         if( W.bDropped )
             W.LifeSpan = 10.f; // Make sure it gets destroyed.
 }
@@ -196,9 +196,9 @@ function AddDefaultInventory()
 
 //    local Frag F;
 //
-//    Super.AddDefaultInventory();
-//    F = Frag(FindInventoryType(Class'Frag'));
-//    if( F!=None )
+//    super.AddDefaultInventory();
+//    F = Frag(FindInventoryType(class'Frag'));
+//    if( F!=none )
 //    {
 //        if( KFDM(Level.Game).InitGrenadesCount<3 )
 //            F.ConsumeAmmo(0,3-KFDM(Level.Game).InitGrenadesCount,true);
@@ -258,7 +258,7 @@ function AddDefaultInventory()
     }
 
     // HACK FIXME
-    if ( Inventory != None )
+    if ( Inventory != none )
         Inventory.OwnerEvent('LoadOut');
 
     Controller.ClientSwitchToBestWeapon();
@@ -269,10 +269,10 @@ simulated function PlayDying(class<DamageType> DamageType, vector HitLoc)
     local LavaDeath LD;
     local MiscEmmiter BE;
 
-    if( Adjuster!=None )
+    if( Adjuster!=none )
         Adjuster.Destroy();
-    bHasFootAdjust = False;
-    AmbientSound = None;
+    bHasFootAdjust = false;
+    AmbientSound = none;
     bCanTeleport = false; // sjs - fix karma going crazy when corpses land on teleporters
     bReplicateMovement = false;
     bTearOff = true;
@@ -281,23 +281,23 @@ simulated function PlayDying(class<DamageType> DamageType, vector HitLoc)
 
     SafeMesh = Mesh;
 
-    if (CurrentCombo != None)
+    if (CurrentCombo != none)
         CurrentCombo.Destroy();
 
     HitDamageType = DamageType; // these are replicated to other clients
     TakeHitLocation = HitLoc;
 
-    if ( DamageType != None )
+    if ( DamageType != none )
     {
         if ( DamageType.default.bSkeletize )
         {
-            SetOverlayMaterial(DamageType.Default.DamageOverlayMaterial, 4.0, true);
+            SetOverlayMaterial(DamageType.default.DamageOverlayMaterial, 4.0, true);
             if (!bSkeletized)
             {
                 if ( (Level.NetMode != NM_DedicatedServer) && DamageType.default.bLeaveBodyEffect )
                 {
                     BE = spawn(class'MiscEmmiter',self);
-                    if ( BE != None )
+                    if ( BE != none )
                     {
                         BE.DamageType = DamageType;
                         BE.HitLoc = HitLoc;
@@ -311,16 +311,16 @@ simulated function PlayDying(class<DamageType> DamageType, vector HitLoc)
                 if ( (Level.NetMode != NM_DedicatedServer) && (DamageType == class'FellLava') )
                 {
                     LD = spawn(class'LavaDeath', , , Location + vect(0, 0, 10), Rotation );
-                    if ( LD != None )
+                    if ( LD != none )
                         LD.SetBase(self);
                     PlaySound( sound'Inf_Weapons.F1.f1_explode01', SLOT_None, 1.5*TransientSoundVolume ); // KFTODO: Replace this sound
                 }
             }
         }
-        else if ( DamageType.Default.DeathOverlayMaterial != None )
-            SetOverlayMaterial(DamageType.Default.DeathOverlayMaterial, DamageType.default.DeathOverlayTime, true);
-        else if ( (DamageType.Default.DamageOverlayMaterial != None) && (Level.DetailMode != DM_Low) && !Level.bDropDetail )
-            SetOverlayMaterial(DamageType.Default.DamageOverlayMaterial, 2*DamageType.default.DamageOverlayTime, true);
+        else if ( DamageType.default.DeathOverlayMaterial != none )
+            SetOverlayMaterial(DamageType.default.DeathOverlayMaterial, DamageType.default.DeathOverlayTime, true);
+        else if ( (DamageType.default.DamageOverlayMaterial != none) && (Level.DetailMode != DM_Low) && !Level.bDropDetail )
+            SetOverlayMaterial(DamageType.default.DamageOverlayMaterial, 2*DamageType.default.DamageOverlayTime, true);
     }
 
     // stop shooting
@@ -329,7 +329,7 @@ simulated function PlayDying(class<DamageType> DamageType, vector HitLoc)
     LifeSpan = 60.f;
 
     GotoState('Dying');
-    if ( BE != None )
+    if ( BE != none )
         return;
 
     PlayDyingAnimation(DamageType, HitLoc);
@@ -346,7 +346,7 @@ function PlayDyingAnimation(class<DamageType> DamageType, vector HitLoc)
     if ( Level.NetMode != NM_DedicatedServer )
     {
         // Is this the local player's ragdoll?
-        if(OldController != None)
+        if(OldController != none)
             pc = PlayerController(OldController);
         if( pc != none && pc.ViewTarget == self )
             PlayersRagdoll = true;
@@ -354,7 +354,7 @@ function PlayDyingAnimation(class<DamageType> DamageType, vector HitLoc)
         // Try and obtain a rag-doll setup. Use optional 'override' one out of player record first, then use the species one.
         if( RagdollOverride != "")
             RagSkelName = RagdollOverride;
-        else if(Species != None)
+        else if(Species != none)
             RagSkelName = Species.static.GetRagSkelName( GetMeshName() );
         else RagSkelName = "Male1"; // Otherwise assume it is Male1 ragdoll were after here.
 
@@ -368,7 +368,7 @@ function PlayDyingAnimation(class<DamageType> DamageType, vector HitLoc)
             // Stop animation playing.
             StopAnimating(true);
 
-            if( DamageType != None )
+            if( DamageType != none )
             {
                 if ( DamageType.default.bLeaveBodyEffect )
                     TearOffMomentum = vect(0,0,0);
@@ -401,7 +401,7 @@ function PlayDyingAnimation(class<DamageType> DamageType, vector HitLoc)
 
             // Set initial angular and linear velocity for ragdoll.
             // Scale horizontal velocity for characters - they run really fast!
-            if ( DamageType.Default.bRubbery )
+            if ( DamageType.default.bRubbery )
                 skelParams.KStartLinVel = vect(0,0,0);
             if ( Damagetype.default.bKUseTearOffMomentum )
                 skelParams.KStartLinVel = GetTearOffMomemtum() + Velocity;
@@ -413,10 +413,10 @@ function PlayDyingAnimation(class<DamageType> DamageType, vector HitLoc)
                 skelParams.KStartLinVel += shotStrength;
             }
             // If not moving downwards - give extra upward kick
-            if( !DamageType.default.bLeaveBodyEffect && !DamageType.Default.bRubbery && (Velocity.Z > -10) )
+            if( !DamageType.default.bLeaveBodyEffect && !DamageType.default.bRubbery && (Velocity.Z > -10) )
                 skelParams.KStartLinVel.Z += RagDeathUpKick;
 
-            if ( DamageType.Default.bRubbery )
+            if ( DamageType.default.bRubbery )
             {
                 Velocity = vect(0,0,0);
                 skelParams.KStartAngVel = vect(0,0,0);
@@ -434,7 +434,7 @@ function PlayDyingAnimation(class<DamageType> DamageType, vector HitLoc)
             }
 
             // If this damage type causes convulsions, turn them on here.
-            if(DamageType != None && DamageType.default.bCauseConvulsions)
+            if(DamageType != none && DamageType.default.bCauseConvulsions)
             {
                 RagConvulseMaterial=DamageType.default.DamageOverlayMaterial;
                 skelParams.bKDoConvulsions = true;
@@ -451,8 +451,8 @@ function PlayDyingAnimation(class<DamageType> DamageType, vector HitLoc)
             if( PlayersRagdoll )
                 skelParams.bKImportantRagdoll = true;
 
-            skelParams.bRubbery = DamageType.Default.bRubbery;
-            bRubbery = DamageType.Default.bRubbery;
+            skelParams.bRubbery = DamageType.default.bRubbery;
+            bRubbery = DamageType.default.bRubbery;
 
             skelParams.KActorGravScale = RagGravScale;
 
@@ -463,7 +463,7 @@ function PlayDyingAnimation(class<DamageType> DamageType, vector HitLoc)
 
     // non-ragdoll death fallback
     Velocity += GetTearOffMomemtum();
-    BaseEyeHeight = Default.BaseEyeHeight;
+    BaseEyeHeight = default.BaseEyeHeight;
     SetTwistLook(0, 0);
     SetInvisibility(0.0);
     SetCollision(false);
@@ -497,7 +497,7 @@ exec function TossCash( int Amount )
         CashPickup.RespawnTime = 0;   // Dropped cash doesnt respawn. For obvious reasons.
         CashPickup.Velocity = TossVel;
         CashPickup.DroppedBy = Controller;
-        CashPickup.InitDroppedPickupFor(None);
+        CashPickup.InitDroppedPickupFor(none);
         Controller.PlayerReplicationInfo.Score -= Amount;
 
         if ( Level.Game.NumPlayers > 1 && Level.TimeSeconds - LastDropCashMessageTime > DropCashMessageDelay )
@@ -513,7 +513,7 @@ defaultproperties
      RequiredEquipment(2)=""
      RequiredEquipment(3)="KFGunGame.GGSyringe"
      RequiredEquipment(4)=""
-     bNoTeamBeacon=True
-     bScriptPostRender=False
+     bNoTeamBeacon=true
+     bScriptPostRender=false
      GroundSpeed=250.000000
 }

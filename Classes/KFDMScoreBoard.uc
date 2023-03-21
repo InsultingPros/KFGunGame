@@ -282,5 +282,5 @@ simulated event UpdateScoreBoard(Canvas Canvas)
 defaultproperties
 {
      HealthText="Deaths"
-     bDisplayWithKills=True
+     bDisplayWithKills=true
 }

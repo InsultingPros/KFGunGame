@@ -14,12 +14,12 @@ function PositionButtons (Canvas C)
     for ( i = 0; i < Controls.Length; i++ )
     {
         b = GUIButton(Controls[i]);
-        if ( b != None)
+        if ( b != none)
         {
             if ( x == 0 )
                 x = ButtonLeft;
             else x += GetSpacer();
-            b.WinLeft = b.RelativeLeft( x, True );
+            b.WinLeft = b.RelativeLeft( x, true );
             x += b.ActualWidth();
         }
     }
@@ -45,7 +45,7 @@ function bool ButtonsSized(Canvas C)
     for (i = 0; i < Controls.Length; i++ )
     {
         b = GUIButton(Controls[i]);
-        if ( b != None )
+        if ( b != none )
         {
             if ( bAutoSize && bFixedWidth )
             {
@@ -98,7 +98,7 @@ function float GetButtonLeft()
     for (i = 0; i < Controls.Length; i++ )
     {
         b = GUIButton(Controls[i]);
-        if ( b != None )
+        if ( b != none )
         {
             if ( TotalWidth > 0 )
                 TotalWidth += GetSpacer();
@@ -124,15 +124,15 @@ function string GetLongestCaption(Canvas C)
     local string str;
     local GUIButton b;
 
-    if ( C == None )
+    if ( C == none )
         return "";
 
     for ( i = 0; i < Controls.Length; i++ )
     {
         b = GUIButton(Controls[i]);
-        if ( b != None )
+        if ( b != none )
         {
-            if ( b.Style != None )
+            if ( b.Style != none )
                 b.Style.TextSize(C, b.MenuState, b.Caption, XL, YL, b.FontScale);
             else C.StrLen( b.Caption, XL, YL );
 
@@ -167,7 +167,7 @@ function bool OnFooterClick(GUIComponent Sender)
         {
                 //Set Ready
                 //PC.ServerRestartPlayer();
-                PC.PlayerReplicationInfo.bReadyToPlay = True;
+                PC.PlayerReplicationInfo.bReadyToPlay = true;
                 //if ( PC.Level.GRI.bMatchHasBegun )
                     PC.ClientCloseMenu(true, false);
         }
@@ -187,7 +187,7 @@ function OnSteamStatsAndAchievementsReady()
 
 defaultproperties
 {
-     Begin Object Class=GUIButton Name=ReadyButton
+     Begin Object class=GUIButton Name=ReadyButton
          Caption="Ready"
          Hint="Click here to choose your team and begin"
          WinTop=0.966146
@@ -196,15 +196,15 @@ defaultproperties
          WinHeight=0.033203
          RenderWeight=2.000000
          TabOrder=5
-         bBoundToParent=True
-         ToolTip=None
+         bBoundToParent=true
+         ToolTip=none
 
          OnClick=GGLobbyFooter.OnFooterClick
          OnKeyEvent=ReadyButton.InternalOnKeyEvent
      End Object
      b_Ready=ReadyButton
 
-     Begin Object Class=GUIButton Name=Cancel
+     Begin Object class=GUIButton Name=Cancel
          Caption="Disconnect"
          Hint="Disconnect From This Server"
          WinTop=0.966146
@@ -213,15 +213,15 @@ defaultproperties
          WinHeight=0.033203
          RenderWeight=2.000000
          TabOrder=4
-         bBoundToParent=True
-         ToolTip=None
+         bBoundToParent=true
+         ToolTip=none
 
          OnClick=GGLobbyFooter.OnFooterClick
          OnKeyEvent=Cancel.InternalOnKeyEvent
      End Object
      b_Cancel=Cancel
 
-     Begin Object Class=GUIButton Name=Options
+     Begin Object class=GUIButton Name=Options
          Caption="Options"
          Hint="Change game settings."
          WinTop=0.966146
@@ -230,8 +230,8 @@ defaultproperties
          WinHeight=0.033203
          RenderWeight=2.000000
          TabOrder=3
-         bBoundToParent=True
-         ToolTip=None
+         bBoundToParent=true
+         ToolTip=none
 
          OnClick=GGLobbyFooter.OnFooterClick
          OnKeyEvent=Cancel.InternalOnKeyEvent

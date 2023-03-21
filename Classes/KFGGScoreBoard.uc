@@ -67,7 +67,7 @@ simulated final function DrawTeamScores( byte Team, Canvas Canvas, float XOfs )
     for ( i = 0; i < GRI.PRIArray.Length; i++)
     {
         PRI = GRI.PRIArray[i];
-        if ( !PRI.bOnlySpectator && PRI.Team!=None && PRI.Team.TeamIndex==Team )
+        if ( !PRI.bOnlySpectator && PRI.Team!=none && PRI.Team.TeamIndex==Team )
         {
             PRIArray[PlayerCount++] = PRI;
             if( PlayerCount==MAXPLAYERS )
@@ -115,8 +115,8 @@ simulated final function DrawTeamScores( byte Team, Canvas Canvas, float XOfs )
     // draw background boxes
     Canvas.Style = ERenderStyle.STY_Alpha;
     if( Team==0 )
-        Canvas.DrawColor = Class'Hud'.Default.GreenColor;
-    else Canvas.DrawColor = Class'Hud'.Default.BlueColor;
+        Canvas.DrawColor = class'Hud'.default.GreenColor;
+    else Canvas.DrawColor = class'Hud'.default.BlueColor;
     Canvas.DrawColor.A = 128;
 
     for ( i = 0; i < PlayerCount; i++ )
@@ -133,7 +133,7 @@ simulated final function DrawTeamScores( byte Team, Canvas Canvas, float XOfs )
     TitleYPos = HeaderOffsetY - 1.1 * YL;
     Canvas.DrawColor = HUDClass.default.WhiteColor;
 
-    if( GRI!=None && GRI.Teams[Team]!=None )
+    if( GRI!=none && GRI.Teams[Team]!=none )
     {
         Canvas.SetPos(BoxXPos+0.1f*BoxWidth, TitleYPos-1.25f*YL);
         if( Team==0 )

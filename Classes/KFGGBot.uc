@@ -15,9 +15,9 @@ function bool FindInjuredAlly()
     // Lets test them not healing anyone so they just keep fighting
     return false;
 
-    InjuredAlly = None;
+    InjuredAlly = none;
 
-    if( LastHealTime>Level.TimeSeconds || !Level.Game.bTeamGame || (Enemy!=None && VSizeSquared(Enemy.Location-Pawn.Location)<1000000.f && LineOfSightTo(Enemy)) )
+    if( LastHealTime>Level.TimeSeconds || !Level.Game.bTeamGame || (Enemy!=none && VSizeSquared(Enemy.Location-Pawn.Location)<1000000.f && LineOfSightTo(Enemy)) )
         return false;
 
     if( FindMySyringe()==none || MySyringe.ChargeBar()<0.6f )
@@ -25,7 +25,7 @@ function bool FindInjuredAlly()
 
     for(c=level.ControllerList; c!=none; c=c.nextController)
     {
-        if( C==Self || C.PlayerReplicationInfo==None || C.PlayerReplicationInfo.Team!=PlayerReplicationInfo.Team )
+        if( C==Self || C.PlayerReplicationInfo==none || C.PlayerReplicationInfo.Team!=PlayerReplicationInfo.Team )
             continue;
 
         aKFHPawn = KFHumanPawn(c.pawn);
@@ -42,7 +42,7 @@ function bool FindInjuredAlly()
             BestDist = AllyDist;
         }
     }
-    return (InjuredAlly!=None);
+    return (InjuredAlly!=none);
 }
 
 function ExecuteWhatToDoNext()
@@ -51,17 +51,17 @@ function ExecuteWhatToDoNext()
 
     bHasFired = false;
     GoalString = "WhatToDoNext at "$Level.TimeSeconds;
-    if ( Pawn == None )
+    if ( Pawn == none )
     {
         warn(GetHumanReadableName()$" WhatToDoNext with no pawn");
         return;
     }
 
-    if ( Enemy == None )
+    if ( Enemy == none )
     {
         if ( Level.Game.TooManyBots(self) )
         {
-            if ( Pawn != None )
+            if ( Pawn != none )
             {
                 Pawn.Health = 0;
                 Pawn.Died( self, class'Suicided', Pawn.Location );
@@ -69,9 +69,9 @@ function ExecuteWhatToDoNext()
             Destroy();
             return;
         }
-        BlockedPath = None;
+        BlockedPath = none;
         bFrustrated = false;
-        if (Target == None || (Pawn(Target) != None && Pawn(Target).Health <= 0))
+        if (Target == none || (Pawn(Target) != none && Pawn(Target).Health <= 0))
             StopFiring();
     }
 
@@ -81,15 +81,15 @@ function ExecuteWhatToDoNext()
         Pawn.SetMovementPhysics();
     if ( (Pawn.Physics == PHYS_Falling) && DoWaitForLanding() )
         return;
-    if ( (StartleActor != None) && !StartleActor.bDeleteMe && (VSize(StartleActor.Location - Pawn.Location) < StartleActor.CollisionRadius)  )
+    if ( (StartleActor != none) && !StartleActor.bDeleteMe && (VSize(StartleActor.Location - Pawn.Location) < StartleActor.CollisionRadius)  )
     {
         Startle(StartleActor);
         return;
     }
     bIgnoreEnemyChange = true;
-    if ( (Enemy != None) && ((Enemy.Health <= 0) || (Enemy.Controller == None)) )
+    if ( (Enemy != none) && ((Enemy.Health <= 0) || (Enemy.Controller == none)) )
         LoseEnemy();
-    if ( Enemy == None )
+    if ( Enemy == none )
         Squad.FindNewEnemyFor(self,false);
     else if ( !Squad.MustKeepEnemy(Enemy) && !EnemyVisible() )
     {
@@ -113,14 +113,14 @@ function ExecuteWhatToDoNext()
     }
     else if ( AssignSquadResponsibility() )
     {
-        if ( Pawn == None )
+        if ( Pawn == none )
             return;
         SwitchToBestWeapon();
         return;
     }
     if ( ShouldPerformScript() )
         return;
-    if ( Enemy != None )
+    if ( Enemy != none )
         ChooseAttackMode();
     else
     {
@@ -128,7 +128,7 @@ function ExecuteWhatToDoNext()
 
         if ( FindInventoryGoal(WeaponRating) )
         {
-            if ( InventorySpot(RouteGoal) == None )
+            if ( InventorySpot(RouteGoal) == none )
                 GoalString = "fallback - inventory goal is not pickup but "$RouteGoal;
             else GoalString = "Fallback to better pickup "$InventorySpot(RouteGoal).markedItem$" hidden "$InventorySpot(RouteGoal).markedItem.bHidden;
             GotoState('FallBack');
@@ -151,7 +151,7 @@ function bool GetNearestShop()
     local ShopVolume Sp;
 
     KFGT = KFGameType(Level.Game);
-    if( KFGT==None )
+    if( KFGT==none )
         return false;
     l = KFGT.ShopList.Length;
     for( i=0; i<l; i++ )
@@ -161,18 +161,18 @@ function bool GetNearestShop()
         if( !KFGT.ShopList[i].bTelsInit )
             KFGT.ShopList[i].InitTeleports();
         Dist = VSize(KFGT.ShopList[i].Location-Pawn.Location);
-        if( Dist<BDist || Sp==None )
+        if( Dist<BDist || Sp==none )
         {
             Sp = KFGT.ShopList[i];
             BDist = Dist;
         }
     }
-    if( Sp==None )
+    if( Sp==none )
         return false;
-    if( Sp.BotPoint==None )
+    if( Sp.BotPoint==none )
     {
         Sp.BotPoint = FindShopPoint(Sp);
-        if( Sp.BotPoint==None )
+        if( Sp.BotPoint==none )
             return false;
     }
     ShoppingPath = Sp.BotPoint;
@@ -183,10 +183,10 @@ final function NavigationPoint FindShopPoint( ShopVolume S )
     local NavigationPoint N,BN;
     local float Dist,BDist;
 
-    for( N=Level.NavigationPointList; N!=None; N=N.nextNavigationPoint )
+    for( N=Level.NavigationPointList; N!=none; N=N.nextNavigationPoint )
     {
         Dist = VSizeSquared(N.Location-S.Location);
-        if( BN==None || BDist>Dist )
+        if( BN==none || BDist>Dist )
         {
             BN = N;
             BDist = Dist;
@@ -200,17 +200,17 @@ Handles tactical attacking state selection - choose which type of attack to do f
 */
 function ChooseAttackMode()
 {
-    Super(xBot).ChooseAttackMode();
+    super(xBot).ChooseAttackMode();
 }
 
 function FightEnemy(bool bCanCharge, float EnemyStrength)
 {
-    Super(xBot).FightEnemy(bCanCharge,EnemyStrength);
+    super(xBot).FightEnemy(bCanCharge,EnemyStrength);
 }
 
 function SetCombatTimer()
 {
-    SetTimer(0.12f, True);
+    SetTimer(0.12f, true);
 }
 
 function bool CanAfford(class<Pickup> aItem)
@@ -222,14 +222,14 @@ function bool CanAfford(class<Pickup> aItem)
 
     aWeapon = class<kfWeaponPickup>(aItem);
     KF = KFHumanPawn(Pawn);
-    if( aWeapon==None || KF==None )
+    if( aWeapon==none || KF==none )
         return false;
 
     for( MyInv=Pawn.Inventory; MyInv!=none; MyInv=Inv.Inventory )
     {
         Weap = KFWeapon(MyInv);
         if( Weap!=none && Weap.PickupClass==aWeapon )
-            return (Weap.AmmoClass[0]!=none && PlayerReplicationInfo.Score>=aWeapon.default.ammocost && Weap.AmmoAmount(0)<Weap.AmmoClass[0].Default.MaxAmmo);
+            return (Weap.AmmoClass[0]!=none && PlayerReplicationInfo.Score>=aWeapon.default.ammocost && Weap.AmmoAmount(0)<Weap.AmmoClass[0].default.MaxAmmo);
     }
 
     // if we didn't find it above, we need to see if we can buy the whole gun, not just ammo
@@ -250,7 +250,7 @@ function DoTrading()
     KFLR = KFGameType(Level.game).KFLRules;
     for(i=0; i<KFLR.MAX_BUYITEMS; i++ )
     {
-        if( KFLR.ItemForSale[i]!=None && CanAfford(KFLR.ItemForSale[i]) )
+        if( KFLR.ItemForSale[i]!=none && CanAfford(KFLR.ItemForSale[i]) )
             ShoppingList[ShoppingList.Length] = KFLR.ItemForSale[i];
     }
 
@@ -260,8 +260,8 @@ function DoTrading()
 
         BuyWeapClass = class<KFWeaponPickup>(ShoppingList[i]);
         ShoppingList.Remove(i,1);
-        if( BuyWeapClass==None )
-            Continue;
+        if( BuyWeapClass==none )
+            continue;
         Weap = FindWeaponInInv(BuyWeapClass);
 
         if(Weap!=none) // already own gun, buy ammo
@@ -275,7 +275,7 @@ function DoTrading()
         else // buy that gun
         {
             Weap = KFWeapon(Spawn(BuyWeapClass.default.InventoryType));
-            if( Weap!=None )
+            if( Weap!=none )
                 Weap.GiveTo(pawn);
             PlayerReplicationInfo.Score -= BuyWeapClass.default.cost;
         }
@@ -299,7 +299,7 @@ KeepMoving:
     if( Enemy==none || VSizeSquared(Pawn.Location-InjuredAlly.Location)<VSizeSquared(Pawn.Location-Enemy.Location) )
         ClientSetWeapon(class'Syringe');
 
-    if( Enemy!=None && VSizeSquared(Enemy.Location-Pawn.Location)<4000000.f && LineOfSightTo(Enemy) )
+    if( Enemy!=none && VSizeSquared(Enemy.Location-Pawn.Location)<4000000.f && LineOfSightTo(Enemy) )
     {
         LastHealTime = Level.TimeSeconds+6.f;
         WhatToDoNext(152);

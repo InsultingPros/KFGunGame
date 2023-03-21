@@ -7,7 +7,7 @@ function InitComponent(GUIController MyController, GUIComponent MyComponent)
     local PlayerController PC;
 //    local int i;
 
-    Super.InitComponent(MyController, MyComponent);
+    super.InitComponent(MyController, MyComponent);
 
     // Remove Perks tab if Perks aren't enabled
     PC = PlayerOwner();
@@ -72,15 +72,15 @@ defaultproperties
      Panels(1)=(ClassName="KFGUI.KFTab_MidGamePerks",Caption="Perks",Hint="Select your current Perk")
      Panels(2)=(ClassName="KFGunGame.KFGGTab_MidGameVoiceChat",Caption="Communication",Hint="Manage communication with other players")
      Panels(3)=(ClassName="KFGunGame.KFGGTab_MidGameHelp",Caption="Help",Hint="How to survive in Killing Floor")
-     Begin Object Class=GUITabControl Name=LoginMenuTC
-         bDockPanels=True
+     Begin Object class=GUITabControl Name=LoginMenuTC
+         bDockPanels=true
          BackgroundStyleName="TabBackground"
          WinTop=0.026336
          WinLeft=0.012500
          WinWidth=0.974999
          WinHeight=0.050000
-         bScaleToParent=True
-         bAcceptsInput=True
+         bScaleToParent=true
+         bAcceptsInput=true
          OnActivate=LoginMenuTC.InternalOnActivate
      End Object
      c_Main=LoginMenuTC

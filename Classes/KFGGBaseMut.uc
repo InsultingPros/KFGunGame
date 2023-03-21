@@ -5,8 +5,8 @@ class KFGGBaseMut extends KillingFloorMut
 
 function bool CheckReplacement(Actor Other, out byte bSuperRelevant)
 {
-    if( Controller(Other)!=None )
-        Controller(Other).PlayerReplicationInfoClass = Class'KFGGPRI';
+    if( Controller(Other)!=none )
+        Controller(Other).PlayerReplicationInfoClass = class'KFGGPRI';
     return true;
 }
 

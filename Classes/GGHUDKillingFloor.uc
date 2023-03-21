@@ -14,7 +14,7 @@ simulated final function UpdatePosition()
     PRI = PlayerOwner.PlayerReplicationInfo;
     for( i=0; i<KFGRI.PRIArray.Length; i++ )
     {
-        if( KFGRI.PRIArray[i]==None || KFGRI.PRIArray[i]==PRI || KFGRI.PRIArray[i].bOnlySpectator )
+        if( KFGRI.PRIArray[i]==none || KFGRI.PRIArray[i]==PRI || KFGRI.PRIArray[i].bOnlySpectator )
             continue;
         PLCount++;
         if( KFGRI.PRIArray[i].Kills>PRI.Kills )
@@ -75,10 +75,10 @@ simulated function DrawHud(Canvas C)
 
     DrawHudPassC(C);
 
-    if ( KFPlayerController(PlayerOwner)!= None && KFPlayerController(PlayerOwner).ActiveNote!= None )
+    if ( KFPlayerController(PlayerOwner)!= none && KFPlayerController(PlayerOwner).ActiveNote!= none )
     {
         if( PlayerOwner.Pawn == none )
-            KFPlayerController(PlayerOwner).ActiveNote = None;
+            KFPlayerController(PlayerOwner).ActiveNote = none;
         else KFPlayerController(PlayerOwner).ActiveNote.RenderNote(C);
     }
 
@@ -92,11 +92,11 @@ simulated function DrawHud(Canvas C)
 
     PassStyle = STY_Modulated;
 
-    if ( KFGameReplicationInfo(Level.GRI)!= None && KFGameReplicationInfo(Level.GRI).EndGameType > 0 )
+    if ( KFGameReplicationInfo(Level.GRI)!= none && KFGameReplicationInfo(Level.GRI).EndGameType > 0 )
     {
         if ( KFGameReplicationInfo(Level.GRI).EndGameType == 2 )
-            DrawEndGameHUD(C, True);
-        else DrawEndGameHUD(C, False);
+            DrawEndGameHUD(C, true);
+        else DrawEndGameHUD(C, false);
     }
     else DrawKFHUDTextElements(C);
 
@@ -106,8 +106,8 @@ simulated function DrawHud(Canvas C)
 
 function DrawDoorHealthBars(Canvas C)
 {
-    if( PlayerOwner.Pawn!=None )
-        Super.DrawDoorHealthBars(C);
+    if( PlayerOwner.Pawn!=none )
+        super.DrawDoorHealthBars(C);
 }
 
 simulated function DrawKFHUDTextElements(Canvas C);
@@ -116,18 +116,18 @@ simulated function DrawHudPassC(Canvas C)
 {
     DrawFadeEffect(C);
 
-    if ( bShowScoreBoard && ScoreBoard != None )
+    if ( bShowScoreBoard && ScoreBoard != none )
     {
         ScoreBoard.DrawScoreboard(C);
     }
 
     // portrait
-    if ( bShowPortrait && (Portrait != None) )
+    if ( bShowPortrait && (Portrait != none) )
     {
         DrawPortrait(C);
     }
 
-    if ( PawnOwner != None && PawnOwner.Weapon != None && KFWeapon(PawnOwner.Weapon) != none )
+    if ( PawnOwner != none && PawnOwner.Weapon != none && KFWeapon(PawnOwner.Weapon) != none )
     {
         if( !KFWeapon(PawnOwner.Weapon).bAimingRifle && !PawnOwner.Weapon.IsA('Crossbow')
             && !PawnOwner.Weapon.IsA('M14EBRBattleRifle') && !PawnOwner.Weapon.IsA('M99SniperRifle') )
@@ -155,17 +155,17 @@ simulated function DrawCrosshair (Canvas C)
 //    if (!bCrosshairShow /*|| !class'ROEngine.ROLevelInfo'.static.RODebugMode() || !bShowKFDebugXHair*/)
 //        return;
 
-    if ( (PawnOwner != None) && (PawnOwner.Weapon != None) && (PawnOwner.Weapon.CustomCrosshair >= 0) )
+    if ( (PawnOwner != none) && (PawnOwner.Weapon != none) && (PawnOwner.Weapon.CustomCrosshair >= 0) )
     {
         CurrentCrosshairColor = PawnOwner.Weapon.CustomCrosshairColor;
         CurrentCrosshair = PawnOwner.Weapon.CustomCrosshair;
         CurrentCrosshairScale = PawnOwner.Weapon.CustomCrosshairScale;
         if ( PawnOwner.Weapon.CustomCrosshairTextureName != "" )
         {
-            if ( PawnOwner.Weapon.CustomCrosshairTexture == None )
+            if ( PawnOwner.Weapon.CustomCrosshairTexture == none )
             {
                 PawnOwner.Weapon.CustomCrosshairTexture = Texture(DynamicLoadObject(PawnOwner.Weapon.CustomCrosshairTextureName,class'Texture'));
-                if ( PawnOwner.Weapon.CustomCrosshairTexture == None )
+                if ( PawnOwner.Weapon.CustomCrosshairTexture == none )
                 {
                     log(PawnOwner.Weapon$" custom crosshair texture not found!");
                     PawnOwner.Weapon.CustomCrosshairTextureName = "";
@@ -185,7 +185,7 @@ simulated function DrawCrosshair (Canvas C)
     CurrentCrosshair = Clamp(CurrentCrosshair, 0, Crosshairs.Length - 1);
 
     NormalScale = Crosshairs[CurrentCrosshair].TextureScale;
-    if ( CHTexture.WidgetTexture == None )
+    if ( CHTexture.WidgetTexture == none )
         CHTexture = Crosshairs[CurrentCrosshair];
     CHTexture.TextureScale *= CurrentCrosshairScale;
 
@@ -210,19 +210,19 @@ simulated function DrawEndGameHUD(Canvas C, bool bVictory)
     C.Font = LoadFont(1);
     C.SetPos(0,C.ClipY*0.7f);
     C.bCenter = true;
-//    if( TeamInfo(KFGRI.Winner)==None )
+//    if( TeamInfo(KFGRI.Winner)==none )
 //        C.DrawText(LostMatchStr,false);
 //    else if( TeamInfo(KFGRI.Winner).TeamIndex==0 )
 //        C.DrawText("Red Team"$OtherWinnerStr,false);
 //    else C.DrawText("Blue Team"$OtherWinnerStr,false);
-    if( PlayerReplicationInfo(KFGRI.Winner)==None )
+    if( PlayerReplicationInfo(KFGRI.Winner)==none )
         C.DrawText(LostMatchStr,false); // Do something else here
     else if( KFGRI.Winner==PlayerOwner.PlayerReplicationInfo )
         C.DrawText(WonMatchStr,false);
     else C.DrawText(PlayerReplicationInfo(KFGRI.Winner).PlayerName$WonMatchPostFix,false);
 
     C.bCenter = false;
-    if ( bShowScoreBoard && ScoreBoard != None )
+    if ( bShowScoreBoard && ScoreBoard != none )
         ScoreBoard.DrawScoreboard(C);
 }
 

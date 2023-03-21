@@ -13,7 +13,7 @@ static simulated function ClientReceive(
     optional Object OptionalObject
     )
 {
-    Super.ClientReceive(P, Switch, RelatedPRI_1, RelatedPRI_2, OptionalObject);
+    super.ClientReceive(P, Switch, RelatedPRI_1, RelatedPRI_2, OptionalObject);
     if ( Switch < 7 )
     {
         P.Level.FillPrecacheMaterialsArray(false);
@@ -30,7 +30,7 @@ static simulated function ClientReceive(
     else if ( (Switch > 1) && (Switch < 5) )
         P.ClientPlaySound(sound'Miscsounds.Enter', true, 2.0);
     else if ( Switch == 7 )
-        P.ClientPlaySound(Default.Riff);
+        P.ClientPlaySound(default.Riff);
 }
 
 static function string GetString(
@@ -43,37 +43,37 @@ static function string GetString(
     local int i, PlayerCount;
     local GameReplicationInfo GRI;
 
-    if ( (RelatedPRI_1 != None) && (RelatedPRI_1.Level.NetMode == NM_Standalone) )
+    if ( (RelatedPRI_1 != none) && (RelatedPRI_1.Level.NetMode == NM_Standalone) )
     {
-        if ( (DeathMatch(RelatedPRI_1.Level.Game) != None) && DeathMatch(RelatedPRI_1.Level.Game).bQuickstart )
+        if ( (DeathMatch(RelatedPRI_1.Level.Game) != none) && DeathMatch(RelatedPRI_1.Level.Game).bQuickstart )
             return "";
         if ( Switch < 2 )
-            return Default.SinglePlayer;
+            return default.SinglePlayer;
     }
-    else if ( Switch == 0 && RelatedPRI_1 != None )
+    else if ( Switch == 0 && RelatedPRI_1 != none )
     {
         GRI = RelatedPRI_1.Level.GRI;
-        if (GRI == None)
-            return Default.Stage[0];
+        if (GRI == none)
+            return default.Stage[0];
         for (i = 0; i < GRI.PRIArray.Length; i++)
         {
-            if ( GRI.PRIArray[i] != None && !GRI.PRIArray[i].bOnlySpectator
+            if ( GRI.PRIArray[i] != none && !GRI.PRIArray[i].bOnlySpectator
                  && (!GRI.PRIArray[i].bIsSpectator || GRI.PRIArray[i].bWaitingPlayer) )
                 PlayerCount++;
         }
         if (GRI.MinNetPlayers - PlayerCount > 0)
-            return Default.Stage[0]@"("$(GRI.MinNetPlayers - PlayerCount)$")";
+            return default.Stage[0]@"("$(GRI.MinNetPlayers - PlayerCount)$")";
     }
     else if ( switch == 1 )
     {
-        if ( (RelatedPRI_1 == None) || !RelatedPRI_1.bWaitingPlayer )
-            return Default.Stage[0];
+        if ( (RelatedPRI_1 == none) || !RelatedPRI_1.bWaitingPlayer )
+            return default.Stage[0];
         else if ( RelatedPRI_1.bReadyToPlay )
-            return Default.Stage[1];
+            return default.Stage[1];
         else
-            return Default.NotReady;
+            return default.NotReady;
     }
-    return Default.Stage[Switch];
+    return default.Stage[Switch];
 }
 
 defaultproperties
@@ -88,6 +88,6 @@ defaultproperties
      Stage(7)="OVER TIME!"
      NotReady="You're not Ready. Click Ready!"
      SinglePlayer="Click Ready to start!"
-     bIsConsoleMessage=False
+     bIsConsoleMessage=false
      DrawColor=(B=64,G=64,R=255)
 }

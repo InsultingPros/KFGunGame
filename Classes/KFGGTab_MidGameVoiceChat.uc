@@ -24,13 +24,13 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
     local int i;
     local eFontScale FS;
 
-    Super.InitComponent(MyController, MyOwner);
+    super.InitComponent(MyController, MyOwner);
 
     s = GetSizingCaption();
 
     for ( i = 0; i < Controls.Length; i++ )
     {
-        if ( GUIButton(Controls[i]) != None && /*Controls[i] != b_Team &&*/ Controls[i] != b_Reset)
+        if ( GUIButton(Controls[i]) != none && /*Controls[i] != b_Team &&*/ Controls[i] != b_Reset)
         {
             GUIButton(Controls[i]).bAutoSize = true;
             GUIButton(Controls[i]).SizingCaption = s;
@@ -89,17 +89,17 @@ function InitGRI()
         return;
     }
 
-    bInit = False;
+    bInit = false;
 
     if ( !bTeamGame && !bFFAGame )
     {
         if ( GRI.bTeamGame )
         {
-            bTeamGame = True;
+            bTeamGame = true;
         }
         else if ( !(GRI.GameClass ~= "Engine.GameInfo") )
         {
-            bFFAGame = True;
+            bFFAGame = true;
         }
     }
 
@@ -163,15 +163,15 @@ function SetupGroups()
 
     if ( bTeamGame )
     {
-        //RemoveComponent(lb_FFA, True);
+        //RemoveComponent(lb_FFA, true);
         //RemoveComponent(sb_FFA, true);
 
-        if ( PC.GameReplicationInfo != None && PC.GameReplicationInfo.bNoTeamChanges )
+        if ( PC.GameReplicationInfo != none && PC.GameReplicationInfo.bNoTeamChanges )
         {
             RemoveComponent(b_Team,true);
         }
 
-        //lb_FFA = None;
+        //lb_FFA = none;
     }
     else if ( bFFAGame )
     {
@@ -195,7 +195,7 @@ function SetupGroups()
                  Controls[i] == b_MatchSetup ||
                  Controls[i] == b_Spec )
             {
-                RemoveComponent(Controls[i], True);
+                RemoveComponent(Controls[i], true);
             }
         }
     }
@@ -212,15 +212,15 @@ function SetupGroups()
 
     if ( PC.Level.NetMode == NM_StandAlone )
     {
-        RemoveComponent(b_MapVote, True);
-        RemoveComponent(b_MatchSetup, True);
-        RemoveComponent(b_KickVote, True);
+        RemoveComponent(b_MapVote, true);
+        RemoveComponent(b_MatchSetup, true);
+        RemoveComponent(b_KickVote, true);
     }
-    else if ( PC.VoteReplicationInfo != None )
+    else if ( PC.VoteReplicationInfo != none )
     {
         if ( !PC.VoteReplicationInfo.MapVoteEnabled() )
         {
-            RemoveComponent(b_MapVote,True);
+            RemoveComponent(b_MapVote,true);
         }
 
         if ( !PC.VoteReplicationInfo.KickVoteEnabled() )
@@ -324,7 +324,7 @@ function bool CurrentServerIsInFavorites()
     local string address,portString;
 
     // Get current network address
-    if ( PlayerOwner() == None )
+    if ( PlayerOwner() == none )
     {
         return true;
     }
@@ -361,7 +361,7 @@ function bool ButtonClicked(GUIComponent Sender)
     /*if ( Sender == i_JoinRed )
     {
         //Join Red team
-        if ( PC.PlayerReplicationInfo == None || PC.PlayerReplicationInfo.Team == none ||
+        if ( PC.PlayerReplicationInfo == none || PC.PlayerReplicationInfo.Team == none ||
              PC.PlayerReplicationInfo.Team.TeamIndex != 0 )
         {
             PC.ChangeTeam(0);
@@ -447,7 +447,7 @@ function bool InternalOnPreDraw(Canvas C)
 
         SetButtonPositions(C);
 
-        if ( (PlayerOwner().myHUD == None || !PlayerOwner().myHUD.IsInCinematic()) && GRI != none && GRI.bMatchHasBegun && !PlayerOwner().IsInState('GameEnded') )
+        if ( (PlayerOwner().myHUD == none || !PlayerOwner().myHUD.IsInCinematic()) && GRI != none && GRI.bMatchHasBegun && !PlayerOwner().IsInState('GameEnded') )
         {
             EnableComponent(b_Spec);
         }
@@ -469,7 +469,7 @@ function PopulateLists(GameReplicationInfo GRI)
     {
         PRI = GRI.PRIArray[i];
 
-        if ( PRI == None || PRI.bBot || xPlayerReplicationInfo(PRI) == none )
+        if ( PRI == none || PRI.bBot || xPlayerReplicationInfo(PRI) == none )
         {
             continue;
         }
@@ -500,29 +500,29 @@ function bool ContextMenuOpened(GUIContextMenu Menu)
 
     GRI = GetGRI();
 
-    if ( GRI == None )
+    if ( GRI == none )
     {
         return false;
     }
 
     List = GUIList(Controller.ActiveControl);
 
-    if ( List == None )
+    if ( List == none )
     {
         log(Name @ "ContextMenuOpened active control was not a list - active:" $ Controller.ActiveControl.Name);
-        return False;
+        return false;
     }
 
     if ( !List.IsValid() )
     {
-        return False;
+        return false;
     }
 
     PRI = GRI.FindPlayerByID(int(List.GetExtra()));
 
-    if ( PRI == None || PRI.bBot || PlayerIDIsMine(PRI.PlayerID) )
+    if ( PRI == none || PRI.bBot || PlayerIDIsMine(PRI.PlayerID) )
     {
-        return False;
+        return false;
     }
 
     Restriction = PlayerOwner().ChatManager.GetPlayerRestriction(PRI.PlayerID);
@@ -577,7 +577,7 @@ function bool ContextMenuOpened(GUIContextMenu Menu)
         Menu.ContextItems.Remove(6,Menu.ContextItems.Length - 6);
     }
 
-    return True;
+    return true;
 }
 
 function ContextClick(GUIContextMenu Menu, int ClickIndex)
@@ -591,7 +591,7 @@ function ContextClick(GUIContextMenu Menu, int ClickIndex)
 
     GRI = GetGRI();
 
-    if ( GRI == None )
+    if ( GRI == none )
     {
         return;
     }
@@ -600,14 +600,14 @@ function ContextClick(GUIContextMenu Menu, int ClickIndex)
     bUndo = Menu.ContextItems[ClickIndex] == ContextItems[ClickIndex];
     List = GUIList(Controller.ActiveControl);
 
-    if ( List == None )
+    if ( List == none )
     {
         return;
     }
 
     PRI = GRI.FindPlayerById(int(List.GetExtra()));
 
-    if ( PRI == None )
+    if ( PRI == none )
     {
         return;
     }
@@ -661,53 +661,53 @@ function bool TeamChange(GUIComponent Sender)
 
 defaultproperties
 {
-     Begin Object Class=GUIButton Name=TeamButton
+     Begin Object class=GUIButton Name=TeamButton
          Caption="Change Team"
          WinTop=0.890000
          WinLeft=0.725000
          WinWidth=0.200000
          WinHeight=0.050000
          TabOrder=0
-         bBoundToParent=True
-         bScaleToParent=True
-         bStandardized=True
+         bBoundToParent=true
+         bScaleToParent=true
+         bStandardized=true
          OnClick=KFGGTab_MidGameVoiceChat.TeamChange
          OnKeyEvent=TeamButton.InternalOnKeyEvent
      End Object
      b_Team=TeamButton
 
-     Begin Object Class=GUIButton Name=SettingsButton
+     Begin Object class=GUIButton Name=SettingsButton
          Caption="Settings"
          WinTop=0.878657
          WinLeft=0.194420
          WinWidth=0.147268
          WinHeight=0.048769
          TabOrder=1
-         bBoundToParent=True
-         bScaleToParent=True
+         bBoundToParent=true
+         bScaleToParent=true
          OnClick=KFGGTab_MidGameVoiceChat.ButtonClicked
          OnKeyEvent=SettingsButton.InternalOnKeyEvent
      End Object
      b_Settings=SettingsButton
 
-     Begin Object Class=GUIButton Name=BrowserButton
+     Begin Object class=GUIButton Name=BrowserButton
          Caption="Server Browser"
-         bAutoSize=True
+         bAutoSize=true
          WinTop=0.850000
          WinLeft=0.375000
          WinWidth=0.200000
          WinHeight=0.050000
          TabOrder=2
-         bBoundToParent=True
-         bScaleToParent=True
+         bBoundToParent=true
+         bScaleToParent=true
          OnClick=KFGGTab_MidGameVoiceChat.ButtonClicked
          OnKeyEvent=BrowserButton.InternalOnKeyEvent
      End Object
      b_Browser=BrowserButton
 
-     Begin Object Class=GUIButton Name=QuitGameButton
+     Begin Object class=GUIButton Name=QuitGameButton
          Caption="Exit Game"
-         bAutoSize=True
+         bAutoSize=true
          WinTop=0.870000
          WinLeft=0.725000
          WinWidth=0.200000
@@ -718,39 +718,39 @@ defaultproperties
      End Object
      b_Quit=QuitGameButton
 
-     Begin Object Class=GUIButton Name=FavoritesButton
+     Begin Object class=GUIButton Name=FavoritesButton
          Caption="Add to Favs"
-         bAutoSize=True
+         bAutoSize=true
          Hint="Add this server to your Favorites"
          WinTop=0.870000
          WinLeft=0.025000
          WinWidth=0.200000
          WinHeight=0.050000
          TabOrder=4
-         bBoundToParent=True
-         bScaleToParent=True
+         bBoundToParent=true
+         bScaleToParent=true
          OnClick=KFGGTab_MidGameVoiceChat.ButtonClicked
          OnKeyEvent=FavoritesButton.InternalOnKeyEvent
      End Object
      b_Favs=FavoritesButton
 
-     Begin Object Class=GUIButton Name=LeaveMatchButton
-         bAutoSize=True
+     Begin Object class=GUIButton Name=LeaveMatchButton
+         bAutoSize=true
          WinTop=0.870000
          WinLeft=0.725000
          WinWidth=0.200000
          WinHeight=0.050000
          TabOrder=11
-         bBoundToParent=True
-         bScaleToParent=True
+         bBoundToParent=true
+         bScaleToParent=true
          OnClick=KFGGTab_MidGameVoiceChat.ButtonClicked
          OnKeyEvent=LeaveMatchButton.InternalOnKeyEvent
      End Object
      b_Leave=LeaveMatchButton
 
-     Begin Object Class=GUIButton Name=MapVotingButton
+     Begin Object class=GUIButton Name=MapVotingButton
          Caption="Map Voting"
-         bAutoSize=True
+         bAutoSize=true
          WinTop=0.890000
          WinLeft=0.025000
          WinWidth=0.200000
@@ -761,9 +761,9 @@ defaultproperties
      End Object
      b_MapVote=MapVotingButton
 
-     Begin Object Class=GUIButton Name=KickVotingButton
+     Begin Object class=GUIButton Name=KickVotingButton
          Caption="Kick Voting"
-         bAutoSize=True
+         bAutoSize=true
          WinTop=0.890000
          WinLeft=0.375000
          WinWidth=0.200000
@@ -774,9 +774,9 @@ defaultproperties
      End Object
      b_KickVote=KickVotingButton
 
-     Begin Object Class=GUIButton Name=MatchSetupButton
+     Begin Object class=GUIButton Name=MatchSetupButton
          Caption="Match Setup"
-         bAutoSize=True
+         bAutoSize=true
          WinTop=0.890000
          WinLeft=0.725000
          WinWidth=0.200000
@@ -787,9 +787,9 @@ defaultproperties
      End Object
      b_MatchSetup=MatchSetupButton
 
-     Begin Object Class=GUIButton Name=SpectateButton
+     Begin Object class=GUIButton Name=SpectateButton
          Caption="Spectate"
-         bAutoSize=True
+         bAutoSize=true
          WinTop=0.890000
          WinLeft=0.725000
          WinWidth=0.200000
@@ -815,7 +815,7 @@ defaultproperties
      KickPlayer="Kick "
      BanPlayer="Ban "
      PlayerStyleName="TextLabel"
-     Begin Object Class=AltSectionBackground Name=PlayersBackground
+     Begin Object class=AltSectionBackground Name=PlayersBackground
          Caption="Players"
          LeftPadding=0.000000
          RightPadding=0.000000
@@ -825,13 +825,13 @@ defaultproperties
          WinLeft=0.019240
          WinWidth=0.457166
          WinHeight=0.798982
-         bBoundToParent=True
-         bScaleToParent=True
+         bBoundToParent=true
+         bScaleToParent=true
          OnPreDraw=PlayersBackground.InternalPreDraw
      End Object
      sb_Players=PlayersBackground
 
-     Begin Object Class=AltSectionBackground Name=SpecBackground
+     Begin Object class=AltSectionBackground Name=SpecBackground
          Caption="Spectators"
          LeftPadding=0.000000
          RightPadding=0.000000
@@ -841,13 +841,13 @@ defaultproperties
          WinLeft=0.486700
          WinWidth=0.491566
          WinHeight=0.369766
-         bBoundToParent=True
-         bScaleToParent=True
+         bBoundToParent=true
+         bScaleToParent=true
          OnPreDraw=SpecBackground.InternalPreDraw
      End Object
      sb_Specs=SpecBackground
 
-     Begin Object Class=AltSectionBackground Name=OptionBackground
+     Begin Object class=AltSectionBackground Name=OptionBackground
          Caption="Voice Options"
          TopPadding=0.040000
          BottomPadding=0.000000
@@ -855,8 +855,8 @@ defaultproperties
          WinLeft=0.486700
          WinWidth=0.490282
          WinHeight=0.415466
-         bBoundToParent=True
-         bScaleToParent=True
+         bBoundToParent=true
+         bScaleToParent=true
          OnPreDraw=OptionBackground.InternalPreDraw
      End Object
      sb_Options=OptionBackground

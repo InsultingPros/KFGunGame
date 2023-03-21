@@ -21,13 +21,13 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
     local int i;
     local eFontScale FS;
 
-    Super.InitComponent(MyController, MyOwner);
+    super.InitComponent(MyController, MyOwner);
 
     s = GetSizingCaption();
 
     for ( i = 0; i < Controls.Length; i++ )
     {
-        if ( GUIButton(Controls[i]) != None /*&& Controls[i] != b_Team && Controls[i] != PrevHintButton && Controls[i] != NextHintButton*/ )
+        if ( GUIButton(Controls[i]) != none /*&& Controls[i] != b_Team && Controls[i] != PrevHintButton && Controls[i] != NextHintButton*/ )
         {
             GUIButton(Controls[i]).bAutoSize = true;
             GUIButton(Controls[i]).SizingCaption = s;
@@ -48,7 +48,7 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
 
 function ShowPanel(bool bShow)
 {
-    Super.ShowPanel(bShow);
+    super.ShowPanel(bShow);
 
     if ( bShow )
     {
@@ -99,17 +99,17 @@ function InitGRI()
         return;
     }
 
-    bInit = False;
+    bInit = false;
 
     if ( !bTeamGame && !bFFAGame )
     {
         if ( GRI.bTeamGame )
         {
-            bTeamGame = True;
+            bTeamGame = true;
         }
         else if ( !(GRI.GameClass ~= "Engine.GameInfo") )
         {
-            bFFAGame = True;
+            bFFAGame = true;
         }
     }
 
@@ -173,15 +173,15 @@ function SetupGroups()
 
     if ( bTeamGame )
     {
-        //RemoveComponent(lb_FFA, True);
+        //RemoveComponent(lb_FFA, true);
         //RemoveComponent(sb_FFA, true);
 
-        if ( PC.GameReplicationInfo != None && PC.GameReplicationInfo.bNoTeamChanges )
+        if ( PC.GameReplicationInfo != none && PC.GameReplicationInfo.bNoTeamChanges )
         {
             RemoveComponent(b_Team,true);
         }
 
-        //lb_FFA = None;
+        //lb_FFA = none;
     }
     else if ( bFFAGame )
     {
@@ -205,7 +205,7 @@ function SetupGroups()
                  Controls[i] == b_MatchSetup ||
                  Controls[i] == b_Spec )
             {
-                RemoveComponent(Controls[i], True);
+                RemoveComponent(Controls[i], true);
             }
         }
     }
@@ -222,15 +222,15 @@ function SetupGroups()
 
     if ( PC.Level.NetMode == NM_StandAlone )
     {
-        RemoveComponent(b_MapVote, True);
-        RemoveComponent(b_MatchSetup, True);
-        RemoveComponent(b_KickVote, True);
+        RemoveComponent(b_MapVote, true);
+        RemoveComponent(b_MatchSetup, true);
+        RemoveComponent(b_KickVote, true);
     }
-    else if ( PC.VoteReplicationInfo != None )
+    else if ( PC.VoteReplicationInfo != none )
     {
         if ( !PC.VoteReplicationInfo.MapVoteEnabled() )
         {
-            RemoveComponent(b_MapVote,True);
+            RemoveComponent(b_MapVote,true);
         }
 
         if ( !PC.VoteReplicationInfo.KickVoteEnabled() )
@@ -334,7 +334,7 @@ function bool CurrentServerIsInFavorites()
     local string address,portString;
 
     // Get current network address
-    if ( PlayerOwner() == None )
+    if ( PlayerOwner() == none )
     {
         return true;
     }
@@ -371,7 +371,7 @@ function bool ButtonClicked(GUIComponent Sender)
     /*if ( Sender == i_JoinRed )
     {
         //Join Red team
-        if ( PC.PlayerReplicationInfo == None || PC.PlayerReplicationInfo.Team == none ||
+        if ( PC.PlayerReplicationInfo == none || PC.PlayerReplicationInfo.Team == none ||
              PC.PlayerReplicationInfo.Team.TeamIndex != 0 )
         {
             PC.ChangeTeam(0);
@@ -483,7 +483,7 @@ function bool InternalOnPreDraw(Canvas C)
         SetButtonPositions(C);
         //UpdatePlayerLists();
 
-        if ( (PlayerOwner().myHUD == None || !PlayerOwner().myHUD.IsInCinematic()) && GRI != none && GRI.bMatchHasBegun && !PlayerOwner().IsInState('GameEnded') )
+        if ( (PlayerOwner().myHUD == none || !PlayerOwner().myHUD.IsInCinematic()) && GRI != none && GRI.bMatchHasBegun && !PlayerOwner().IsInState('GameEnded') )
         {
             EnableComponent(b_Spec);
         }
@@ -505,29 +505,29 @@ function bool ContextMenuOpened(GUIContextMenu Menu)
 
     GRI = GetGRI();
 
-    if ( GRI == None )
+    if ( GRI == none )
     {
         return false;
     }
 
     List = GUIList(Controller.ActiveControl);
 
-    if ( List == None )
+    if ( List == none )
     {
         log(Name @ "ContextMenuOpened active control was not a list - active:" $ Controller.ActiveControl.Name);
-        return False;
+        return false;
     }
 
     if ( !List.IsValid() )
     {
-        return False;
+        return false;
     }
 
     PRI = GRI.FindPlayerByID(int(List.GetExtra()));
 
-    if ( PRI == None || PRI.bBot || PlayerIDIsMine(PRI.PlayerID) )
+    if ( PRI == none || PRI.bBot || PlayerIDIsMine(PRI.PlayerID) )
     {
-        return False;
+        return false;
     }
 
     Restriction = PlayerOwner().ChatManager.GetPlayerRestriction(PRI.PlayerID);
@@ -582,7 +582,7 @@ function bool ContextMenuOpened(GUIContextMenu Menu)
         Menu.ContextItems.Remove(6,Menu.ContextItems.Length - 6);
     }
 
-    return True;
+    return true;
 }
 
 function ContextClick(GUIContextMenu Menu, int ClickIndex)
@@ -596,7 +596,7 @@ function ContextClick(GUIContextMenu Menu, int ClickIndex)
 
     GRI = GetGRI();
 
-    if ( GRI == None )
+    if ( GRI == none )
     {
         return;
     }
@@ -605,14 +605,14 @@ function ContextClick(GUIContextMenu Menu, int ClickIndex)
     bUndo = Menu.ContextItems[ClickIndex] == ContextItems[ClickIndex];
     List = GUIList(Controller.ActiveControl);
 
-    if ( List == None )
+    if ( List == none )
     {
         return;
     }
 
     PRI = GRI.FindPlayerById(int(List.GetExtra()));
 
-    if ( PRI == None )
+    if ( PRI == none )
     {
         return;
     }
@@ -670,10 +670,10 @@ function Timer()
     local int i;
 
     PC = PlayerOwner();
-    if (PC != None && PC.GameReplicationInfo != None && PC.GameReplicationInfo.GameClass != "")
+    if (PC != none && PC.GameReplicationInfo != none && PC.GameReplicationInfo.GameClass != "")
     {
-        GameClass = class<GameInfo>(DynamicLoadObject(PC.GameReplicationInfo.GameClass, class'Class'));
-        if (GameClass != None)
+        GameClass = class<GameInfo>(DynamicLoadObject(PC.GameReplicationInfo.GameClass, class'class'));
+        if (GameClass != none)
         {
             //get game description and hints from game class
             GameDescriptionBox.SetContent(GameClass.default.Description);
@@ -754,53 +754,53 @@ function bool FixUp(Canvas C)
 
 defaultproperties
 {
-     Begin Object Class=GUIButton Name=TeamButton
+     Begin Object class=GUIButton Name=TeamButton
          Caption="Change Team"
          WinTop=0.890000
          WinLeft=0.725000
          WinWidth=0.200000
          WinHeight=0.050000
          TabOrder=0
-         bBoundToParent=True
-         bScaleToParent=True
-         bStandardized=True
+         bBoundToParent=true
+         bScaleToParent=true
+         bStandardized=true
          OnClick=KFGGTab_MidGameHelp.TeamChange
          OnKeyEvent=TeamButton.InternalOnKeyEvent
      End Object
      b_Team=TeamButton
 
-     Begin Object Class=GUIButton Name=SettingsButton
+     Begin Object class=GUIButton Name=SettingsButton
          Caption="Settings"
          WinTop=0.878657
          WinLeft=0.194420
          WinWidth=0.147268
          WinHeight=0.048769
          TabOrder=1
-         bBoundToParent=True
-         bScaleToParent=True
+         bBoundToParent=true
+         bScaleToParent=true
          OnClick=KFGGTab_MidGameHelp.ButtonClicked
          OnKeyEvent=SettingsButton.InternalOnKeyEvent
      End Object
      b_Settings=SettingsButton
 
-     Begin Object Class=GUIButton Name=BrowserButton
+     Begin Object class=GUIButton Name=BrowserButton
          Caption="Server Browser"
-         bAutoSize=True
+         bAutoSize=true
          WinTop=0.850000
          WinLeft=0.375000
          WinWidth=0.200000
          WinHeight=0.050000
          TabOrder=2
-         bBoundToParent=True
-         bScaleToParent=True
+         bBoundToParent=true
+         bScaleToParent=true
          OnClick=KFGGTab_MidGameHelp.ButtonClicked
          OnKeyEvent=BrowserButton.InternalOnKeyEvent
      End Object
      b_Browser=BrowserButton
 
-     Begin Object Class=GUIButton Name=QuitGameButton
+     Begin Object class=GUIButton Name=QuitGameButton
          Caption="Exit Game"
-         bAutoSize=True
+         bAutoSize=true
          WinTop=0.870000
          WinLeft=0.725000
          WinWidth=0.200000
@@ -811,39 +811,39 @@ defaultproperties
      End Object
      b_Quit=QuitGameButton
 
-     Begin Object Class=GUIButton Name=FavoritesButton
+     Begin Object class=GUIButton Name=FavoritesButton
          Caption="Add to Favs"
-         bAutoSize=True
+         bAutoSize=true
          Hint="Add this server to your Favorites"
          WinTop=0.870000
          WinLeft=0.025000
          WinWidth=0.200000
          WinHeight=0.050000
          TabOrder=4
-         bBoundToParent=True
-         bScaleToParent=True
+         bBoundToParent=true
+         bScaleToParent=true
          OnClick=KFGGTab_MidGameHelp.ButtonClicked
          OnKeyEvent=FavoritesButton.InternalOnKeyEvent
      End Object
      b_Favs=FavoritesButton
 
-     Begin Object Class=GUIButton Name=LeaveMatchButton
-         bAutoSize=True
+     Begin Object class=GUIButton Name=LeaveMatchButton
+         bAutoSize=true
          WinTop=0.870000
          WinLeft=0.725000
          WinWidth=0.200000
          WinHeight=0.050000
          TabOrder=11
-         bBoundToParent=True
-         bScaleToParent=True
+         bBoundToParent=true
+         bScaleToParent=true
          OnClick=KFGGTab_MidGameHelp.ButtonClicked
          OnKeyEvent=LeaveMatchButton.InternalOnKeyEvent
      End Object
      b_Leave=LeaveMatchButton
 
-     Begin Object Class=GUIButton Name=MapVotingButton
+     Begin Object class=GUIButton Name=MapVotingButton
          Caption="Map Voting"
-         bAutoSize=True
+         bAutoSize=true
          WinTop=0.890000
          WinLeft=0.025000
          WinWidth=0.200000
@@ -854,9 +854,9 @@ defaultproperties
      End Object
      b_MapVote=MapVotingButton
 
-     Begin Object Class=GUIButton Name=KickVotingButton
+     Begin Object class=GUIButton Name=KickVotingButton
          Caption="Kick Voting"
-         bAutoSize=True
+         bAutoSize=true
          WinTop=0.890000
          WinLeft=0.375000
          WinWidth=0.200000
@@ -867,9 +867,9 @@ defaultproperties
      End Object
      b_KickVote=KickVotingButton
 
-     Begin Object Class=GUIButton Name=MatchSetupButton
+     Begin Object class=GUIButton Name=MatchSetupButton
          Caption="Match Setup"
-         bAutoSize=True
+         bAutoSize=true
          WinTop=0.890000
          WinLeft=0.725000
          WinWidth=0.200000
@@ -880,9 +880,9 @@ defaultproperties
      End Object
      b_MatchSetup=MatchSetupButton
 
-     Begin Object Class=GUIButton Name=SpectateButton
+     Begin Object class=GUIButton Name=SpectateButton
          Caption="Spectate"
-         bAutoSize=True
+         bAutoSize=true
          WinTop=0.890000
          WinLeft=0.725000
          WinWidth=0.200000
@@ -908,34 +908,34 @@ defaultproperties
      KickPlayer="Kick "
      BanPlayer="Ban "
      PlayerStyleName="TextLabel"
-     Begin Object Class=AltSectionBackground Name=sbGameDesc
-         bFillClient=True
+     Begin Object class=AltSectionBackground Name=sbGameDesc
+         bFillClient=true
          Caption="Game Description"
          WinTop=0.020438
          WinLeft=0.023625
          WinWidth=0.944875
          WinHeight=0.455783
-         bBoundToParent=True
-         bScaleToParent=True
+         bBoundToParent=true
+         bScaleToParent=true
          OnPreDraw=sbGameDesc.InternalPreDraw
      End Object
      sb_GameDesc=sbGameDesc
 
-     Begin Object Class=AltSectionBackground Name=sbHints
-         bFillClient=True
+     Begin Object class=AltSectionBackground Name=sbHints
+         bFillClient=true
          Caption="Helpful Hints"
          WinTop=0.482921
          WinLeft=0.023625
          WinWidth=0.944875
          WinHeight=0.390000
-         bBoundToParent=True
-         bScaleToParent=True
+         bBoundToParent=true
+         bScaleToParent=true
          OnPreDraw=sbHints.InternalPreDraw
      End Object
      sb_Hints=sbHints
 
-     Begin Object Class=GUIScrollTextBox Name=InfoText
-         bNoTeletype=True
+     Begin Object class=GUIScrollTextBox Name=InfoText
+         bNoTeletype=true
          CharDelay=0.000050
          EOLDelay=0.000001
          TextAlign=TXTA_Center
@@ -943,27 +943,27 @@ defaultproperties
          OnCreateComponent=InfoText.InternalOnCreateComponent
          WinTop=0.203750
          WinHeight=0.316016
-         bBoundToParent=True
-         bScaleToParent=True
-         bNeverFocus=True
+         bBoundToParent=true
+         bScaleToParent=true
+         bNeverFocus=true
      End Object
      GameDescriptionBox=InfoText
 
-     Begin Object Class=GUIScrollTextBox Name=HintText
-         bNoTeletype=True
+     Begin Object class=GUIScrollTextBox Name=HintText
+         bNoTeletype=true
          CharDelay=0.000010
          EOLDelay=0.000001
          TextAlign=TXTA_Center
          OnCreateComponent=HintText.InternalOnCreateComponent
          WinTop=0.653750
          WinHeight=0.266016
-         bBoundToParent=True
-         bScaleToParent=True
-         bNeverFocus=True
+         bBoundToParent=true
+         bScaleToParent=true
+         bNeverFocus=true
      End Object
      HintsBox=HintText
 
-     Begin Object Class=GUILabel Name=HintCount
+     Begin Object class=GUILabel Name=HintCount
          TextAlign=TXTA_Center
          TextColor=(B=255,G=255,R=255)
          WinTop=0.900000
@@ -973,9 +973,9 @@ defaultproperties
      End Object
      HintCountLabel=HintCount
 
-     Begin Object Class=GUIButton Name=PrevHint
+     Begin Object class=GUIButton Name=PrevHint
          Caption="Previous Hint"
-         bAutoSize=True
+         bAutoSize=true
          WinTop=0.750000
          WinLeft=0.131500
          WinWidth=0.226801
@@ -987,9 +987,9 @@ defaultproperties
      End Object
      PrevHintButton=PrevHint
 
-     Begin Object Class=GUIButton Name=NextHint
+     Begin Object class=GUIButton Name=NextHint
          Caption="Next Hint"
-         bAutoSize=True
+         bAutoSize=true
          WinTop=0.750000
          WinLeft=0.698425
          WinWidth=0.159469

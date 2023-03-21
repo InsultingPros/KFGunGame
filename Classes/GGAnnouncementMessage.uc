@@ -36,25 +36,25 @@ static function string GetString(
 //        //P.PlayBeepSound();
 //        P.ClientPlaySound(sound'Miscsounds.Enter', true, 2.0);
 //    else if ( Switch == 7 )
-//        P.ClientPlaySound(Default.Riff);
+//        P.ClientPlaySound(default.Riff);
 
 
-    if (RelatedPRI_1 == None)
+    if (RelatedPRI_1 == none)
         return "";
     if (RelatedPRI_1.PlayerName == "")
         return "";
 
     if( switch == 0 )
     {
-       return RelatedPRI_1.PlayerName@Default.HasReachedString@class<Weapon>(OptionalObject).default.ItemName@default.LevelString@KFGGPRI(RelatedPRI_1).WeaponLevel$"/"$KFGGGameReplicationInfo(RelatedPRI_1.Level.GRI).MaxWeaponLevel$"!";
+       return RelatedPRI_1.PlayerName@default.HasReachedString@class<Weapon>(OptionalObject).default.ItemName@default.LevelString@KFGGPRI(RelatedPRI_1).WeaponLevel$"/"$KFGGGameReplicationInfo(RelatedPRI_1.Level.GRI).MaxWeaponLevel$"!";
     }
     else if( switch == 1 )
     {
-        return RelatedPRI_1.PlayerName@Default.FinalWeaponString@class<Weapon>(OptionalObject).default.ItemName$"!!!";
+        return RelatedPRI_1.PlayerName@default.FinalWeaponString@class<Weapon>(OptionalObject).default.ItemName$"!!!";
     }
     else if( switch == 2 )
     {
-        return RelatedPRI_1.PlayerName@Default.StoleALevelFromString@RelatedPRI_2.PlayerName$"!";
+        return RelatedPRI_1.PlayerName@default.StoleALevelFromString@RelatedPRI_2.PlayerName$"!";
     }
 }
 
@@ -66,7 +66,7 @@ static simulated function ClientReceive(
     optional Object OptionalObject
     )
 {
-    Super.ClientReceive(P, Switch, RelatedPRI_1, RelatedPRI_2, OptionalObject);
+    super.ClientReceive(P, Switch, RelatedPRI_1, RelatedPRI_2, OptionalObject);
 
     if ( Switch == 0 )
     {
@@ -92,7 +92,7 @@ defaultproperties
      StageSound=Sound'KF_InterfaceSnd.Perks.PerkAchieved'
      FinalStageSound=Sound'KF_FoundrySnd.Alarm_SirenLoop01'
      StoleLevelSound=Sound'Miscsounds.Egg.DeanScream'
-     bIsUnique=False
+     bIsUnique=false
      Lifetime=4
      DrawColor=(B=0,G=255)
      PosY=0.300000

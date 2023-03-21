@@ -1,6 +1,6 @@
 class GGSyringeFire extends SyringeFire;
 
-Function Timer()
+function Timer()
 {
     local KFPlayerReplicationInfo PRI;
     local int MedicReward;
@@ -17,7 +17,7 @@ Function Timer()
         MedicReward = Syringe(Weapon).HealBoostAmount;
 
         if ( KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo) != none && KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo).ClientVeteranSkill != none )
-            MedicReward *= KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo).ClientVeteranSkill.Static.GetHealPotency(KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo));
+            MedicReward *= KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo).ClientVeteranSkill.static.GetHealPotency(KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo));
 
         HealSum = MedicReward;
 
@@ -31,12 +31,12 @@ Function Timer()
         Healed.GiveHealth(HealSum, Healed.HealthMax);
 
         // Tell them we're healing them
-        if( PlayerController(Instigator.Controller)!=None )
+        if( PlayerController(Instigator.Controller)!=none )
             PlayerController(Instigator.Controller).Speech('AUTO', 5, "");
         LastHealMessageTime = Level.TimeSeconds;
 
         PRI = KFPlayerReplicationInfo(Instigator.PlayerReplicationInfo);
-        if ( PRI != None )
+        if ( PRI != none )
         {
             if ( MedicReward > 0 && KFSteamStatsAndAchievements(PRI.SteamStatsAndAchievements) != none )
                 KFSteamStatsAndAchievements(PRI.SteamStatsAndAchievements).AddDamageHealed(MedicReward);

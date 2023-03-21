@@ -24,7 +24,7 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
     local int i;
     local eFontScale FS;
 
-    Super.InitComponent(MyController, MyOwner);
+    super.InitComponent(MyController, MyOwner);
 
     li_Red  = lb_Red.List;
     li_Blue = lb_Blue.List;
@@ -33,9 +33,9 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
     s = GetSizingCaption();
     for ( i = 0; i < Controls.Length; i++ )
     {
-        if ( GUIButton(Controls[i]) != None && Controls[i] != b_Team)
+        if ( GUIButton(Controls[i]) != none && Controls[i] != b_Team)
         {
-            GUIButton(Controls[i]).bAutoSize = True;
+            GUIButton(Controls[i]).bAutoSize = true;
             GUIButton(Controls[i]).SizingCaption = s;
             GUIButton(Controls[i]).AutoSizePadding.HorzPerc = 0.04;
             GUIButton(Controls[i]).AutoSizePadding.VertPerc = 0.5;
@@ -50,7 +50,7 @@ function InitComponent(GUIController MyController, GUIComponent MyOwner)
 
 function ShowPanel(bool bShow)
 {
-    Super.ShowPanel(bShow);
+    super.ShowPanel(bShow);
 
     if ( bShow )
     {
@@ -88,7 +88,7 @@ function InitGRI()
     local GameReplicationInfo GRI;
 
     GRI = GetGRI();
-    if ( GRI == None )
+    if ( GRI == none )
         return;
 
     PC = PlayerOwner();
@@ -98,17 +98,17 @@ function InitGRI()
         return;
     }
 
-    bInit = False;
+    bInit = false;
 
     if ( !bTeamGame && !bFFAGame )
     {
         if ( GRI.bTeamGame )
         {
-            bTeamGame = True;
+            bTeamGame = true;
         }
         else if ( !(GRI.GameClass ~= "Engine.GameInfo") )
         {
-            bFFAGame = True;
+            bFFAGame = true;
         }
     }
 
@@ -168,7 +168,7 @@ function InitLists()
 
     GRI = GetGRI();
 
-    if ( GRI == None )
+    if ( GRI == none )
     {
         return;
     }
@@ -199,25 +199,25 @@ function InitializePlayerLists()
 
     GRI = GetGRI();
 
-    if ( GRI == None )
+    if ( GRI == none )
     {
         return;
     }
 
     if ( bTeamGame )
     {
-        li_Red.bNotify = False;
-        li_Blue.bNotify = False;
+        li_Red.bNotify = false;
+        li_Blue.bNotify = false;
 
         li_Red.Clear();
         li_Blue.Clear();
 
-        li_Red.bNotify = True;
-        li_Blue.bNotify = True;
+        li_Red.bNotify = true;
+        li_Blue.bNotify = true;
 
         for ( i = 0; i < GRI.PRIArray.Length; i++ )
         {
-            if ( GRI.PRIArray[i] == None || GRI.PRIArray[i].Team == None || GRI.PRIArray[i].bOnlySpectator || (GRI.PRIArray[i].bIsSpectator && !GRI.PRIArray[i].bWaitingPlayer) )
+            if ( GRI.PRIArray[i] == none || GRI.PRIArray[i].Team == none || GRI.PRIArray[i].bOnlySpectator || (GRI.PRIArray[i].bIsSpectator && !GRI.PRIArray[i].bWaitingPlayer) )
             {
                 continue;
             }
@@ -235,13 +235,13 @@ function InitializePlayerLists()
 
     else if ( bFFAGame )
     {
-        li_FFA.bNotify = False;
+        li_FFA.bNotify = false;
         li_FFA.Clear();
-        li_FFA.bNotify = True;
+        li_FFA.bNotify = true;
 
         for ( i = 0; i < GRI.PRIArray.Length; i++ )
         {
-            if ( GRI.PRIArray[i] == None || GRI.PRIArray[i].bOnlySpectator || (GRI.PRIArray[i].bIsSpectator && !GRI.PRIArray[i].bWaitingPlayer) )
+            if ( GRI.PRIArray[i] == none || GRI.PRIArray[i].bOnlySpectator || (GRI.PRIArray[i].bIsSpectator && !GRI.PRIArray[i].bWaitingPlayer) )
             {
                 continue;
             }
@@ -260,22 +260,22 @@ function SetupGroups()
 
     if ( bTeamGame )
     {
-        RemoveComponent(lb_FFA, True);
+        RemoveComponent(lb_FFA, true);
         RemoveComponent(sb_FFA, true);
 
-        if ( PC.GameReplicationInfo != None && PC.GameReplicationInfo.bNoTeamChanges )
+        if ( PC.GameReplicationInfo != none && PC.GameReplicationInfo.bNoTeamChanges )
         {
             RemoveComponent(b_Team,true);
         }
 
-        lb_FFA = None;
+        lb_FFA = none;
     }
     else if ( bFFAGame )
     {
-        RemoveComponent(i_JoinRed, True);
-        RemoveComponent(i_JoinBlue, True);
-        RemoveComponent(lb_Red, True);
-        RemoveComponent(lb_Blue, True);
+        RemoveComponent(i_JoinRed, true);
+        RemoveComponent(i_JoinBlue, true);
+        RemoveComponent(lb_Red, true);
+        RemoveComponent(lb_Blue, true);
         RemoveComponent(sb_Red, true);
         RemoveComponent(sb_Blue, true);
         RemoveComponent(b_Team, true);
@@ -284,7 +284,7 @@ function SetupGroups()
     {
         for ( i = 0; i < Controls.Length; i++ )
         {
-            RemoveComponent(Controls[i], True);
+            RemoveComponent(Controls[i], true);
         }
     }
 
@@ -300,15 +300,15 @@ function SetupGroups()
 
     if ( PC.Level.NetMode == NM_StandAlone )
     {
-        RemoveComponent(b_MapVote, True);
-        RemoveComponent(b_MatchSetup, True);
-        RemoveComponent(b_KickVote, True);
+        RemoveComponent(b_MapVote, true);
+        RemoveComponent(b_MatchSetup, true);
+        RemoveComponent(b_KickVote, true);
     }
-    else if ( PC.VoteReplicationInfo != None )
+    else if ( PC.VoteReplicationInfo != none )
     {
         if ( !PC.VoteReplicationInfo.MapVoteEnabled() )
         {
-            RemoveComponent(b_MapVote,True);
+            RemoveComponent(b_MapVote,true);
         }
 
         if ( !PC.VoteReplicationInfo.KickVoteEnabled() )
@@ -346,10 +346,10 @@ function bool InternalOnPreDraw(Canvas C)
 
         if ( bTeamGame )
         {
-            if ( GRI.Teams[0] != None )
+            if ( GRI.Teams[0] != none )
                 sb_Red.Caption = RedTeam@string(int(GRI.Teams[0].Score));
 
-            if ( GRI.Teams[1] != None )
+            if ( GRI.Teams[1] != none )
                 sb_Blue.Caption = BlueTeam@string(int(GRI.Teams[1].Score));
 
             if ( PlayerOwner().PlayerReplicationInfo.Team != none )
@@ -357,7 +357,7 @@ function bool InternalOnPreDraw(Canvas C)
                 sb_Red.HeaderBase = texture'KF_InterfaceArt_tex.Menu.thin_border_SlightTransparent';
             }
 
-            if (PlayerOwner().PlayerReplicationInfo.Team != None)
+            if (PlayerOwner().PlayerReplicationInfo.Team != none)
             {
                 if (PlayerOwner().PlayerReplicationInfo.Team.TeamIndex == 0)
                 {
@@ -379,7 +379,7 @@ function bool InternalOnPreDraw(Canvas C)
         SetButtonPositions(C);
         UpdatePlayerLists();
 
-        if ( ((PlayerOwner().myHUD == None) || !PlayerOwner().myHUD.IsInCinematic()) && GRI.bMatchHasBegun && !PlayerOwner().IsInState('GameEnded') && (GRI.MaxLives <= 0 || !PlayerOwner().PlayerReplicationInfo.bOnlySpectator) )
+        if ( ((PlayerOwner().myHUD == none) || !PlayerOwner().myHUD.IsInCinematic()) && GRI.bMatchHasBegun && !PlayerOwner().IsInState('GameEnded') && (GRI.MaxLives <= 0 || !PlayerOwner().PlayerReplicationInfo.bOnlySpectator) )
             EnableComponent(b_Spec);
         else
             DisableComponent(b_Spec);
@@ -397,7 +397,7 @@ function ValidatePlayer(string PlayerID, GUIList List, int Index)
 
     for ( i = 0; i < G.PRIArray.Length; i++)
     {
-        if ( G.PRIArray[i] != None && G.PRIArray[i].PlayerID ~= int(PlayerID) )
+        if ( G.PRIArray[i] != none && G.PRIArray[i].PlayerID ~= int(PlayerID) )
         {
             return;                                                         // Still in the list
         }
@@ -428,7 +428,7 @@ protected function UpdatePlayerLists()
 
     GRI = GetGRI();
 
-    if ( GRI == None )
+    if ( GRI == none )
     {
         return;
     }
@@ -453,7 +453,7 @@ protected function UpdatePlayerLists()
 
         for ( i = 0; i < GRI.PRIArray.Length; i++ )
         {
-            if ( GRI.PRIArray[i] == None || GRI.PRIArray[i].Team == None ||
+            if ( GRI.PRIArray[i] == none || GRI.PRIArray[i].Team == none ||
                  GRI.PRIArray[i].bOnlySpectator ||
                  (GRI.PRIArray[i].bIsSpectator && !GRI.PRIArray[i].bWaitingPlayer) )
                 continue;
@@ -476,7 +476,7 @@ protected function UpdatePlayerLists()
 
         for ( i = 0; i < GRI.PRIArray.Length; i++ )
         {
-            if ( GRI.PRIArray[i] == None || GRI.PRIArray[i].bOnlySpectator || (GRI.PRIArray[i].bIsSpectator && !GRI.PRIArray[i].bWaitingPlayer) )
+            if ( GRI.PRIArray[i] == none || GRI.PRIArray[i].bOnlySpectator || (GRI.PRIArray[i].bIsSpectator && !GRI.PRIArray[i].bWaitingPlayer) )
             {
                 continue;
             }
@@ -491,7 +491,7 @@ function SetButtonPositions(Canvas C)
     local int i, j, ButtonsPerRow, ButtonsLeftInRow;
     local float Width, Center, X, Y, XL, YL;
 
-    bInit = False;
+    bInit = false;
 
     Width = b_Settings.ActualWidth();
     Center = ActualLeft() + ActualWidth() / 2;
@@ -513,14 +513,14 @@ function SetButtonPositions(Canvas C)
         if (!Components[i].bVisible || GUIButton(Components[i]) == none || Components[i]==b_Team )
             continue;
 
-        Components[i].SetPosition( X, Y, Components[i].WinWidth, Components[i].WinHeight, True );
+        Components[i].SetPosition( X, Y, Components[i].WinWidth, Components[i].WinHeight, true );
         if ( --ButtonsLeftInRow > 0 )
             X += XL;
         else
         {
             Y += YL;
             for (j = i + 1; j < Components.Length && ButtonsLeftInRow < ButtonsPerRow; j++)
-                if ( GUIButton(Components[j]) != None )
+                if ( GUIButton(Components[j]) != none )
                     ButtonsLeftInRow++;
 
             if (ButtonsLeftInRow > 1)
@@ -537,7 +537,7 @@ function ListChange( GUIComponent Sender )
     local GUIList List;
 
     List = GUIList(Sender);
-    if ( List == None )
+    if ( List == none )
         return;
 
     if ( List != li_Red )
@@ -546,7 +546,7 @@ function ListChange( GUIComponent Sender )
     if ( List != li_FFA )
         li_FFA.SilentSetIndex(-1);
 
-    if ( List != li_Blue && li_Blue != None )
+    if ( List != li_Blue && li_Blue != none )
         li_Blue.SilentSetIndex(-1);
 }
 
@@ -557,7 +557,7 @@ function bool CurrentServerIsInFavorites()
     local string address,portString;
 
     // Get current network address
-    if ( PlayerOwner() == None )
+    if ( PlayerOwner() == none )
     {
         return true;
     }
@@ -594,7 +594,7 @@ function bool ButtonClicked(GUIComponent Sender)
     if (Sender == i_JoinRed)
     {
         //Join Red team
-        if ( PC.PlayerReplicationInfo == None || PC.PlayerReplicationInfo.Team == None
+        if ( PC.PlayerReplicationInfo == none || PC.PlayerReplicationInfo.Team == none
              || PC.PlayerReplicationInfo.Team.TeamIndex != 0)
             PC.ChangeTeam(0);
         Controller.CloseMenu(false);
@@ -602,7 +602,7 @@ function bool ButtonClicked(GUIComponent Sender)
     else if (Sender == i_JoinBlue)
     {
         //Join Blue team
-        if ( PC.PlayerReplicationInfo == None || PC.PlayerReplicationInfo.Team == None
+        if ( PC.PlayerReplicationInfo == none || PC.PlayerReplicationInfo.Team == none
              || PC.PlayerReplicationInfo.Team.TeamIndex != 1)
             PC.ChangeTeam(1);
         Controller.CloseMenu(false);
@@ -688,7 +688,7 @@ simulated function DrawPlayerItem(KFPlayerReplicationInfo PRI, Canvas Canvas, fl
         F = FNS_Large;
     }
 
-    if ( PRI != None )
+    if ( PRI != none )
     {
         Y += H * 0.1;
         H -= H * 0.2;
@@ -740,14 +740,14 @@ function OnDrawRedPlayer(Canvas Canvas, int i, float X, float Y, float W, float 
 
     GRI = GetGRI();
 
-    if ( GRI == None )
+    if ( GRI == none )
     {
         return;
     }
 
     PRI = GRI.FindPlayerByID(int(li_Red.GetExtraAtIndex(i)));
 
-    if ( PRI!=None )
+    if ( PRI!=none )
     {
         DrawPlayerItem(KFPlayerReplicationInfo(PRI), Canvas, X, Y, W, H, bSelected, bPending);
     }
@@ -759,11 +759,11 @@ function OnDrawBluePlayer(Canvas Canvas, int i, float X, float Y, float W, float
     local GameReplicationInfo GRI;
 
     GRI = GetGRI();
-    if ( GRI == None )
+    if ( GRI == none )
         return;
 
     PRI = GRI.FindPlayerByID(int(li_Blue.GetExtraAtIndex(i)));
-    if (PRI!=None)
+    if (PRI!=none)
         DrawPlayerItem(KFPlayerReplicationInfo(PRI),Canvas,X,Y,W,H,bSelected,bPending);
 }
 
@@ -774,7 +774,7 @@ function OnDrawFFAPlayer(Canvas Canvas, int i, float X, float Y, float W, float 
 
     GRI = GetGRI();
 
-    if ( GRI == None )
+    if ( GRI == none )
     {
         return;
     }
@@ -789,12 +789,12 @@ function OnDrawFFAPlayer(Canvas Canvas, int i, float X, float Y, float W, float 
 
 function bool RightClick(GUIComponent Sender)
 {
-    if ( GUIListBase(Controller.ActiveControl) == None )
+    if ( GUIListBase(Controller.ActiveControl) == none )
     {
-        return False;
+        return false;
     }
 
-    return True;
+    return true;
 }
 
 function bool ContextMenuOpened(GUIContextMenu Menu)
@@ -806,29 +806,29 @@ function bool ContextMenuOpened(GUIContextMenu Menu)
 
     GRI = GetGRI();
 
-    if ( GRI == None )
+    if ( GRI == none )
     {
         return false;
     }
 
     List = GUIList(Controller.ActiveControl);
 
-    if ( List == None )
+    if ( List == none )
     {
         log(Name @ "ContextMenuOpened active control was not a list - active:" $ Controller.ActiveControl.Name);
-        return False;
+        return false;
     }
 
     if ( !List.IsValid() )
     {
-        return False;
+        return false;
     }
 
     PRI = GRI.FindPlayerByID(int(List.GetExtra()));
 
-    if ( PRI == None || PRI.bBot || PlayerIDIsMine(PRI.PlayerID) )
+    if ( PRI == none || PRI.bBot || PlayerIDIsMine(PRI.PlayerID) )
     {
-        return False;
+        return false;
     }
 
     Restriction = PlayerOwner().ChatManager.GetPlayerRestriction(PRI.PlayerID);
@@ -883,7 +883,7 @@ function bool ContextMenuOpened(GUIContextMenu Menu)
         Menu.ContextItems.Remove(6,Menu.ContextItems.Length - 6);
     }
 
-    return True;
+    return true;
 }
 
 function ContextClick(GUIContextMenu Menu, int ClickIndex)
@@ -897,7 +897,7 @@ function ContextClick(GUIContextMenu Menu, int ClickIndex)
 
     GRI = GetGRI();
 
-    if ( GRI == None )
+    if ( GRI == none )
     {
         return;
     }
@@ -906,14 +906,14 @@ function ContextClick(GUIContextMenu Menu, int ClickIndex)
     bUndo = Menu.ContextItems[ClickIndex] == ContextItems[ClickIndex];
     List = GUIList(Controller.ActiveControl);
 
-    if ( List == None )
+    if ( List == none )
     {
         return;
     }
 
     PRI = GRI.FindPlayerById(int(List.GetExtra()));
 
-    if ( PRI == None )
+    if ( PRI == none )
     {
         return;
     }
@@ -959,7 +959,7 @@ function ContextClick(GUIContextMenu Menu, int ClickIndex)
 
 event Closed(GUIComponent Sender, bool bCancelled)
 {
-    Super.Closed(Sender, bCancelled);
+    super.Closed(Sender, bCancelled);
 
     li_Red.SilentSetIndex(-1);
     li_Blue.SilentSetIndex(-1);
@@ -983,8 +983,8 @@ function bool RedDraw(Canvas C)
 
 defaultproperties
 {
-     Begin Object Class=AltSectionBackground Name=SBRed
-         bFillClient=True
+     Begin Object class=AltSectionBackground Name=SBRed
+         bFillClient=true
          Caption="Green Team"
          LeftPadding=0.010000
          RightPadding=0.010000
@@ -996,8 +996,8 @@ defaultproperties
      End Object
      sb_Red=SBRed
 
-     Begin Object Class=AltSectionBackground Name=SBBlue
-         bFillClient=True
+     Begin Object class=AltSectionBackground Name=SBBlue
+         bFillClient=true
          Caption="Blue Team"
          LeftPadding=0.010000
          RightPadding=0.010000
@@ -1009,8 +1009,8 @@ defaultproperties
      End Object
      sb_Blue=SBBlue
 
-     Begin Object Class=AltSectionBackground Name=SBFFA
-         bFillClient=True
+     Begin Object class=AltSectionBackground Name=SBFFA
+         bFillClient=true
          Caption="Players"
          LeftPadding=0.010000
          RightPadding=0.010000
@@ -1022,7 +1022,7 @@ defaultproperties
      End Object
      sb_FFA=SBFFA
 
-     Begin Object Class=GUIImage Name=JoinRedButton
+     Begin Object class=GUIImage Name=JoinRedButton
          ImageColor=(B=100,G=100,A=90)
          ImageStyle=ISTY_Scaled
          WinTop=0.150160
@@ -1030,13 +1030,13 @@ defaultproperties
          WinWidth=0.439040
          WinHeight=0.464040
          TabOrder=9
-         bBoundToParent=True
-         bScaleToParent=True
+         bBoundToParent=true
+         bScaleToParent=true
          OnDraw=KFGGLoginControls.RedDraw
      End Object
      i_JoinRed=JoinRedButton
 
-     Begin Object Class=GUIImage Name=JoinBlueButton
+     Begin Object class=GUIImage Name=JoinBlueButton
          ImageColor=(G=128,R=0,A=90)
          ImageStyle=ISTY_Scaled
          WinTop=0.141814
@@ -1044,14 +1044,14 @@ defaultproperties
          WinWidth=0.439040
          WinHeight=0.464040
          TabOrder=10
-         bBoundToParent=True
-         bScaleToParent=True
+         bBoundToParent=true
+         bScaleToParent=true
      End Object
      i_JoinBlue=JoinBlueButton
 
-     Begin Object Class=GUIListBox Name=RedTeamListBox
+     Begin Object class=GUIListBox Name=RedTeamListBox
          SelectedStyleName="BrowserListSelection"
-         bVisibleWhenEmpty=True
+         bVisibleWhenEmpty=true
          OnCreateComponent=RedTeamListBox.InternalOnCreateComponent
          StyleName="ServerBrowserGrid"
          WinTop=0.250000
@@ -1062,9 +1062,9 @@ defaultproperties
      End Object
      lb_Red=RedTeamListBox
 
-     Begin Object Class=GUIListBox Name=BlueTeamListBox
+     Begin Object class=GUIListBox Name=BlueTeamListBox
          SelectedStyleName="BrowserListSelection"
-         bVisibleWhenEmpty=True
+         bVisibleWhenEmpty=true
          OnCreateComponent=BlueTeamListBox.InternalOnCreateComponent
          StyleName="ServerBrowserGrid"
          WinTop=0.250000
@@ -1075,9 +1075,9 @@ defaultproperties
      End Object
      lb_Blue=BlueTeamListBox
 
-     Begin Object Class=GUIListBox Name=FFAPlayerListBox
+     Begin Object class=GUIListBox Name=FFAPlayerListBox
          SelectedStyleName="BrowserListSelection"
-         bVisibleWhenEmpty=True
+         bVisibleWhenEmpty=true
          OnCreateComponent=FFAPlayerListBox.InternalOnCreateComponent
          StyleName="ServerBrowserGrid"
          WinTop=0.150000
@@ -1088,52 +1088,52 @@ defaultproperties
      End Object
      lb_FFA=FFAPlayerListBox
 
-     Begin Object Class=GUIButton Name=TeamButton
+     Begin Object class=GUIButton Name=TeamButton
          Caption="Change Team"
          WinTop=0.016613
          WinLeft=0.372039
          WinWidth=0.250100
          TabOrder=0
-         bBoundToParent=True
-         bScaleToParent=True
-         bStandardized=True
+         bBoundToParent=true
+         bScaleToParent=true
+         bStandardized=true
          OnClick=KFGGLoginControls.TeamChange
          OnKeyEvent=TeamButton.InternalOnKeyEvent
      End Object
      b_Team=TeamButton
 
-     Begin Object Class=GUIButton Name=SettingsButton
+     Begin Object class=GUIButton Name=SettingsButton
          Caption="Settings"
          WinTop=0.766752
          WinLeft=0.112345
          WinWidth=0.250100
          WinHeight=0.053366
          TabOrder=0
-         bBoundToParent=True
-         bScaleToParent=True
+         bBoundToParent=true
+         bScaleToParent=true
          OnClick=KFGGLoginControls.ButtonClicked
          OnKeyEvent=SettingsButton.InternalOnKeyEvent
      End Object
      b_Settings=SettingsButton
 
-     Begin Object Class=GUIButton Name=BrowserButton
+     Begin Object class=GUIButton Name=BrowserButton
          Caption="Server Browser"
-         bAutoSize=True
+         bAutoSize=true
          WinTop=0.675000
          WinLeft=0.375000
          WinWidth=0.200000
          WinHeight=0.050000
          TabOrder=1
-         bBoundToParent=True
-         bScaleToParent=True
+         bBoundToParent=true
+         bScaleToParent=true
          OnClick=KFGGLoginControls.ButtonClicked
          OnKeyEvent=BrowserButton.InternalOnKeyEvent
      End Object
      b_Browser=BrowserButton
 
-     Begin Object Class=GUIButton Name=QuitGameButton
+     Begin Object class=GUIButton Name=QuitGameButton
          Caption="Exit Game"
-         bAutoSize=True
+         bAutoSize=true
          WinTop=0.750000
          WinLeft=0.725000
          WinWidth=0.200000
@@ -1144,39 +1144,39 @@ defaultproperties
      End Object
      b_Quit=QuitGameButton
 
-     Begin Object Class=GUIButton Name=FavoritesButton
+     Begin Object class=GUIButton Name=FavoritesButton
          Caption="Add to Favs"
-         bAutoSize=True
+         bAutoSize=true
          Hint="Add this server to your Favorites"
          WinTop=0.750000
          WinLeft=0.025000
          WinWidth=0.200000
          WinHeight=0.050000
          TabOrder=3
-         bBoundToParent=True
-         bScaleToParent=True
+         bBoundToParent=true
+         bScaleToParent=true
          OnClick=KFGGLoginControls.ButtonClicked
          OnKeyEvent=FavoritesButton.InternalOnKeyEvent
      End Object
      b_Favs=FavoritesButton
 
-     Begin Object Class=GUIButton Name=LeaveMatchButton
-         bAutoSize=True
+     Begin Object class=GUIButton Name=LeaveMatchButton
+         bAutoSize=true
          WinTop=0.675000
          WinLeft=0.725000
          WinWidth=0.200000
          WinHeight=0.050000
          TabOrder=2
-         bBoundToParent=True
-         bScaleToParent=True
+         bBoundToParent=true
+         bScaleToParent=true
          OnClick=KFGGLoginControls.ButtonClicked
          OnKeyEvent=LeaveMatchButton.InternalOnKeyEvent
      End Object
      b_Leave=LeaveMatchButton
 
-     Begin Object Class=GUIButton Name=MapVotingButton
+     Begin Object class=GUIButton Name=MapVotingButton
          Caption="Map Voting"
-         bAutoSize=True
+         bAutoSize=true
          WinTop=0.825000
          WinLeft=0.025000
          WinWidth=0.200000
@@ -1187,9 +1187,9 @@ defaultproperties
      End Object
      b_MapVote=MapVotingButton
 
-     Begin Object Class=GUIButton Name=KickVotingButton
+     Begin Object class=GUIButton Name=KickVotingButton
          Caption="Kick Voting"
-         bAutoSize=True
+         bAutoSize=true
          WinTop=0.825000
          WinLeft=0.375000
          WinWidth=0.200000
@@ -1200,9 +1200,9 @@ defaultproperties
      End Object
      b_KickVote=KickVotingButton
 
-     Begin Object Class=GUIButton Name=MatchSetupButton
+     Begin Object class=GUIButton Name=MatchSetupButton
          Caption="Match Setup"
-         bAutoSize=True
+         bAutoSize=true
          WinTop=0.825000
          WinLeft=0.725000
          WinWidth=0.200000
@@ -1213,9 +1213,9 @@ defaultproperties
      End Object
      b_MatchSetup=MatchSetupButton
 
-     Begin Object Class=GUIButton Name=SpectateButton
+     Begin Object class=GUIButton Name=SpectateButton
          Caption="Spectate"
-         bAutoSize=True
+         bAutoSize=true
          WinTop=0.825000
          WinLeft=0.725000
          WinWidth=0.200000
@@ -1244,8 +1244,8 @@ defaultproperties
      RedTeam="Red Team:"
      BlueTeam="Blue Team:"
      PlayerStyleName="TextLabel"
-     PropagateVisibility=False
-     Begin Object Class=GUIContextMenu Name=PlayerListContextMenu
+     PropagateVisibility=false
+     Begin Object class=GUIContextMenu Name=PlayerListContextMenu
          OnOpen=KFGGLoginControls.ContextMenuOpened
          OnSelect=KFGGLoginControls.ContextClick
      End Object

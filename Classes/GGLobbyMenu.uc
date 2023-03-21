@@ -128,7 +128,7 @@ function bool InternalOnPreDraw(Canvas C)
 
     if ( PC.PlayerReplicationInfo != none && (!PC.PlayerReplicationInfo.bWaitingPlayer || PC.PlayerReplicationInfo.bOnlySpectator) )
     {
-        PC.ClientCloseMenu(True,False);
+        PC.ClientCloseMenu(true,false);
         return false;
     }
 
@@ -326,7 +326,7 @@ function bool InternalOnPreDraw(Canvas C)
     while( Team1Index < 16 )
     {
         PlayerPerk[Team1Index].Image = none;
-        ReadyBox[Team1Index].Checked(False);
+        ReadyBox[Team1Index].Checked(false);
         ReadyBox[Team1Index].SetCaption("");
         PlayerVetLabel[Team1Index].Caption = "";
         Team1Index++;
@@ -335,7 +335,7 @@ function bool InternalOnPreDraw(Canvas C)
     while( Team2Index < 16 )
     {
         PlayerPerk2[Team2Index].Image = none;
-        ReadyBox2[Team2Index].Checked(False);
+        ReadyBox2[Team2Index].Checked(false);
         ReadyBox2[Team2Index].SetCaption("");
         PlayerVetLabel2[Team2Index].Caption = "";
         Team2Index++;
@@ -418,7 +418,7 @@ event Timer()
     if ( PlayerOwner().PlayerReplicationInfo.bOnlySpectator )
     {
         label_TimeOutCounter.caption = "You are a spectator.";
-        Return;
+        return;
     }
 
     KF = KFGameReplicationInfo(PlayerOwner().GameReplicationInfo);
@@ -451,7 +451,7 @@ function DrawAd(Canvas Canvas)
     }
     else
     {
-        if ( LobbyMenuAd == None || !LobbyMenuAd.MenuMovie.IsPlaying() )
+        if ( LobbyMenuAd == none || !LobbyMenuAd.MenuMovie.IsPlaying() )
         {
             VideoTimer = 0.0;
         }
@@ -537,7 +537,7 @@ function OnSteamStatsAndAchievementsReady()
 
 defaultproperties
 {
-     Begin Object Class=GUIButton Name=Team1Button
+     Begin Object class=GUIButton Name=Team1Button
          Caption="Green Team"
          Hint="Click to join Green Team"
          WinTop=0.001000
@@ -546,15 +546,15 @@ defaultproperties
          WinHeight=0.033203
          RenderWeight=2.000000
          TabOrder=4
-         bBoundToParent=True
-         ToolTip=None
+         bBoundToParent=true
+         ToolTip=none
 
          OnClick=GGLobbyMenu.OnTeam1ButtonClick
          OnKeyEvent=Team1Button.InternalOnKeyEvent
      End Object
      TeamButtons(0)=Team1Button
 
-     Begin Object Class=GUIButton Name=Team2Button
+     Begin Object class=GUIButton Name=Team2Button
          Caption="Blue Team"
          Hint="Click to join Blue Team"
          WinTop=0.001000
@@ -563,16 +563,16 @@ defaultproperties
          WinHeight=0.033203
          RenderWeight=2.000000
          TabOrder=4
-         bBoundToParent=True
-         ToolTip=None
+         bBoundToParent=true
+         ToolTip=none
 
          OnClick=GGLobbyMenu.OnTeam2ButtonClick
          OnKeyEvent=Team2Button.InternalOnKeyEvent
      End Object
      TeamButtons(1)=Team2Button
 
-     Begin Object Class=moCheckBox Name=ReadyBox0
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox0
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME1"
@@ -584,14 +584,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox(0)=ReadyBox0
 
-     Begin Object Class=moCheckBox Name=ReadyBox1
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox1
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME2"
@@ -602,14 +602,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox(1)=ReadyBox1
 
-     Begin Object Class=moCheckBox Name=ReadyBox012
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox012
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME3"
@@ -620,14 +620,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.048000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox(2)=ReadyBox012
 
-     Begin Object Class=moCheckBox Name=ReadyBox3
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox3
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME4"
@@ -638,14 +638,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox(3)=ReadyBox3
 
-     Begin Object Class=moCheckBox Name=ReadyBox4
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox4
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME5"
@@ -656,14 +656,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox(4)=ReadyBox4
 
-     Begin Object Class=moCheckBox Name=ReadyBox5
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox5
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME6"
@@ -674,14 +674,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox(5)=ReadyBox5
 
-     Begin Object Class=moCheckBox Name=ReadyBox6
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox6
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME1"
@@ -693,14 +693,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox(6)=ReadyBox6
 
-     Begin Object Class=moCheckBox Name=ReadyBox7
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox7
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME1"
@@ -712,14 +712,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox(7)=ReadyBox7
 
-     Begin Object Class=moCheckBox Name=ReadyBox8
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox8
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME1"
@@ -731,14 +731,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox(8)=ReadyBox8
 
-     Begin Object Class=moCheckBox Name=ReadyBox9
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox9
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME1"
@@ -750,14 +750,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox(9)=ReadyBox9
 
-     Begin Object Class=moCheckBox Name=ReadyBox10
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox10
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME1"
@@ -769,14 +769,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox(10)=ReadyBox10
 
-     Begin Object Class=moCheckBox Name=ReadyBox11
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox11
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME1"
@@ -788,14 +788,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox(11)=ReadyBox11
 
-     Begin Object Class=moCheckBox Name=ReadyBox12
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox12
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME1"
@@ -807,14 +807,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox(12)=ReadyBox12
 
-     Begin Object Class=moCheckBox Name=ReadyBox13
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox13
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME1"
@@ -826,14 +826,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox(13)=ReadyBox13
 
-     Begin Object Class=moCheckBox Name=ReadyBox14
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox14
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME1"
@@ -845,14 +845,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox(14)=ReadyBox14
 
-     Begin Object Class=moCheckBox Name=ReadyBox15
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox15
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME1"
@@ -864,13 +864,13 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox(15)=ReadyBox15
 
-     Begin Object Class=KFPlayerReadyBar Name=Player1BackDrop
+     Begin Object class=KFPlayerReadyBar Name=Player1BackDrop
          WinTop=0.040000
          WinLeft=0.016250
          WinWidth=0.268750
@@ -879,7 +879,7 @@ defaultproperties
      End Object
      PlayerBox(0)=Player1BackDrop
 
-     Begin Object Class=KFPlayerReadyBar Name=Player2BackDrop
+     Begin Object class=KFPlayerReadyBar Name=Player2BackDrop
          WinTop=0.085000
          WinLeft=0.016250
          WinWidth=0.268750
@@ -888,7 +888,7 @@ defaultproperties
      End Object
      PlayerBox(1)=Player2BackDrop
 
-     Begin Object Class=KFPlayerReadyBar Name=Player3BackDrop
+     Begin Object class=KFPlayerReadyBar Name=Player3BackDrop
          WinTop=0.130000
          WinLeft=0.016250
          WinWidth=0.268750
@@ -897,7 +897,7 @@ defaultproperties
      End Object
      PlayerBox(2)=Player3BackDrop
 
-     Begin Object Class=KFPlayerReadyBar Name=Player4BackDrop
+     Begin Object class=KFPlayerReadyBar Name=Player4BackDrop
          WinTop=0.175000
          WinLeft=0.016250
          WinWidth=0.268750
@@ -906,7 +906,7 @@ defaultproperties
      End Object
      PlayerBox(3)=Player4BackDrop
 
-     Begin Object Class=KFPlayerReadyBar Name=Player5BackDrop
+     Begin Object class=KFPlayerReadyBar Name=Player5BackDrop
          WinTop=0.220000
          WinLeft=0.016250
          WinWidth=0.268750
@@ -915,7 +915,7 @@ defaultproperties
      End Object
      PlayerBox(4)=Player5BackDrop
 
-     Begin Object Class=KFPlayerReadyBar Name=Player6BackDrop
+     Begin Object class=KFPlayerReadyBar Name=Player6BackDrop
          WinTop=0.265000
          WinLeft=0.016250
          WinWidth=0.268750
@@ -924,7 +924,7 @@ defaultproperties
      End Object
      PlayerBox(5)=Player6BackDrop
 
-     Begin Object Class=KFPlayerReadyBar Name=Player7BackDrop
+     Begin Object class=KFPlayerReadyBar Name=Player7BackDrop
          WinTop=0.310000
          WinLeft=0.016250
          WinWidth=0.268750
@@ -933,7 +933,7 @@ defaultproperties
      End Object
      PlayerBox(6)=Player7BackDrop
 
-     Begin Object Class=KFPlayerReadyBar Name=Player8BackDrop
+     Begin Object class=KFPlayerReadyBar Name=Player8BackDrop
          WinTop=0.355000
          WinLeft=0.016250
          WinWidth=0.268750
@@ -942,7 +942,7 @@ defaultproperties
      End Object
      PlayerBox(7)=Player8BackDrop
 
-     Begin Object Class=KFPlayerReadyBar Name=Player9BackDrop
+     Begin Object class=KFPlayerReadyBar Name=Player9BackDrop
          WinTop=0.400000
          WinLeft=0.016250
          WinWidth=0.268750
@@ -951,7 +951,7 @@ defaultproperties
      End Object
      PlayerBox(8)=Player9BackDrop
 
-     Begin Object Class=KFPlayerReadyBar Name=Player10BackDrop
+     Begin Object class=KFPlayerReadyBar Name=Player10BackDrop
          WinTop=0.445000
          WinLeft=0.016250
          WinWidth=0.268750
@@ -960,7 +960,7 @@ defaultproperties
      End Object
      PlayerBox(9)=Player10BackDrop
 
-     Begin Object Class=KFPlayerReadyBar Name=Player11BackDrop
+     Begin Object class=KFPlayerReadyBar Name=Player11BackDrop
          WinTop=0.490000
          WinLeft=0.016250
          WinWidth=0.268750
@@ -969,7 +969,7 @@ defaultproperties
      End Object
      PlayerBox(10)=Player11BackDrop
 
-     Begin Object Class=KFPlayerReadyBar Name=Player12BackDrop
+     Begin Object class=KFPlayerReadyBar Name=Player12BackDrop
          WinTop=0.535000
          WinLeft=0.016250
          WinWidth=0.268750
@@ -978,7 +978,7 @@ defaultproperties
      End Object
      PlayerBox(11)=Player12BackDrop
 
-     Begin Object Class=KFPlayerReadyBar Name=Player13BackDrop
+     Begin Object class=KFPlayerReadyBar Name=Player13BackDrop
          WinTop=0.580000
          WinLeft=0.016250
          WinWidth=0.268750
@@ -987,7 +987,7 @@ defaultproperties
      End Object
      PlayerBox(12)=Player13BackDrop
 
-     Begin Object Class=KFPlayerReadyBar Name=Player14BackDrop
+     Begin Object class=KFPlayerReadyBar Name=Player14BackDrop
          WinTop=0.625000
          WinLeft=0.016250
          WinWidth=0.268750
@@ -996,7 +996,7 @@ defaultproperties
      End Object
      PlayerBox(13)=Player14BackDrop
 
-     Begin Object Class=KFPlayerReadyBar Name=Player15BackDrop
+     Begin Object class=KFPlayerReadyBar Name=Player15BackDrop
          WinTop=0.670000
          WinLeft=0.016250
          WinWidth=0.268750
@@ -1005,7 +1005,7 @@ defaultproperties
      End Object
      PlayerBox(14)=Player15BackDrop
 
-     Begin Object Class=KFPlayerReadyBar Name=Player16BackDrop
+     Begin Object class=KFPlayerReadyBar Name=Player16BackDrop
          WinTop=0.715000
          WinLeft=0.016250
          WinWidth=0.268750
@@ -1014,7 +1014,7 @@ defaultproperties
      End Object
      PlayerBox(15)=Player16BackDrop
 
-     Begin Object Class=GUIImage Name=Player1P
+     Begin Object class=GUIImage Name=Player1P
          ImageStyle=ISTY_Justified
          WinTop=0.043000
          WinLeft=0.017000
@@ -1024,7 +1024,7 @@ defaultproperties
      End Object
      PlayerPerk(0)=Player1P
 
-     Begin Object Class=GUIImage Name=Player2P
+     Begin Object class=GUIImage Name=Player2P
          ImageStyle=ISTY_Justified
          WinTop=0.088000
          WinLeft=0.017000
@@ -1034,7 +1034,7 @@ defaultproperties
      End Object
      PlayerPerk(1)=Player2P
 
-     Begin Object Class=GUIImage Name=Player3P
+     Begin Object class=GUIImage Name=Player3P
          ImageStyle=ISTY_Justified
          WinTop=0.133000
          WinLeft=0.017000
@@ -1044,7 +1044,7 @@ defaultproperties
      End Object
      PlayerPerk(2)=Player3P
 
-     Begin Object Class=GUIImage Name=Player4P
+     Begin Object class=GUIImage Name=Player4P
          ImageStyle=ISTY_Justified
          WinTop=0.178000
          WinLeft=0.017000
@@ -1054,7 +1054,7 @@ defaultproperties
      End Object
      PlayerPerk(3)=Player4P
 
-     Begin Object Class=GUIImage Name=Player5P
+     Begin Object class=GUIImage Name=Player5P
          ImageStyle=ISTY_Justified
          WinTop=0.223000
          WinLeft=0.017000
@@ -1064,7 +1064,7 @@ defaultproperties
      End Object
      PlayerPerk(4)=Player5P
 
-     Begin Object Class=GUIImage Name=Player6P
+     Begin Object class=GUIImage Name=Player6P
          ImageStyle=ISTY_Justified
          WinTop=0.268000
          WinLeft=0.017000
@@ -1074,7 +1074,7 @@ defaultproperties
      End Object
      PlayerPerk(5)=Player6P
 
-     Begin Object Class=GUIImage Name=Player7P
+     Begin Object class=GUIImage Name=Player7P
          ImageStyle=ISTY_Justified
          WinTop=0.313000
          WinLeft=0.017000
@@ -1084,7 +1084,7 @@ defaultproperties
      End Object
      PlayerPerk(6)=Player7P
 
-     Begin Object Class=GUIImage Name=Player8P
+     Begin Object class=GUIImage Name=Player8P
          ImageStyle=ISTY_Justified
          WinTop=0.358000
          WinLeft=0.017000
@@ -1094,7 +1094,7 @@ defaultproperties
      End Object
      PlayerPerk(7)=Player8P
 
-     Begin Object Class=GUIImage Name=Player9P
+     Begin Object class=GUIImage Name=Player9P
          ImageStyle=ISTY_Justified
          WinTop=0.403000
          WinLeft=0.017000
@@ -1104,7 +1104,7 @@ defaultproperties
      End Object
      PlayerPerk(8)=Player9P
 
-     Begin Object Class=GUIImage Name=Player10P
+     Begin Object class=GUIImage Name=Player10P
          ImageStyle=ISTY_Justified
          WinTop=0.448000
          WinLeft=0.017000
@@ -1114,7 +1114,7 @@ defaultproperties
      End Object
      PlayerPerk(9)=Player10P
 
-     Begin Object Class=GUIImage Name=Player11P
+     Begin Object class=GUIImage Name=Player11P
          ImageStyle=ISTY_Justified
          WinTop=0.493000
          WinLeft=0.017000
@@ -1124,7 +1124,7 @@ defaultproperties
      End Object
      PlayerPerk(10)=Player11P
 
-     Begin Object Class=GUIImage Name=Player12P
+     Begin Object class=GUIImage Name=Player12P
          ImageStyle=ISTY_Justified
          WinTop=0.538000
          WinLeft=0.017000
@@ -1134,7 +1134,7 @@ defaultproperties
      End Object
      PlayerPerk(11)=Player12P
 
-     Begin Object Class=GUIImage Name=Player13P
+     Begin Object class=GUIImage Name=Player13P
          ImageStyle=ISTY_Justified
          WinTop=0.583000
          WinLeft=0.017000
@@ -1144,7 +1144,7 @@ defaultproperties
      End Object
      PlayerPerk(12)=Player13P
 
-     Begin Object Class=GUIImage Name=Player14P
+     Begin Object class=GUIImage Name=Player14P
          ImageStyle=ISTY_Justified
          WinTop=0.628000
          WinLeft=0.017000
@@ -1154,7 +1154,7 @@ defaultproperties
      End Object
      PlayerPerk(13)=Player14P
 
-     Begin Object Class=GUIImage Name=Player15P
+     Begin Object class=GUIImage Name=Player15P
          ImageStyle=ISTY_Justified
          WinTop=0.673000
          WinLeft=0.017000
@@ -1164,7 +1164,7 @@ defaultproperties
      End Object
      PlayerPerk(14)=Player15P
 
-     Begin Object Class=GUIImage Name=Player16P
+     Begin Object class=GUIImage Name=Player16P
          ImageStyle=ISTY_Justified
          WinTop=0.718000
          WinLeft=0.017000
@@ -1174,7 +1174,7 @@ defaultproperties
      End Object
      PlayerPerk(15)=Player16P
 
-     Begin Object Class=GUILabel Name=Player1Veterancy
+     Begin Object class=GUILabel Name=Player1Veterancy
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -1186,7 +1186,7 @@ defaultproperties
      End Object
      PlayerVetLabel(0)=Player1Veterancy
 
-     Begin Object Class=GUILabel Name=Player2Veterancy
+     Begin Object class=GUILabel Name=Player2Veterancy
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -1198,7 +1198,7 @@ defaultproperties
      End Object
      PlayerVetLabel(1)=Player2Veterancy
 
-     Begin Object Class=GUILabel Name=Player3Veterancy
+     Begin Object class=GUILabel Name=Player3Veterancy
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -1210,7 +1210,7 @@ defaultproperties
      End Object
      PlayerVetLabel(2)=Player3Veterancy
 
-     Begin Object Class=GUILabel Name=Player4Veterancy
+     Begin Object class=GUILabel Name=Player4Veterancy
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -1222,7 +1222,7 @@ defaultproperties
      End Object
      PlayerVetLabel(3)=Player4Veterancy
 
-     Begin Object Class=GUILabel Name=Player5Veterancy
+     Begin Object class=GUILabel Name=Player5Veterancy
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -1234,7 +1234,7 @@ defaultproperties
      End Object
      PlayerVetLabel(4)=Player5Veterancy
 
-     Begin Object Class=GUILabel Name=Player6Veterancy
+     Begin Object class=GUILabel Name=Player6Veterancy
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -1246,7 +1246,7 @@ defaultproperties
      End Object
      PlayerVetLabel(5)=Player6Veterancy
 
-     Begin Object Class=GUILabel Name=Player7Veterancy
+     Begin Object class=GUILabel Name=Player7Veterancy
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -1258,7 +1258,7 @@ defaultproperties
      End Object
      PlayerVetLabel(6)=Player7Veterancy
 
-     Begin Object Class=GUILabel Name=Player8Veterancy
+     Begin Object class=GUILabel Name=Player8Veterancy
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -1270,7 +1270,7 @@ defaultproperties
      End Object
      PlayerVetLabel(7)=Player8Veterancy
 
-     Begin Object Class=GUILabel Name=Player9Veterancy
+     Begin Object class=GUILabel Name=Player9Veterancy
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -1282,7 +1282,7 @@ defaultproperties
      End Object
      PlayerVetLabel(8)=Player9Veterancy
 
-     Begin Object Class=GUILabel Name=Player10Veterancy
+     Begin Object class=GUILabel Name=Player10Veterancy
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -1294,7 +1294,7 @@ defaultproperties
      End Object
      PlayerVetLabel(9)=Player10Veterancy
 
-     Begin Object Class=GUILabel Name=Player11Veterancy
+     Begin Object class=GUILabel Name=Player11Veterancy
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -1306,7 +1306,7 @@ defaultproperties
      End Object
      PlayerVetLabel(10)=Player11Veterancy
 
-     Begin Object Class=GUILabel Name=Player12Veterancy
+     Begin Object class=GUILabel Name=Player12Veterancy
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -1318,7 +1318,7 @@ defaultproperties
      End Object
      PlayerVetLabel(11)=Player12Veterancy
 
-     Begin Object Class=GUILabel Name=Player13Veterancy
+     Begin Object class=GUILabel Name=Player13Veterancy
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -1330,7 +1330,7 @@ defaultproperties
      End Object
      PlayerVetLabel(12)=Player13Veterancy
 
-     Begin Object Class=GUILabel Name=Player14Veterancy
+     Begin Object class=GUILabel Name=Player14Veterancy
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -1342,7 +1342,7 @@ defaultproperties
      End Object
      PlayerVetLabel(13)=Player14Veterancy
 
-     Begin Object Class=GUILabel Name=Player15Veterancy
+     Begin Object class=GUILabel Name=Player15Veterancy
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -1354,7 +1354,7 @@ defaultproperties
      End Object
      PlayerVetLabel(14)=Player15Veterancy
 
-     Begin Object Class=GUILabel Name=Player16Veterancy
+     Begin Object class=GUILabel Name=Player16Veterancy
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -1366,8 +1366,8 @@ defaultproperties
      End Object
      PlayerVetLabel(15)=Player16Veterancy
 
-     Begin Object Class=moCheckBox Name=ReadyBox20
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox20
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME1"
@@ -1379,14 +1379,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox2(0)=ReadyBox20
 
-     Begin Object Class=moCheckBox Name=ReadyBox21
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox21
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME2"
@@ -1397,14 +1397,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox2(1)=ReadyBox21
 
-     Begin Object Class=moCheckBox Name=ReadyBox22
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox22
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME3"
@@ -1415,14 +1415,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.048000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox2(2)=ReadyBox22
 
-     Begin Object Class=moCheckBox Name=ReadyBox23
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox23
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME4"
@@ -1433,14 +1433,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox2(3)=ReadyBox23
 
-     Begin Object Class=moCheckBox Name=ReadyBox24
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox24
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME5"
@@ -1451,14 +1451,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox2(4)=ReadyBox24
 
-     Begin Object Class=moCheckBox Name=ReadyBox25
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox25
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME6"
@@ -1469,14 +1469,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox2(5)=ReadyBox25
 
-     Begin Object Class=moCheckBox Name=ReadyBox26
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox26
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME1"
@@ -1488,14 +1488,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox2(6)=ReadyBox26
 
-     Begin Object Class=moCheckBox Name=ReadyBox27
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox27
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME1"
@@ -1507,14 +1507,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox2(7)=ReadyBox27
 
-     Begin Object Class=moCheckBox Name=ReadyBox28
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox28
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME1"
@@ -1526,14 +1526,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox2(8)=ReadyBox28
 
-     Begin Object Class=moCheckBox Name=ReadyBox29
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox29
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME1"
@@ -1545,14 +1545,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox2(9)=ReadyBox29
 
-     Begin Object Class=moCheckBox Name=ReadyBox210
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox210
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME1"
@@ -1564,14 +1564,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox2(10)=ReadyBox210
 
-     Begin Object Class=moCheckBox Name=ReadyBox211
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox211
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME1"
@@ -1583,14 +1583,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox2(11)=ReadyBox211
 
-     Begin Object Class=moCheckBox Name=ReadyBox212
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox212
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME1"
@@ -1602,14 +1602,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox2(12)=ReadyBox212
 
-     Begin Object Class=moCheckBox Name=ReadyBox213
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox213
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME1"
@@ -1621,14 +1621,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox2(13)=ReadyBox213
 
-     Begin Object Class=moCheckBox Name=ReadyBox214
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox214
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME1"
@@ -1640,14 +1640,14 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox2(14)=ReadyBox214
 
-     Begin Object Class=moCheckBox Name=ReadyBox215
-         bValueReadOnly=True
+     Begin Object class=moCheckBox Name=ReadyBox215
+         bValueReadOnly=true
          ComponentJustification=TXTA_Left
          CaptionWidth=0.820000
          Caption="NAME1"
@@ -1659,13 +1659,13 @@ defaultproperties
          WinWidth=0.290000
          WinHeight=0.045000
          RenderWeight=0.550000
-         bAcceptsInput=False
-         bNeverFocus=True
-         bAnimating=True
+         bAcceptsInput=false
+         bNeverFocus=true
+         bAnimating=true
      End Object
      ReadyBox2(15)=ReadyBox215
 
-     Begin Object Class=KFPlayerReadyBar Name=Player1BackDrop2
+     Begin Object class=KFPlayerReadyBar Name=Player1BackDrop2
          WinTop=0.040000
          WinLeft=0.681253
          WinWidth=0.268750
@@ -1674,7 +1674,7 @@ defaultproperties
      End Object
      PlayerBox2(0)=Player1BackDrop2
 
-     Begin Object Class=KFPlayerReadyBar Name=Player2BackDrop2
+     Begin Object class=KFPlayerReadyBar Name=Player2BackDrop2
          WinTop=0.085000
          WinLeft=0.681253
          WinWidth=0.268750
@@ -1683,7 +1683,7 @@ defaultproperties
      End Object
      PlayerBox2(1)=Player2BackDrop2
 
-     Begin Object Class=KFPlayerReadyBar Name=Player3BackDrop2
+     Begin Object class=KFPlayerReadyBar Name=Player3BackDrop2
          WinTop=0.130000
          WinLeft=0.681253
          WinWidth=0.268750
@@ -1692,7 +1692,7 @@ defaultproperties
      End Object
      PlayerBox2(2)=Player3BackDrop2
 
-     Begin Object Class=KFPlayerReadyBar Name=Player4BackDrop2
+     Begin Object class=KFPlayerReadyBar Name=Player4BackDrop2
          WinTop=0.175000
          WinLeft=0.681253
          WinWidth=0.268750
@@ -1701,7 +1701,7 @@ defaultproperties
      End Object
      PlayerBox2(3)=Player4BackDrop2
 
-     Begin Object Class=KFPlayerReadyBar Name=Player5BackDrop2
+     Begin Object class=KFPlayerReadyBar Name=Player5BackDrop2
          WinTop=0.220000
          WinLeft=0.681253
          WinWidth=0.268750
@@ -1710,7 +1710,7 @@ defaultproperties
      End Object
      PlayerBox2(4)=Player5BackDrop2
 
-     Begin Object Class=KFPlayerReadyBar Name=Player6BackDrop2
+     Begin Object class=KFPlayerReadyBar Name=Player6BackDrop2
          WinTop=0.265000
          WinLeft=0.681253
          WinWidth=0.268750
@@ -1719,7 +1719,7 @@ defaultproperties
      End Object
      PlayerBox2(5)=Player6BackDrop2
 
-     Begin Object Class=KFPlayerReadyBar Name=Player7BackDrop2
+     Begin Object class=KFPlayerReadyBar Name=Player7BackDrop2
          WinTop=0.310000
          WinLeft=0.681253
          WinWidth=0.268750
@@ -1728,7 +1728,7 @@ defaultproperties
      End Object
      PlayerBox2(6)=Player7BackDrop2
 
-     Begin Object Class=KFPlayerReadyBar Name=Player8BackDrop2
+     Begin Object class=KFPlayerReadyBar Name=Player8BackDrop2
          WinTop=0.355000
          WinLeft=0.681253
          WinWidth=0.268750
@@ -1737,7 +1737,7 @@ defaultproperties
      End Object
      PlayerBox2(7)=Player8BackDrop2
 
-     Begin Object Class=KFPlayerReadyBar Name=Player9BackDrop2
+     Begin Object class=KFPlayerReadyBar Name=Player9BackDrop2
          WinTop=0.400000
          WinLeft=0.681253
          WinWidth=0.268750
@@ -1746,7 +1746,7 @@ defaultproperties
      End Object
      PlayerBox2(8)=Player9BackDrop2
 
-     Begin Object Class=KFPlayerReadyBar Name=Player10BackDrop2
+     Begin Object class=KFPlayerReadyBar Name=Player10BackDrop2
          WinTop=0.445000
          WinLeft=0.681253
          WinWidth=0.268750
@@ -1755,7 +1755,7 @@ defaultproperties
      End Object
      PlayerBox2(9)=Player10BackDrop2
 
-     Begin Object Class=KFPlayerReadyBar Name=Player11BackDrop2
+     Begin Object class=KFPlayerReadyBar Name=Player11BackDrop2
          WinTop=0.490000
          WinLeft=0.681253
          WinWidth=0.268750
@@ -1764,7 +1764,7 @@ defaultproperties
      End Object
      PlayerBox2(10)=Player11BackDrop2
 
-     Begin Object Class=KFPlayerReadyBar Name=Player12BackDrop2
+     Begin Object class=KFPlayerReadyBar Name=Player12BackDrop2
          WinTop=0.535000
          WinLeft=0.681253
          WinWidth=0.268750
@@ -1773,7 +1773,7 @@ defaultproperties
      End Object
      PlayerBox2(11)=Player12BackDrop2
 
-     Begin Object Class=KFPlayerReadyBar Name=Player13BackDrop2
+     Begin Object class=KFPlayerReadyBar Name=Player13BackDrop2
          WinTop=0.580000
          WinLeft=0.681253
          WinWidth=0.268750
@@ -1782,7 +1782,7 @@ defaultproperties
      End Object
      PlayerBox2(12)=Player13BackDrop2
 
-     Begin Object Class=KFPlayerReadyBar Name=Player14BackDrop2
+     Begin Object class=KFPlayerReadyBar Name=Player14BackDrop2
          WinTop=0.625000
          WinLeft=0.681253
          WinWidth=0.268750
@@ -1791,7 +1791,7 @@ defaultproperties
      End Object
      PlayerBox2(13)=Player14BackDrop2
 
-     Begin Object Class=KFPlayerReadyBar Name=Player15BackDrop2
+     Begin Object class=KFPlayerReadyBar Name=Player15BackDrop2
          WinTop=0.670000
          WinLeft=0.681253
          WinWidth=0.268750
@@ -1800,7 +1800,7 @@ defaultproperties
      End Object
      PlayerBox2(14)=Player15BackDrop2
 
-     Begin Object Class=KFPlayerReadyBar Name=Player16BackDrop2
+     Begin Object class=KFPlayerReadyBar Name=Player16BackDrop2
          WinTop=0.715000
          WinLeft=0.681253
          WinWidth=0.268750
@@ -1809,7 +1809,7 @@ defaultproperties
      End Object
      PlayerBox2(15)=Player16BackDrop2
 
-     Begin Object Class=GUIImage Name=Player1P2
+     Begin Object class=GUIImage Name=Player1P2
          ImageStyle=ISTY_Justified
          WinTop=0.043000
          WinLeft=0.681753
@@ -1819,7 +1819,7 @@ defaultproperties
      End Object
      PlayerPerk2(0)=Player1P2
 
-     Begin Object Class=GUIImage Name=Player2P2
+     Begin Object class=GUIImage Name=Player2P2
          ImageStyle=ISTY_Justified
          WinTop=0.088000
          WinLeft=0.681753
@@ -1829,7 +1829,7 @@ defaultproperties
      End Object
      PlayerPerk2(1)=Player2P2
 
-     Begin Object Class=GUIImage Name=Player3P2
+     Begin Object class=GUIImage Name=Player3P2
          ImageStyle=ISTY_Justified
          WinTop=0.133000
          WinLeft=0.681753
@@ -1839,7 +1839,7 @@ defaultproperties
      End Object
      PlayerPerk2(2)=Player3P2
 
-     Begin Object Class=GUIImage Name=Player4P2
+     Begin Object class=GUIImage Name=Player4P2
          ImageStyle=ISTY_Justified
          WinTop=0.178000
          WinLeft=0.681753
@@ -1849,7 +1849,7 @@ defaultproperties
      End Object
      PlayerPerk2(3)=Player4P2
 
-     Begin Object Class=GUIImage Name=Player5P2
+     Begin Object class=GUIImage Name=Player5P2
          ImageStyle=ISTY_Justified
          WinTop=0.223000
          WinLeft=0.681753
@@ -1859,7 +1859,7 @@ defaultproperties
      End Object
      PlayerPerk2(4)=Player5P2
 
-     Begin Object Class=GUIImage Name=Player6P2
+     Begin Object class=GUIImage Name=Player6P2
          ImageStyle=ISTY_Justified
          WinTop=0.268000
          WinLeft=0.681753
@@ -1869,7 +1869,7 @@ defaultproperties
      End Object
      PlayerPerk2(5)=Player6P2
 
-     Begin Object Class=GUIImage Name=Player7P2
+     Begin Object class=GUIImage Name=Player7P2
          ImageStyle=ISTY_Justified
          WinTop=0.313000
          WinLeft=0.681753
@@ -1879,7 +1879,7 @@ defaultproperties
      End Object
      PlayerPerk2(6)=Player7P2
 
-     Begin Object Class=GUIImage Name=Player8P2
+     Begin Object class=GUIImage Name=Player8P2
          ImageStyle=ISTY_Justified
          WinTop=0.358000
          WinLeft=0.681753
@@ -1889,7 +1889,7 @@ defaultproperties
      End Object
      PlayerPerk2(7)=Player8P2
 
-     Begin Object Class=GUIImage Name=Player9P2
+     Begin Object class=GUIImage Name=Player9P2
          ImageStyle=ISTY_Justified
          WinTop=0.403000
          WinLeft=0.681753
@@ -1899,7 +1899,7 @@ defaultproperties
      End Object
      PlayerPerk2(8)=Player9P2
 
-     Begin Object Class=GUIImage Name=Player10P2
+     Begin Object class=GUIImage Name=Player10P2
          ImageStyle=ISTY_Justified
          WinTop=0.448000
          WinLeft=0.681753
@@ -1909,7 +1909,7 @@ defaultproperties
      End Object
      PlayerPerk2(9)=Player10P2
 
-     Begin Object Class=GUIImage Name=Player11P2
+     Begin Object class=GUIImage Name=Player11P2
          ImageStyle=ISTY_Justified
          WinTop=0.493000
          WinLeft=0.681753
@@ -1919,7 +1919,7 @@ defaultproperties
      End Object
      PlayerPerk2(10)=Player11P2
 
-     Begin Object Class=GUIImage Name=Player12P2
+     Begin Object class=GUIImage Name=Player12P2
          ImageStyle=ISTY_Justified
          WinTop=0.538000
          WinLeft=0.681753
@@ -1929,7 +1929,7 @@ defaultproperties
      End Object
      PlayerPerk2(11)=Player12P2
 
-     Begin Object Class=GUIImage Name=Player13P2
+     Begin Object class=GUIImage Name=Player13P2
          ImageStyle=ISTY_Justified
          WinTop=0.583000
          WinLeft=0.681753
@@ -1939,7 +1939,7 @@ defaultproperties
      End Object
      PlayerPerk2(12)=Player13P2
 
-     Begin Object Class=GUIImage Name=Player14P2
+     Begin Object class=GUIImage Name=Player14P2
          ImageStyle=ISTY_Justified
          WinTop=0.628000
          WinLeft=0.681753
@@ -1949,7 +1949,7 @@ defaultproperties
      End Object
      PlayerPerk2(13)=Player14P2
 
-     Begin Object Class=GUIImage Name=Player15P2
+     Begin Object class=GUIImage Name=Player15P2
          ImageStyle=ISTY_Justified
          WinTop=0.673000
          WinLeft=0.681753
@@ -1959,7 +1959,7 @@ defaultproperties
      End Object
      PlayerPerk2(14)=Player15P2
 
-     Begin Object Class=GUIImage Name=Player16P2
+     Begin Object class=GUIImage Name=Player16P2
          ImageStyle=ISTY_Justified
          WinTop=0.718000
          WinLeft=0.681753
@@ -1969,7 +1969,7 @@ defaultproperties
      End Object
      PlayerPerk2(15)=Player16P2
 
-     Begin Object Class=GUILabel Name=Player1Veterancy2
+     Begin Object class=GUILabel Name=Player1Veterancy2
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -1981,7 +1981,7 @@ defaultproperties
      End Object
      PlayerVetLabel2(0)=Player1Veterancy2
 
-     Begin Object Class=GUILabel Name=Player2Veterancy2
+     Begin Object class=GUILabel Name=Player2Veterancy2
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -1993,7 +1993,7 @@ defaultproperties
      End Object
      PlayerVetLabel2(1)=Player2Veterancy2
 
-     Begin Object Class=GUILabel Name=Player3Veterancy2
+     Begin Object class=GUILabel Name=Player3Veterancy2
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -2005,7 +2005,7 @@ defaultproperties
      End Object
      PlayerVetLabel2(2)=Player3Veterancy2
 
-     Begin Object Class=GUILabel Name=Player4Veterancy2
+     Begin Object class=GUILabel Name=Player4Veterancy2
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -2017,7 +2017,7 @@ defaultproperties
      End Object
      PlayerVetLabel2(3)=Player4Veterancy2
 
-     Begin Object Class=GUILabel Name=Player5Veterancy2
+     Begin Object class=GUILabel Name=Player5Veterancy2
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -2029,7 +2029,7 @@ defaultproperties
      End Object
      PlayerVetLabel2(4)=Player5Veterancy2
 
-     Begin Object Class=GUILabel Name=Player6Veterancy2
+     Begin Object class=GUILabel Name=Player6Veterancy2
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -2041,7 +2041,7 @@ defaultproperties
      End Object
      PlayerVetLabel2(5)=Player6Veterancy2
 
-     Begin Object Class=GUILabel Name=Player7Veterancy2
+     Begin Object class=GUILabel Name=Player7Veterancy2
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -2053,7 +2053,7 @@ defaultproperties
      End Object
      PlayerVetLabel2(6)=Player7Veterancy2
 
-     Begin Object Class=GUILabel Name=Player8Veterancy2
+     Begin Object class=GUILabel Name=Player8Veterancy2
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -2065,7 +2065,7 @@ defaultproperties
      End Object
      PlayerVetLabel2(7)=Player8Veterancy2
 
-     Begin Object Class=GUILabel Name=Player9Veterancy2
+     Begin Object class=GUILabel Name=Player9Veterancy2
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -2077,7 +2077,7 @@ defaultproperties
      End Object
      PlayerVetLabel2(8)=Player9Veterancy2
 
-     Begin Object Class=GUILabel Name=Player10Veterancy2
+     Begin Object class=GUILabel Name=Player10Veterancy2
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -2089,7 +2089,7 @@ defaultproperties
      End Object
      PlayerVetLabel2(9)=Player10Veterancy2
 
-     Begin Object Class=GUILabel Name=Player11Veterancy2
+     Begin Object class=GUILabel Name=Player11Veterancy2
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -2101,7 +2101,7 @@ defaultproperties
      End Object
      PlayerVetLabel2(10)=Player11Veterancy2
 
-     Begin Object Class=GUILabel Name=Player12Veterancy2
+     Begin Object class=GUILabel Name=Player12Veterancy2
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -2113,7 +2113,7 @@ defaultproperties
      End Object
      PlayerVetLabel2(11)=Player12Veterancy2
 
-     Begin Object Class=GUILabel Name=Player13Veterancy2
+     Begin Object class=GUILabel Name=Player13Veterancy2
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -2125,7 +2125,7 @@ defaultproperties
      End Object
      PlayerVetLabel2(12)=Player13Veterancy2
 
-     Begin Object Class=GUILabel Name=Player14Veterancy2
+     Begin Object class=GUILabel Name=Player14Veterancy2
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -2137,7 +2137,7 @@ defaultproperties
      End Object
      PlayerVetLabel2(13)=Player14Veterancy2
 
-     Begin Object Class=GUILabel Name=Player15Veterancy2
+     Begin Object class=GUILabel Name=Player15Veterancy2
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -2149,7 +2149,7 @@ defaultproperties
      End Object
      PlayerVetLabel2(14)=Player15Veterancy2
 
-     Begin Object Class=GUILabel Name=Player16Veterancy2
+     Begin Object class=GUILabel Name=Player16Veterancy2
          TextAlign=TXTA_Right
          TextColor=(B=19,G=19,R=19)
          TextFont="UT2SmallFont"
@@ -2161,7 +2161,7 @@ defaultproperties
      End Object
      PlayerVetLabel2(15)=Player16Veterancy2
 
-     Begin Object Class=KFLobbyChat Name=ChatBox
+     Begin Object class=KFLobbyChat Name=ChatBox
          OnCreateComponent=ChatBox.InternalOnCreateComponent
          WinTop=0.807600
          WinLeft=0.016090
@@ -2177,7 +2177,7 @@ defaultproperties
      End Object
      t_ChatBox=ChatBox
 
-     Begin Object Class=GUILabel Name=TimeOutCounter
+     Begin Object class=GUILabel Name=TimeOutCounter
          Caption="Game will auto-commence in: "
          TextAlign=TXTA_Center
          TextColor=(B=158,G=176,R=175)
@@ -2189,7 +2189,7 @@ defaultproperties
      End Object
      label_TimeOutCounter=TimeOutCounter
 
-     Begin Object Class=GUILabel Name=Spectators
+     Begin Object class=GUILabel Name=Spectators
          Caption="Spectators:"
          TextColor=(B=158,G=176,R=175)
          WinTop=0.760000
@@ -2200,7 +2200,7 @@ defaultproperties
      End Object
      SpectatorsLabel=Spectators
 
-     Begin Object Class=GUISectionBackground Name=ADBG
+     Begin Object class=GUISectionBackground Name=ADBG
          WinTop=0.037343
          WinLeft=0.349700
          WinWidth=0.322266
@@ -2216,36 +2216,36 @@ defaultproperties
      WaitingForOtherPlayers="Pick A Team"
      AutoCommence="Game will auto-commence in"
      SpectatorsString="Spectators:"
-     Begin Object Class=GUITabControl Name=PageTabs
-         bDockPanels=True
+     Begin Object class=GUITabControl Name=PageTabs
+         bDockPanels=true
          TabHeight=0.040000
          WinLeft=0.010000
          WinWidth=0.980000
          WinHeight=0.040000
          RenderWeight=0.490000
          TabOrder=3
-         bAcceptsInput=True
+         bAcceptsInput=true
          OnActivate=PageTabs.InternalOnActivate
      End Object
      c_Tabs=PageTabs
 
-     Begin Object Class=GUIHeader Name=MyHeader
+     Begin Object class=GUIHeader Name=MyHeader
          WinHeight=-0.350000
-         bVisible=False
+         bVisible=false
      End Object
      t_Header=MyHeader
 
-     Begin Object Class=GGLobbyFooter Name=MyFooter
+     Begin Object class=GGLobbyFooter Name=MyFooter
          RenderWeight=0.300000
          TabOrder=8
-         bBoundToParent=False
-         bScaleToParent=False
+         bBoundToParent=false
+         bScaleToParent=false
          OnPreDraw=BuyFooter.InternalOnPreDraw
      End Object
      t_Footer=MyFooter
 
-     bRenderWorld=True
-     bAllowedAsLast=True
+     bRenderWorld=true
+     bAllowedAsLast=true
      OnClose=GGLobbyMenu.InternalOnClosed
      OnCanClose=GGLobbyMenu.StopClose
      WinHeight=0.500000
