@@ -552,7 +552,7 @@ defaultproperties
          OnClick=GGLobbyMenu.OnTeam1ButtonClick
          OnKeyEvent=Team1Button.InternalOnKeyEvent
      End Object
-     TeamButtons(0)=GUIButton'KFGunGame.GGLobbyMenu.Team1Button'
+     TeamButtons(0)=Team1Button
 
      Begin Object Class=GUIButton Name=Team2Button
          Caption="Blue Team"
@@ -569,7 +569,7 @@ defaultproperties
          OnClick=GGLobbyMenu.OnTeam2ButtonClick
          OnKeyEvent=Team2Button.InternalOnKeyEvent
      End Object
-     TeamButtons(1)=GUIButton'KFGunGame.GGLobbyMenu.Team2Button'
+     TeamButtons(1)=Team2Button
 
      Begin Object Class=moCheckBox Name=ReadyBox0
          bValueReadOnly=True
@@ -588,7 +588,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox(0)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox0'
+     ReadyBox(0)=ReadyBox0
 
      Begin Object Class=moCheckBox Name=ReadyBox1
          bValueReadOnly=True
@@ -606,7 +606,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox(1)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox1'
+     ReadyBox(1)=ReadyBox1
 
      Begin Object Class=moCheckBox Name=ReadyBox012
          bValueReadOnly=True
@@ -624,7 +624,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox(2)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox012'
+     ReadyBox(2)=ReadyBox012
 
      Begin Object Class=moCheckBox Name=ReadyBox3
          bValueReadOnly=True
@@ -642,7 +642,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox(3)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox3'
+     ReadyBox(3)=ReadyBox3
 
      Begin Object Class=moCheckBox Name=ReadyBox4
          bValueReadOnly=True
@@ -660,7 +660,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox(4)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox4'
+     ReadyBox(4)=ReadyBox4
 
      Begin Object Class=moCheckBox Name=ReadyBox5
          bValueReadOnly=True
@@ -678,7 +678,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox(5)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox5'
+     ReadyBox(5)=ReadyBox5
 
      Begin Object Class=moCheckBox Name=ReadyBox6
          bValueReadOnly=True
@@ -697,7 +697,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox(6)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox6'
+     ReadyBox(6)=ReadyBox6
 
      Begin Object Class=moCheckBox Name=ReadyBox7
          bValueReadOnly=True
@@ -716,7 +716,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox(7)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox7'
+     ReadyBox(7)=ReadyBox7
 
      Begin Object Class=moCheckBox Name=ReadyBox8
          bValueReadOnly=True
@@ -735,7 +735,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox(8)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox8'
+     ReadyBox(8)=ReadyBox8
 
      Begin Object Class=moCheckBox Name=ReadyBox9
          bValueReadOnly=True
@@ -754,7 +754,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox(9)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox9'
+     ReadyBox(9)=ReadyBox9
 
      Begin Object Class=moCheckBox Name=ReadyBox10
          bValueReadOnly=True
@@ -773,7 +773,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox(10)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox10'
+     ReadyBox(10)=ReadyBox10
 
      Begin Object Class=moCheckBox Name=ReadyBox11
          bValueReadOnly=True
@@ -792,7 +792,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox(11)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox11'
+     ReadyBox(11)=ReadyBox11
 
      Begin Object Class=moCheckBox Name=ReadyBox12
          bValueReadOnly=True
@@ -811,7 +811,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox(12)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox12'
+     ReadyBox(12)=ReadyBox12
 
      Begin Object Class=moCheckBox Name=ReadyBox13
          bValueReadOnly=True
@@ -830,7 +830,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox(13)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox13'
+     ReadyBox(13)=ReadyBox13
 
      Begin Object Class=moCheckBox Name=ReadyBox14
          bValueReadOnly=True
@@ -849,7 +849,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox(14)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox14'
+     ReadyBox(14)=ReadyBox14
 
      Begin Object Class=moCheckBox Name=ReadyBox15
          bValueReadOnly=True
@@ -868,7 +868,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox(15)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox15'
+     ReadyBox(15)=ReadyBox15
 
      Begin Object Class=KFPlayerReadyBar Name=Player1BackDrop
          WinTop=0.040000
@@ -877,7 +877,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox(0)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player1BackDrop'
+     PlayerBox(0)=Player1BackDrop
 
      Begin Object Class=KFPlayerReadyBar Name=Player2BackDrop
          WinTop=0.085000
@@ -886,7 +886,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox(1)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player2BackDrop'
+     PlayerBox(1)=Player2BackDrop
 
      Begin Object Class=KFPlayerReadyBar Name=Player3BackDrop
          WinTop=0.130000
@@ -895,7 +895,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox(2)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player3BackDrop'
+     PlayerBox(2)=Player3BackDrop
 
      Begin Object Class=KFPlayerReadyBar Name=Player4BackDrop
          WinTop=0.175000
@@ -904,7 +904,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox(3)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player4BackDrop'
+     PlayerBox(3)=Player4BackDrop
 
      Begin Object Class=KFPlayerReadyBar Name=Player5BackDrop
          WinTop=0.220000
@@ -913,7 +913,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox(4)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player5BackDrop'
+     PlayerBox(4)=Player5BackDrop
 
      Begin Object Class=KFPlayerReadyBar Name=Player6BackDrop
          WinTop=0.265000
@@ -922,7 +922,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox(5)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player6BackDrop'
+     PlayerBox(5)=Player6BackDrop
 
      Begin Object Class=KFPlayerReadyBar Name=Player7BackDrop
          WinTop=0.310000
@@ -931,7 +931,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox(6)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player7BackDrop'
+     PlayerBox(6)=Player7BackDrop
 
      Begin Object Class=KFPlayerReadyBar Name=Player8BackDrop
          WinTop=0.355000
@@ -940,7 +940,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox(7)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player8BackDrop'
+     PlayerBox(7)=Player8BackDrop
 
      Begin Object Class=KFPlayerReadyBar Name=Player9BackDrop
          WinTop=0.400000
@@ -949,7 +949,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox(8)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player9BackDrop'
+     PlayerBox(8)=Player9BackDrop
 
      Begin Object Class=KFPlayerReadyBar Name=Player10BackDrop
          WinTop=0.445000
@@ -958,7 +958,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox(9)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player10BackDrop'
+     PlayerBox(9)=Player10BackDrop
 
      Begin Object Class=KFPlayerReadyBar Name=Player11BackDrop
          WinTop=0.490000
@@ -967,7 +967,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox(10)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player11BackDrop'
+     PlayerBox(10)=Player11BackDrop
 
      Begin Object Class=KFPlayerReadyBar Name=Player12BackDrop
          WinTop=0.535000
@@ -976,7 +976,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox(11)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player12BackDrop'
+     PlayerBox(11)=Player12BackDrop
 
      Begin Object Class=KFPlayerReadyBar Name=Player13BackDrop
          WinTop=0.580000
@@ -985,7 +985,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox(12)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player13BackDrop'
+     PlayerBox(12)=Player13BackDrop
 
      Begin Object Class=KFPlayerReadyBar Name=Player14BackDrop
          WinTop=0.625000
@@ -994,7 +994,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox(13)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player14BackDrop'
+     PlayerBox(13)=Player14BackDrop
 
      Begin Object Class=KFPlayerReadyBar Name=Player15BackDrop
          WinTop=0.670000
@@ -1003,7 +1003,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox(14)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player15BackDrop'
+     PlayerBox(14)=Player15BackDrop
 
      Begin Object Class=KFPlayerReadyBar Name=Player16BackDrop
          WinTop=0.715000
@@ -1012,7 +1012,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox(15)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player16BackDrop'
+     PlayerBox(15)=Player16BackDrop
 
      Begin Object Class=GUIImage Name=Player1P
          ImageStyle=ISTY_Justified
@@ -1022,7 +1022,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk(0)=GUIImage'KFGunGame.GGLobbyMenu.Player1P'
+     PlayerPerk(0)=Player1P
 
      Begin Object Class=GUIImage Name=Player2P
          ImageStyle=ISTY_Justified
@@ -1032,7 +1032,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk(1)=GUIImage'KFGunGame.GGLobbyMenu.Player2P'
+     PlayerPerk(1)=Player2P
 
      Begin Object Class=GUIImage Name=Player3P
          ImageStyle=ISTY_Justified
@@ -1042,7 +1042,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk(2)=GUIImage'KFGunGame.GGLobbyMenu.Player3P'
+     PlayerPerk(2)=Player3P
 
      Begin Object Class=GUIImage Name=Player4P
          ImageStyle=ISTY_Justified
@@ -1052,7 +1052,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk(3)=GUIImage'KFGunGame.GGLobbyMenu.Player4P'
+     PlayerPerk(3)=Player4P
 
      Begin Object Class=GUIImage Name=Player5P
          ImageStyle=ISTY_Justified
@@ -1062,7 +1062,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk(4)=GUIImage'KFGunGame.GGLobbyMenu.Player5P'
+     PlayerPerk(4)=Player5P
 
      Begin Object Class=GUIImage Name=Player6P
          ImageStyle=ISTY_Justified
@@ -1072,7 +1072,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk(5)=GUIImage'KFGunGame.GGLobbyMenu.Player6P'
+     PlayerPerk(5)=Player6P
 
      Begin Object Class=GUIImage Name=Player7P
          ImageStyle=ISTY_Justified
@@ -1082,7 +1082,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk(6)=GUIImage'KFGunGame.GGLobbyMenu.Player7P'
+     PlayerPerk(6)=Player7P
 
      Begin Object Class=GUIImage Name=Player8P
          ImageStyle=ISTY_Justified
@@ -1092,7 +1092,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk(7)=GUIImage'KFGunGame.GGLobbyMenu.Player8P'
+     PlayerPerk(7)=Player8P
 
      Begin Object Class=GUIImage Name=Player9P
          ImageStyle=ISTY_Justified
@@ -1102,7 +1102,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk(8)=GUIImage'KFGunGame.GGLobbyMenu.Player9P'
+     PlayerPerk(8)=Player9P
 
      Begin Object Class=GUIImage Name=Player10P
          ImageStyle=ISTY_Justified
@@ -1112,7 +1112,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk(9)=GUIImage'KFGunGame.GGLobbyMenu.Player10P'
+     PlayerPerk(9)=Player10P
 
      Begin Object Class=GUIImage Name=Player11P
          ImageStyle=ISTY_Justified
@@ -1122,7 +1122,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk(10)=GUIImage'KFGunGame.GGLobbyMenu.Player11P'
+     PlayerPerk(10)=Player11P
 
      Begin Object Class=GUIImage Name=Player12P
          ImageStyle=ISTY_Justified
@@ -1132,7 +1132,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk(11)=GUIImage'KFGunGame.GGLobbyMenu.Player12P'
+     PlayerPerk(11)=Player12P
 
      Begin Object Class=GUIImage Name=Player13P
          ImageStyle=ISTY_Justified
@@ -1142,7 +1142,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk(12)=GUIImage'KFGunGame.GGLobbyMenu.Player13P'
+     PlayerPerk(12)=Player13P
 
      Begin Object Class=GUIImage Name=Player14P
          ImageStyle=ISTY_Justified
@@ -1152,7 +1152,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk(13)=GUIImage'KFGunGame.GGLobbyMenu.Player14P'
+     PlayerPerk(13)=Player14P
 
      Begin Object Class=GUIImage Name=Player15P
          ImageStyle=ISTY_Justified
@@ -1162,7 +1162,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk(14)=GUIImage'KFGunGame.GGLobbyMenu.Player15P'
+     PlayerPerk(14)=Player15P
 
      Begin Object Class=GUIImage Name=Player16P
          ImageStyle=ISTY_Justified
@@ -1172,7 +1172,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk(15)=GUIImage'KFGunGame.GGLobbyMenu.Player16P'
+     PlayerPerk(15)=Player16P
 
      Begin Object Class=GUILabel Name=Player1Veterancy
          TextAlign=TXTA_Right
@@ -1184,7 +1184,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.500000
      End Object
-     PlayerVetLabel(0)=GUILabel'KFGunGame.GGLobbyMenu.Player1Veterancy'
+     PlayerVetLabel(0)=Player1Veterancy
 
      Begin Object Class=GUILabel Name=Player2Veterancy
          TextAlign=TXTA_Right
@@ -1196,7 +1196,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.500000
      End Object
-     PlayerVetLabel(1)=GUILabel'KFGunGame.GGLobbyMenu.Player2Veterancy'
+     PlayerVetLabel(1)=Player2Veterancy
 
      Begin Object Class=GUILabel Name=Player3Veterancy
          TextAlign=TXTA_Right
@@ -1208,7 +1208,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel(2)=GUILabel'KFGunGame.GGLobbyMenu.Player3Veterancy'
+     PlayerVetLabel(2)=Player3Veterancy
 
      Begin Object Class=GUILabel Name=Player4Veterancy
          TextAlign=TXTA_Right
@@ -1220,7 +1220,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel(3)=GUILabel'KFGunGame.GGLobbyMenu.Player4Veterancy'
+     PlayerVetLabel(3)=Player4Veterancy
 
      Begin Object Class=GUILabel Name=Player5Veterancy
          TextAlign=TXTA_Right
@@ -1232,7 +1232,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel(4)=GUILabel'KFGunGame.GGLobbyMenu.Player5Veterancy'
+     PlayerVetLabel(4)=Player5Veterancy
 
      Begin Object Class=GUILabel Name=Player6Veterancy
          TextAlign=TXTA_Right
@@ -1244,7 +1244,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel(5)=GUILabel'KFGunGame.GGLobbyMenu.Player6Veterancy'
+     PlayerVetLabel(5)=Player6Veterancy
 
      Begin Object Class=GUILabel Name=Player7Veterancy
          TextAlign=TXTA_Right
@@ -1256,7 +1256,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel(6)=GUILabel'KFGunGame.GGLobbyMenu.Player7Veterancy'
+     PlayerVetLabel(6)=Player7Veterancy
 
      Begin Object Class=GUILabel Name=Player8Veterancy
          TextAlign=TXTA_Right
@@ -1268,7 +1268,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel(7)=GUILabel'KFGunGame.GGLobbyMenu.Player8Veterancy'
+     PlayerVetLabel(7)=Player8Veterancy
 
      Begin Object Class=GUILabel Name=Player9Veterancy
          TextAlign=TXTA_Right
@@ -1280,7 +1280,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel(8)=GUILabel'KFGunGame.GGLobbyMenu.Player9Veterancy'
+     PlayerVetLabel(8)=Player9Veterancy
 
      Begin Object Class=GUILabel Name=Player10Veterancy
          TextAlign=TXTA_Right
@@ -1292,7 +1292,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel(9)=GUILabel'KFGunGame.GGLobbyMenu.Player10Veterancy'
+     PlayerVetLabel(9)=Player10Veterancy
 
      Begin Object Class=GUILabel Name=Player11Veterancy
          TextAlign=TXTA_Right
@@ -1304,7 +1304,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel(10)=GUILabel'KFGunGame.GGLobbyMenu.Player11Veterancy'
+     PlayerVetLabel(10)=Player11Veterancy
 
      Begin Object Class=GUILabel Name=Player12Veterancy
          TextAlign=TXTA_Right
@@ -1316,7 +1316,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel(11)=GUILabel'KFGunGame.GGLobbyMenu.Player12Veterancy'
+     PlayerVetLabel(11)=Player12Veterancy
 
      Begin Object Class=GUILabel Name=Player13Veterancy
          TextAlign=TXTA_Right
@@ -1328,7 +1328,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel(12)=GUILabel'KFGunGame.GGLobbyMenu.Player13Veterancy'
+     PlayerVetLabel(12)=Player13Veterancy
 
      Begin Object Class=GUILabel Name=Player14Veterancy
          TextAlign=TXTA_Right
@@ -1340,7 +1340,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel(13)=GUILabel'KFGunGame.GGLobbyMenu.Player14Veterancy'
+     PlayerVetLabel(13)=Player14Veterancy
 
      Begin Object Class=GUILabel Name=Player15Veterancy
          TextAlign=TXTA_Right
@@ -1352,7 +1352,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel(14)=GUILabel'KFGunGame.GGLobbyMenu.Player15Veterancy'
+     PlayerVetLabel(14)=Player15Veterancy
 
      Begin Object Class=GUILabel Name=Player16Veterancy
          TextAlign=TXTA_Right
@@ -1364,7 +1364,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel(15)=GUILabel'KFGunGame.GGLobbyMenu.Player16Veterancy'
+     PlayerVetLabel(15)=Player16Veterancy
 
      Begin Object Class=moCheckBox Name=ReadyBox20
          bValueReadOnly=True
@@ -1383,7 +1383,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox2(0)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox20'
+     ReadyBox2(0)=ReadyBox20
 
      Begin Object Class=moCheckBox Name=ReadyBox21
          bValueReadOnly=True
@@ -1401,7 +1401,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox2(1)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox21'
+     ReadyBox2(1)=ReadyBox21
 
      Begin Object Class=moCheckBox Name=ReadyBox22
          bValueReadOnly=True
@@ -1419,7 +1419,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox2(2)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox22'
+     ReadyBox2(2)=ReadyBox22
 
      Begin Object Class=moCheckBox Name=ReadyBox23
          bValueReadOnly=True
@@ -1437,7 +1437,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox2(3)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox23'
+     ReadyBox2(3)=ReadyBox23
 
      Begin Object Class=moCheckBox Name=ReadyBox24
          bValueReadOnly=True
@@ -1455,7 +1455,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox2(4)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox24'
+     ReadyBox2(4)=ReadyBox24
 
      Begin Object Class=moCheckBox Name=ReadyBox25
          bValueReadOnly=True
@@ -1473,7 +1473,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox2(5)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox25'
+     ReadyBox2(5)=ReadyBox25
 
      Begin Object Class=moCheckBox Name=ReadyBox26
          bValueReadOnly=True
@@ -1492,7 +1492,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox2(6)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox26'
+     ReadyBox2(6)=ReadyBox26
 
      Begin Object Class=moCheckBox Name=ReadyBox27
          bValueReadOnly=True
@@ -1511,7 +1511,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox2(7)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox27'
+     ReadyBox2(7)=ReadyBox27
 
      Begin Object Class=moCheckBox Name=ReadyBox28
          bValueReadOnly=True
@@ -1530,7 +1530,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox2(8)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox28'
+     ReadyBox2(8)=ReadyBox28
 
      Begin Object Class=moCheckBox Name=ReadyBox29
          bValueReadOnly=True
@@ -1549,7 +1549,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox2(9)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox29'
+     ReadyBox2(9)=ReadyBox29
 
      Begin Object Class=moCheckBox Name=ReadyBox210
          bValueReadOnly=True
@@ -1568,7 +1568,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox2(10)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox210'
+     ReadyBox2(10)=ReadyBox210
 
      Begin Object Class=moCheckBox Name=ReadyBox211
          bValueReadOnly=True
@@ -1587,7 +1587,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox2(11)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox211'
+     ReadyBox2(11)=ReadyBox211
 
      Begin Object Class=moCheckBox Name=ReadyBox212
          bValueReadOnly=True
@@ -1606,7 +1606,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox2(12)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox212'
+     ReadyBox2(12)=ReadyBox212
 
      Begin Object Class=moCheckBox Name=ReadyBox213
          bValueReadOnly=True
@@ -1625,7 +1625,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox2(13)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox213'
+     ReadyBox2(13)=ReadyBox213
 
      Begin Object Class=moCheckBox Name=ReadyBox214
          bValueReadOnly=True
@@ -1644,7 +1644,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox2(14)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox214'
+     ReadyBox2(14)=ReadyBox214
 
      Begin Object Class=moCheckBox Name=ReadyBox215
          bValueReadOnly=True
@@ -1663,7 +1663,7 @@ defaultproperties
          bNeverFocus=True
          bAnimating=True
      End Object
-     ReadyBox2(15)=moCheckBox'KFGunGame.GGLobbyMenu.ReadyBox215'
+     ReadyBox2(15)=ReadyBox215
 
      Begin Object Class=KFPlayerReadyBar Name=Player1BackDrop2
          WinTop=0.040000
@@ -1672,7 +1672,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox2(0)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player1BackDrop2'
+     PlayerBox2(0)=Player1BackDrop2
 
      Begin Object Class=KFPlayerReadyBar Name=Player2BackDrop2
          WinTop=0.085000
@@ -1681,7 +1681,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox2(1)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player2BackDrop2'
+     PlayerBox2(1)=Player2BackDrop2
 
      Begin Object Class=KFPlayerReadyBar Name=Player3BackDrop2
          WinTop=0.130000
@@ -1690,7 +1690,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox2(2)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player3BackDrop2'
+     PlayerBox2(2)=Player3BackDrop2
 
      Begin Object Class=KFPlayerReadyBar Name=Player4BackDrop2
          WinTop=0.175000
@@ -1699,7 +1699,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox2(3)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player4BackDrop2'
+     PlayerBox2(3)=Player4BackDrop2
 
      Begin Object Class=KFPlayerReadyBar Name=Player5BackDrop2
          WinTop=0.220000
@@ -1708,7 +1708,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox2(4)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player5BackDrop2'
+     PlayerBox2(4)=Player5BackDrop2
 
      Begin Object Class=KFPlayerReadyBar Name=Player6BackDrop2
          WinTop=0.265000
@@ -1717,7 +1717,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox2(5)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player6BackDrop2'
+     PlayerBox2(5)=Player6BackDrop2
 
      Begin Object Class=KFPlayerReadyBar Name=Player7BackDrop2
          WinTop=0.310000
@@ -1726,7 +1726,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox2(6)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player7BackDrop2'
+     PlayerBox2(6)=Player7BackDrop2
 
      Begin Object Class=KFPlayerReadyBar Name=Player8BackDrop2
          WinTop=0.355000
@@ -1735,7 +1735,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox2(7)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player8BackDrop2'
+     PlayerBox2(7)=Player8BackDrop2
 
      Begin Object Class=KFPlayerReadyBar Name=Player9BackDrop2
          WinTop=0.400000
@@ -1744,7 +1744,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox2(8)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player9BackDrop2'
+     PlayerBox2(8)=Player9BackDrop2
 
      Begin Object Class=KFPlayerReadyBar Name=Player10BackDrop2
          WinTop=0.445000
@@ -1753,7 +1753,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox2(9)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player10BackDrop2'
+     PlayerBox2(9)=Player10BackDrop2
 
      Begin Object Class=KFPlayerReadyBar Name=Player11BackDrop2
          WinTop=0.490000
@@ -1762,7 +1762,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox2(10)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player11BackDrop2'
+     PlayerBox2(10)=Player11BackDrop2
 
      Begin Object Class=KFPlayerReadyBar Name=Player12BackDrop2
          WinTop=0.535000
@@ -1771,7 +1771,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox2(11)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player12BackDrop2'
+     PlayerBox2(11)=Player12BackDrop2
 
      Begin Object Class=KFPlayerReadyBar Name=Player13BackDrop2
          WinTop=0.580000
@@ -1780,7 +1780,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox2(12)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player13BackDrop2'
+     PlayerBox2(12)=Player13BackDrop2
 
      Begin Object Class=KFPlayerReadyBar Name=Player14BackDrop2
          WinTop=0.625000
@@ -1789,7 +1789,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox2(13)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player14BackDrop2'
+     PlayerBox2(13)=Player14BackDrop2
 
      Begin Object Class=KFPlayerReadyBar Name=Player15BackDrop2
          WinTop=0.670000
@@ -1798,7 +1798,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox2(14)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player15BackDrop2'
+     PlayerBox2(14)=Player15BackDrop2
 
      Begin Object Class=KFPlayerReadyBar Name=Player16BackDrop2
          WinTop=0.715000
@@ -1807,7 +1807,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.350000
      End Object
-     PlayerBox2(15)=KFPlayerReadyBar'KFGunGame.GGLobbyMenu.Player16BackDrop2'
+     PlayerBox2(15)=Player16BackDrop2
 
      Begin Object Class=GUIImage Name=Player1P2
          ImageStyle=ISTY_Justified
@@ -1817,7 +1817,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk2(0)=GUIImage'KFGunGame.GGLobbyMenu.Player1P2'
+     PlayerPerk2(0)=Player1P2
 
      Begin Object Class=GUIImage Name=Player2P2
          ImageStyle=ISTY_Justified
@@ -1827,7 +1827,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk2(1)=GUIImage'KFGunGame.GGLobbyMenu.Player2P2'
+     PlayerPerk2(1)=Player2P2
 
      Begin Object Class=GUIImage Name=Player3P2
          ImageStyle=ISTY_Justified
@@ -1837,7 +1837,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk2(2)=GUIImage'KFGunGame.GGLobbyMenu.Player3P2'
+     PlayerPerk2(2)=Player3P2
 
      Begin Object Class=GUIImage Name=Player4P2
          ImageStyle=ISTY_Justified
@@ -1847,7 +1847,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk2(3)=GUIImage'KFGunGame.GGLobbyMenu.Player4P2'
+     PlayerPerk2(3)=Player4P2
 
      Begin Object Class=GUIImage Name=Player5P2
          ImageStyle=ISTY_Justified
@@ -1857,7 +1857,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk2(4)=GUIImage'KFGunGame.GGLobbyMenu.Player5P2'
+     PlayerPerk2(4)=Player5P2
 
      Begin Object Class=GUIImage Name=Player6P2
          ImageStyle=ISTY_Justified
@@ -1867,7 +1867,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk2(5)=GUIImage'KFGunGame.GGLobbyMenu.Player6P2'
+     PlayerPerk2(5)=Player6P2
 
      Begin Object Class=GUIImage Name=Player7P2
          ImageStyle=ISTY_Justified
@@ -1877,7 +1877,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk2(6)=GUIImage'KFGunGame.GGLobbyMenu.Player7P2'
+     PlayerPerk2(6)=Player7P2
 
      Begin Object Class=GUIImage Name=Player8P2
          ImageStyle=ISTY_Justified
@@ -1887,7 +1887,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk2(7)=GUIImage'KFGunGame.GGLobbyMenu.Player8P2'
+     PlayerPerk2(7)=Player8P2
 
      Begin Object Class=GUIImage Name=Player9P2
          ImageStyle=ISTY_Justified
@@ -1897,7 +1897,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk2(8)=GUIImage'KFGunGame.GGLobbyMenu.Player9P2'
+     PlayerPerk2(8)=Player9P2
 
      Begin Object Class=GUIImage Name=Player10P2
          ImageStyle=ISTY_Justified
@@ -1907,7 +1907,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk2(9)=GUIImage'KFGunGame.GGLobbyMenu.Player10P2'
+     PlayerPerk2(9)=Player10P2
 
      Begin Object Class=GUIImage Name=Player11P2
          ImageStyle=ISTY_Justified
@@ -1917,7 +1917,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk2(10)=GUIImage'KFGunGame.GGLobbyMenu.Player11P2'
+     PlayerPerk2(10)=Player11P2
 
      Begin Object Class=GUIImage Name=Player12P2
          ImageStyle=ISTY_Justified
@@ -1927,7 +1927,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk2(11)=GUIImage'KFGunGame.GGLobbyMenu.Player12P2'
+     PlayerPerk2(11)=Player12P2
 
      Begin Object Class=GUIImage Name=Player13P2
          ImageStyle=ISTY_Justified
@@ -1937,7 +1937,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk2(12)=GUIImage'KFGunGame.GGLobbyMenu.Player13P2'
+     PlayerPerk2(12)=Player13P2
 
      Begin Object Class=GUIImage Name=Player14P2
          ImageStyle=ISTY_Justified
@@ -1947,7 +1947,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk2(13)=GUIImage'KFGunGame.GGLobbyMenu.Player14P2'
+     PlayerPerk2(13)=Player14P2
 
      Begin Object Class=GUIImage Name=Player15P2
          ImageStyle=ISTY_Justified
@@ -1957,7 +1957,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk2(14)=GUIImage'KFGunGame.GGLobbyMenu.Player15P2'
+     PlayerPerk2(14)=Player15P2
 
      Begin Object Class=GUIImage Name=Player16P2
          ImageStyle=ISTY_Justified
@@ -1967,7 +1967,7 @@ defaultproperties
          WinHeight=0.039000
          RenderWeight=0.560000
      End Object
-     PlayerPerk2(15)=GUIImage'KFGunGame.GGLobbyMenu.Player16P2'
+     PlayerPerk2(15)=Player16P2
 
      Begin Object Class=GUILabel Name=Player1Veterancy2
          TextAlign=TXTA_Right
@@ -1979,7 +1979,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.500000
      End Object
-     PlayerVetLabel2(0)=GUILabel'KFGunGame.GGLobbyMenu.Player1Veterancy2'
+     PlayerVetLabel2(0)=Player1Veterancy2
 
      Begin Object Class=GUILabel Name=Player2Veterancy2
          TextAlign=TXTA_Right
@@ -1991,7 +1991,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.500000
      End Object
-     PlayerVetLabel2(1)=GUILabel'KFGunGame.GGLobbyMenu.Player2Veterancy2'
+     PlayerVetLabel2(1)=Player2Veterancy2
 
      Begin Object Class=GUILabel Name=Player3Veterancy2
          TextAlign=TXTA_Right
@@ -2003,7 +2003,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel2(2)=GUILabel'KFGunGame.GGLobbyMenu.Player3Veterancy2'
+     PlayerVetLabel2(2)=Player3Veterancy2
 
      Begin Object Class=GUILabel Name=Player4Veterancy2
          TextAlign=TXTA_Right
@@ -2015,7 +2015,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel2(3)=GUILabel'KFGunGame.GGLobbyMenu.Player4Veterancy2'
+     PlayerVetLabel2(3)=Player4Veterancy2
 
      Begin Object Class=GUILabel Name=Player5Veterancy2
          TextAlign=TXTA_Right
@@ -2027,7 +2027,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel2(4)=GUILabel'KFGunGame.GGLobbyMenu.Player5Veterancy2'
+     PlayerVetLabel2(4)=Player5Veterancy2
 
      Begin Object Class=GUILabel Name=Player6Veterancy2
          TextAlign=TXTA_Right
@@ -2039,7 +2039,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel2(5)=GUILabel'KFGunGame.GGLobbyMenu.Player6Veterancy2'
+     PlayerVetLabel2(5)=Player6Veterancy2
 
      Begin Object Class=GUILabel Name=Player7Veterancy2
          TextAlign=TXTA_Right
@@ -2051,7 +2051,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel2(6)=GUILabel'KFGunGame.GGLobbyMenu.Player7Veterancy2'
+     PlayerVetLabel2(6)=Player7Veterancy2
 
      Begin Object Class=GUILabel Name=Player8Veterancy2
          TextAlign=TXTA_Right
@@ -2063,7 +2063,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel2(7)=GUILabel'KFGunGame.GGLobbyMenu.Player8Veterancy2'
+     PlayerVetLabel2(7)=Player8Veterancy2
 
      Begin Object Class=GUILabel Name=Player9Veterancy2
          TextAlign=TXTA_Right
@@ -2075,7 +2075,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel2(8)=GUILabel'KFGunGame.GGLobbyMenu.Player9Veterancy2'
+     PlayerVetLabel2(8)=Player9Veterancy2
 
      Begin Object Class=GUILabel Name=Player10Veterancy2
          TextAlign=TXTA_Right
@@ -2087,7 +2087,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel2(9)=GUILabel'KFGunGame.GGLobbyMenu.Player10Veterancy2'
+     PlayerVetLabel2(9)=Player10Veterancy2
 
      Begin Object Class=GUILabel Name=Player11Veterancy2
          TextAlign=TXTA_Right
@@ -2099,7 +2099,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel2(10)=GUILabel'KFGunGame.GGLobbyMenu.Player11Veterancy2'
+     PlayerVetLabel2(10)=Player11Veterancy2
 
      Begin Object Class=GUILabel Name=Player12Veterancy2
          TextAlign=TXTA_Right
@@ -2111,7 +2111,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel2(11)=GUILabel'KFGunGame.GGLobbyMenu.Player12Veterancy2'
+     PlayerVetLabel2(11)=Player12Veterancy2
 
      Begin Object Class=GUILabel Name=Player13Veterancy2
          TextAlign=TXTA_Right
@@ -2123,7 +2123,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel2(12)=GUILabel'KFGunGame.GGLobbyMenu.Player13Veterancy2'
+     PlayerVetLabel2(12)=Player13Veterancy2
 
      Begin Object Class=GUILabel Name=Player14Veterancy2
          TextAlign=TXTA_Right
@@ -2135,7 +2135,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel2(13)=GUILabel'KFGunGame.GGLobbyMenu.Player14Veterancy2'
+     PlayerVetLabel2(13)=Player14Veterancy2
 
      Begin Object Class=GUILabel Name=Player15Veterancy2
          TextAlign=TXTA_Right
@@ -2147,7 +2147,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel2(14)=GUILabel'KFGunGame.GGLobbyMenu.Player15Veterancy2'
+     PlayerVetLabel2(14)=Player15Veterancy2
 
      Begin Object Class=GUILabel Name=Player16Veterancy2
          TextAlign=TXTA_Right
@@ -2159,7 +2159,7 @@ defaultproperties
          WinHeight=0.045000
          RenderWeight=0.550000
      End Object
-     PlayerVetLabel2(15)=GUILabel'KFGunGame.GGLobbyMenu.Player16Veterancy2'
+     PlayerVetLabel2(15)=Player16Veterancy2
 
      Begin Object Class=KFLobbyChat Name=ChatBox
          OnCreateComponent=ChatBox.InternalOnCreateComponent
@@ -2175,7 +2175,7 @@ defaultproperties
          OnMousePressed=ChatBox.FloatingMousePressed
          OnMouseRelease=ChatBox.FloatingMouseRelease
      End Object
-     t_ChatBox=KFLobbyChat'KFGunGame.GGLobbyMenu.ChatBox'
+     t_ChatBox=ChatBox
 
      Begin Object Class=GUILabel Name=TimeOutCounter
          Caption="Game will auto-commence in: "
@@ -2187,7 +2187,7 @@ defaultproperties
          WinHeight=0.045704
          TabOrder=6
      End Object
-     label_TimeOutCounter=GUILabel'KFGunGame.GGLobbyMenu.TimeOutCounter'
+     label_TimeOutCounter=TimeOutCounter
 
      Begin Object Class=GUILabel Name=Spectators
          Caption="Spectators:"
@@ -2198,7 +2198,7 @@ defaultproperties
          WinHeight=0.045704
          TabOrder=6
      End Object
-     SpectatorsLabel=GUILabel'KFGunGame.GGLobbyMenu.Spectators'
+     SpectatorsLabel=Spectators
 
      Begin Object Class=GUISectionBackground Name=ADBG
          WinTop=0.037343
@@ -2208,7 +2208,7 @@ defaultproperties
          RenderWeight=0.300000
          OnPreDraw=ADBG.InternalPreDraw
      End Object
-     ADBackground=GUISectionBackground'KFGunGame.GGLobbyMenu.ADBG'
+     ADBackground=ADBG
 
      LvAbbrString="Lv"
      SelectPerkInformationString="Perks enhance certain abilities of your character.|There are 6 Perks to choose from in the center of the screen.|Each has different Effects shown in the upper right.|Perks improve as you complete the Level Requirements shown on the right."
@@ -2227,13 +2227,13 @@ defaultproperties
          bAcceptsInput=True
          OnActivate=PageTabs.InternalOnActivate
      End Object
-     c_Tabs=GUITabControl'KFGui.GUIClassMenu.PageTabs'
+     c_Tabs=PageTabs
 
      Begin Object Class=GUIHeader Name=MyHeader
          WinHeight=-0.350000
          bVisible=False
      End Object
-     t_Header=GUIHeader'KFGunGame.GGLobbyMenu.MyHeader'
+     t_Header=MyHeader
 
      Begin Object Class=GGLobbyFooter Name=MyFooter
          RenderWeight=0.300000
@@ -2242,7 +2242,7 @@ defaultproperties
          bScaleToParent=False
          OnPreDraw=BuyFooter.InternalOnPreDraw
      End Object
-     t_Footer=GGLobbyFooter'KFGunGame.GGLobbyMenu.MyFooter'
+     t_Footer=MyFooter
 
      bRenderWorld=True
      bAllowedAsLast=True

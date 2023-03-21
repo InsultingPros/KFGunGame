@@ -994,7 +994,7 @@ defaultproperties
          WinHeight=0.644078
          OnPreDraw=SBRed.InternalPreDraw
      End Object
-     sb_Red=AltSectionBackground'KFGunGame.KFGGLoginControls.SBRed'
+     sb_Red=SBRed
 
      Begin Object Class=AltSectionBackground Name=SBBlue
          bFillClient=True
@@ -1007,7 +1007,7 @@ defaultproperties
          WinHeight=0.644078
          OnPreDraw=SBBlue.InternalPreDraw
      End Object
-     sb_Blue=AltSectionBackground'KFGunGame.KFGGLoginControls.SBBlue'
+     sb_Blue=SBBlue
 
      Begin Object Class=AltSectionBackground Name=SBFFA
          bFillClient=True
@@ -1020,7 +1020,7 @@ defaultproperties
          WinHeight=0.701886
          OnPreDraw=SBFFA.InternalPreDraw
      End Object
-     sb_FFA=AltSectionBackground'KFGunGame.KFGGLoginControls.SBFFA'
+     sb_FFA=SBFFA
 
      Begin Object Class=GUIImage Name=JoinRedButton
          ImageColor=(B=100,G=100,A=90)
@@ -1034,7 +1034,7 @@ defaultproperties
          bScaleToParent=True
          OnDraw=KFGGLoginControls.RedDraw
      End Object
-     i_JoinRed=GUIImage'KFGunGame.KFGGLoginControls.JoinRedButton'
+     i_JoinRed=JoinRedButton
 
      Begin Object Class=GUIImage Name=JoinBlueButton
          ImageColor=(G=128,R=0,A=90)
@@ -1047,7 +1047,7 @@ defaultproperties
          bBoundToParent=True
          bScaleToParent=True
      End Object
-     i_JoinBlue=GUIImage'KFGunGame.KFGGLoginControls.JoinBlueButton'
+     i_JoinBlue=JoinBlueButton
 
      Begin Object Class=GUIListBox Name=RedTeamListBox
          SelectedStyleName="BrowserListSelection"
@@ -1060,7 +1060,7 @@ defaultproperties
          WinHeight=0.400000
          TabOrder=11
      End Object
-     lb_Red=GUIListBox'KFGunGame.KFGGLoginControls.RedTeamListBox'
+     lb_Red=RedTeamListBox
 
      Begin Object Class=GUIListBox Name=BlueTeamListBox
          SelectedStyleName="BrowserListSelection"
@@ -1073,7 +1073,7 @@ defaultproperties
          WinHeight=0.400000
          TabOrder=12
      End Object
-     lb_Blue=GUIListBox'KFGunGame.KFGGLoginControls.BlueTeamListBox'
+     lb_Blue=BlueTeamListBox
 
      Begin Object Class=GUIListBox Name=FFAPlayerListBox
          SelectedStyleName="BrowserListSelection"
@@ -1086,7 +1086,7 @@ defaultproperties
          WinHeight=0.500000
          TabOrder=13
      End Object
-     lb_FFA=GUIListBox'KFGunGame.KFGGLoginControls.FFAPlayerListBox'
+     lb_FFA=FFAPlayerListBox
 
      Begin Object Class=GUIButton Name=TeamButton
          Caption="Change Team"
@@ -1100,7 +1100,7 @@ defaultproperties
          OnClick=KFGGLoginControls.TeamChange
          OnKeyEvent=TeamButton.InternalOnKeyEvent
      End Object
-     b_Team=GUIButton'KFGunGame.KFGGLoginControls.TeamButton'
+     b_Team=TeamButton
 
      Begin Object Class=GUIButton Name=SettingsButton
          Caption="Settings"
@@ -1114,7 +1114,7 @@ defaultproperties
          OnClick=KFGGLoginControls.ButtonClicked
          OnKeyEvent=SettingsButton.InternalOnKeyEvent
      End Object
-     b_Settings=GUIButton'KFGunGame.KFGGLoginControls.SettingsButton'
+     b_Settings=SettingsButton
 
      Begin Object Class=GUIButton Name=BrowserButton
          Caption="Server Browser"
@@ -1129,7 +1129,7 @@ defaultproperties
          OnClick=KFGGLoginControls.ButtonClicked
          OnKeyEvent=BrowserButton.InternalOnKeyEvent
      End Object
-     b_Browser=GUIButton'KFGunGame.KFGGLoginControls.BrowserButton'
+     b_Browser=BrowserButton
 
      Begin Object Class=GUIButton Name=QuitGameButton
          Caption="Exit Game"
@@ -1142,7 +1142,7 @@ defaultproperties
          OnClick=KFGGLoginControls.ButtonClicked
          OnKeyEvent=QuitGameButton.InternalOnKeyEvent
      End Object
-     b_Quit=GUIButton'KFGunGame.KFGGLoginControls.QuitGameButton'
+     b_Quit=QuitGameButton
 
      Begin Object Class=GUIButton Name=FavoritesButton
          Caption="Add to Favs"
@@ -1158,7 +1158,7 @@ defaultproperties
          OnClick=KFGGLoginControls.ButtonClicked
          OnKeyEvent=FavoritesButton.InternalOnKeyEvent
      End Object
-     b_Favs=GUIButton'KFGunGame.KFGGLoginControls.FavoritesButton'
+     b_Favs=FavoritesButton
 
      Begin Object Class=GUIButton Name=LeaveMatchButton
          bAutoSize=True
@@ -1172,7 +1172,7 @@ defaultproperties
          OnClick=KFGGLoginControls.ButtonClicked
          OnKeyEvent=LeaveMatchButton.InternalOnKeyEvent
      End Object
-     b_Leave=GUIButton'KFGunGame.KFGGLoginControls.LeaveMatchButton'
+     b_Leave=LeaveMatchButton
 
      Begin Object Class=GUIButton Name=MapVotingButton
          Caption="Map Voting"
@@ -1185,7 +1185,7 @@ defaultproperties
          OnClick=KFGGLoginControls.ButtonClicked
          OnKeyEvent=MapVotingButton.InternalOnKeyEvent
      End Object
-     b_MapVote=GUIButton'KFGunGame.KFGGLoginControls.MapVotingButton'
+     b_MapVote=MapVotingButton
 
      Begin Object Class=GUIButton Name=KickVotingButton
          Caption="Kick Voting"
@@ -1198,7 +1198,7 @@ defaultproperties
          OnClick=KFGGLoginControls.ButtonClicked
          OnKeyEvent=KickVotingButton.InternalOnKeyEvent
      End Object
-     b_KickVote=GUIButton'KFGunGame.KFGGLoginControls.KickVotingButton'
+     b_KickVote=KickVotingButton
 
      Begin Object Class=GUIButton Name=MatchSetupButton
          Caption="Match Setup"
@@ -1211,7 +1211,7 @@ defaultproperties
          OnClick=KFGGLoginControls.ButtonClicked
          OnKeyEvent=MatchSetupButton.InternalOnKeyEvent
      End Object
-     b_MatchSetup=GUIButton'KFGunGame.KFGGLoginControls.MatchSetupButton'
+     b_MatchSetup=MatchSetupButton
 
      Begin Object Class=GUIButton Name=SpectateButton
          Caption="Spectate"
@@ -1224,7 +1224,7 @@ defaultproperties
          OnClick=KFGGLoginControls.ButtonClicked
          OnKeyEvent=SpectateButton.InternalOnKeyEvent
      End Object
-     b_Spec=GUIButton'KFGunGame.KFGGLoginControls.SpectateButton'
+     b_Spec=SpectateButton
 
      LeaveMPButtonText="Disconnect"
      LeaveSPButtonText="Forfeit"
@@ -1249,7 +1249,7 @@ defaultproperties
          OnOpen=KFGGLoginControls.ContextMenuOpened
          OnSelect=KFGGLoginControls.ContextClick
      End Object
-     ContextMenu=GUIContextMenu'KFGunGame.KFGGLoginControls.PlayerListContextMenu'
+     ContextMenu=PlayerListContextMenu
 
      OnPreDraw=KFGGLoginControls.InternalOnPreDraw
      OnRightClick=KFGGLoginControls.RightClick

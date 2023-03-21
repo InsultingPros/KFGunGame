@@ -202,7 +202,7 @@ defaultproperties
          OnClick=GGLobbyFooter.OnFooterClick
          OnKeyEvent=ReadyButton.InternalOnKeyEvent
      End Object
-     b_Ready=GUIButton'KFGunGame.GGLobbyFooter.ReadyButton'
+     b_Ready=ReadyButton
 
      Begin Object Class=GUIButton Name=Cancel
          Caption="Disconnect"
@@ -219,7 +219,7 @@ defaultproperties
          OnClick=GGLobbyFooter.OnFooterClick
          OnKeyEvent=Cancel.InternalOnKeyEvent
      End Object
-     b_Cancel=GUIButton'KFGunGame.GGLobbyFooter.Cancel'
+     b_Cancel=Cancel
 
      Begin Object Class=GUIButton Name=Options
          Caption="Options"
@@ -236,7 +236,7 @@ defaultproperties
          OnClick=GGLobbyFooter.OnFooterClick
          OnKeyEvent=Cancel.InternalOnKeyEvent
      End Object
-     b_Options=GUIButton'KFGunGame.GGLobbyFooter.Options'
+     b_Options=Options
 
      OnPreDraw=GGLobbyFooter.InternalOnPreDraw
 }

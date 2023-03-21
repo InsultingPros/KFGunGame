@@ -83,7 +83,7 @@ defaultproperties
          bAcceptsInput=True
          OnActivate=LoginMenuTC.InternalOnActivate
      End Object
-     c_Main=GUITabControl'KFGunGame.KFGGMidGameMenu.LoginMenuTC'
+     c_Main=LoginMenuTC
 
      WinTop=0.006158
      WinWidth=0.814844

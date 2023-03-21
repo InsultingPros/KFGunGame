@@ -674,7 +674,7 @@ defaultproperties
          OnClick=KFGGTab_MidGameVoiceChat.TeamChange
          OnKeyEvent=TeamButton.InternalOnKeyEvent
      End Object
-     b_Team=GUIButton'KFGunGame.KFGGTab_MidGameVoiceChat.TeamButton'
+     b_Team=TeamButton
 
      Begin Object Class=GUIButton Name=SettingsButton
          Caption="Settings"
@@ -688,7 +688,7 @@ defaultproperties
          OnClick=KFGGTab_MidGameVoiceChat.ButtonClicked
          OnKeyEvent=SettingsButton.InternalOnKeyEvent
      End Object
-     b_Settings=GUIButton'KFGunGame.KFGGTab_MidGameVoiceChat.SettingsButton'
+     b_Settings=SettingsButton
 
      Begin Object Class=GUIButton Name=BrowserButton
          Caption="Server Browser"
@@ -703,7 +703,7 @@ defaultproperties
          OnClick=KFGGTab_MidGameVoiceChat.ButtonClicked
          OnKeyEvent=BrowserButton.InternalOnKeyEvent
      End Object
-     b_Browser=GUIButton'KFGunGame.KFGGTab_MidGameVoiceChat.BrowserButton'
+     b_Browser=BrowserButton
 
      Begin Object Class=GUIButton Name=QuitGameButton
          Caption="Exit Game"
@@ -716,7 +716,7 @@ defaultproperties
          OnClick=KFGGTab_MidGameVoiceChat.ButtonClicked
          OnKeyEvent=QuitGameButton.InternalOnKeyEvent
      End Object
-     b_Quit=GUIButton'KFGunGame.KFGGTab_MidGameVoiceChat.QuitGameButton'
+     b_Quit=QuitGameButton
 
      Begin Object Class=GUIButton Name=FavoritesButton
          Caption="Add to Favs"
@@ -732,7 +732,7 @@ defaultproperties
          OnClick=KFGGTab_MidGameVoiceChat.ButtonClicked
          OnKeyEvent=FavoritesButton.InternalOnKeyEvent
      End Object
-     b_Favs=GUIButton'KFGunGame.KFGGTab_MidGameVoiceChat.FavoritesButton'
+     b_Favs=FavoritesButton
 
      Begin Object Class=GUIButton Name=LeaveMatchButton
          bAutoSize=True
@@ -746,7 +746,7 @@ defaultproperties
          OnClick=KFGGTab_MidGameVoiceChat.ButtonClicked
          OnKeyEvent=LeaveMatchButton.InternalOnKeyEvent
      End Object
-     b_Leave=GUIButton'KFGunGame.KFGGTab_MidGameVoiceChat.LeaveMatchButton'
+     b_Leave=LeaveMatchButton
 
      Begin Object Class=GUIButton Name=MapVotingButton
          Caption="Map Voting"
@@ -759,7 +759,7 @@ defaultproperties
          OnClick=KFGGTab_MidGameVoiceChat.ButtonClicked
          OnKeyEvent=MapVotingButton.InternalOnKeyEvent
      End Object
-     b_MapVote=GUIButton'KFGunGame.KFGGTab_MidGameVoiceChat.MapVotingButton'
+     b_MapVote=MapVotingButton
 
      Begin Object Class=GUIButton Name=KickVotingButton
          Caption="Kick Voting"
@@ -772,7 +772,7 @@ defaultproperties
          OnClick=KFGGTab_MidGameVoiceChat.ButtonClicked
          OnKeyEvent=KickVotingButton.InternalOnKeyEvent
      End Object
-     b_KickVote=GUIButton'KFGunGame.KFGGTab_MidGameVoiceChat.KickVotingButton'
+     b_KickVote=KickVotingButton
 
      Begin Object Class=GUIButton Name=MatchSetupButton
          Caption="Match Setup"
@@ -785,7 +785,7 @@ defaultproperties
          OnClick=KFGGTab_MidGameVoiceChat.ButtonClicked
          OnKeyEvent=MatchSetupButton.InternalOnKeyEvent
      End Object
-     b_MatchSetup=GUIButton'KFGunGame.KFGGTab_MidGameVoiceChat.MatchSetupButton'
+     b_MatchSetup=MatchSetupButton
 
      Begin Object Class=GUIButton Name=SpectateButton
          Caption="Spectate"
@@ -798,7 +798,7 @@ defaultproperties
          OnClick=KFGGTab_MidGameVoiceChat.ButtonClicked
          OnKeyEvent=SpectateButton.InternalOnKeyEvent
      End Object
-     b_Spec=GUIButton'KFGunGame.KFGGTab_MidGameVoiceChat.SpectateButton'
+     b_Spec=SpectateButton
 
      LeaveMPButtonText="Disconnect"
      LeaveSPButtonText="Forfeit"
@@ -829,7 +829,7 @@ defaultproperties
          bScaleToParent=True
          OnPreDraw=PlayersBackground.InternalPreDraw
      End Object
-     sb_Players=AltSectionBackground'KFGunGame.KFGGTab_MidGameVoiceChat.PlayersBackground'
+     sb_Players=PlayersBackground
 
      Begin Object Class=AltSectionBackground Name=SpecBackground
          Caption="Spectators"
@@ -845,7 +845,7 @@ defaultproperties
          bScaleToParent=True
          OnPreDraw=SpecBackground.InternalPreDraw
      End Object
-     sb_Specs=AltSectionBackground'KFGunGame.KFGGTab_MidGameVoiceChat.SpecBackground'
+     sb_Specs=SpecBackground
 
      Begin Object Class=AltSectionBackground Name=OptionBackground
          Caption="Voice Options"
@@ -859,7 +859,7 @@ defaultproperties
          bScaleToParent=True
          OnPreDraw=OptionBackground.InternalPreDraw
      End Object
-     sb_Options=AltSectionBackground'KFGunGame.KFGGTab_MidGameVoiceChat.OptionBackground'
+     sb_Options=OptionBackground
 
      OnPreDraw=KFGGTab_MidGameVoiceChat.InternalOnPreDraw
 }

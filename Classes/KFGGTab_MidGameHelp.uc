@@ -767,7 +767,7 @@ defaultproperties
          OnClick=KFGGTab_MidGameHelp.TeamChange
          OnKeyEvent=TeamButton.InternalOnKeyEvent
      End Object
-     b_Team=GUIButton'KFGunGame.KFGGTab_MidGameHelp.TeamButton'
+     b_Team=TeamButton
 
      Begin Object Class=GUIButton Name=SettingsButton
          Caption="Settings"
@@ -781,7 +781,7 @@ defaultproperties
          OnClick=KFGGTab_MidGameHelp.ButtonClicked
          OnKeyEvent=SettingsButton.InternalOnKeyEvent
      End Object
-     b_Settings=GUIButton'KFGunGame.KFGGTab_MidGameHelp.SettingsButton'
+     b_Settings=SettingsButton
 
      Begin Object Class=GUIButton Name=BrowserButton
          Caption="Server Browser"
@@ -796,7 +796,7 @@ defaultproperties
          OnClick=KFGGTab_MidGameHelp.ButtonClicked
          OnKeyEvent=BrowserButton.InternalOnKeyEvent
      End Object
-     b_Browser=GUIButton'KFGunGame.KFGGTab_MidGameHelp.BrowserButton'
+     b_Browser=BrowserButton
 
      Begin Object Class=GUIButton Name=QuitGameButton
          Caption="Exit Game"
@@ -809,7 +809,7 @@ defaultproperties
          OnClick=KFGGTab_MidGameHelp.ButtonClicked
          OnKeyEvent=QuitGameButton.InternalOnKeyEvent
      End Object
-     b_Quit=GUIButton'KFGunGame.KFGGTab_MidGameHelp.QuitGameButton'
+     b_Quit=QuitGameButton
 
      Begin Object Class=GUIButton Name=FavoritesButton
          Caption="Add to Favs"
@@ -825,7 +825,7 @@ defaultproperties
          OnClick=KFGGTab_MidGameHelp.ButtonClicked
          OnKeyEvent=FavoritesButton.InternalOnKeyEvent
      End Object
-     b_Favs=GUIButton'KFGunGame.KFGGTab_MidGameHelp.FavoritesButton'
+     b_Favs=FavoritesButton
 
      Begin Object Class=GUIButton Name=LeaveMatchButton
          bAutoSize=True
@@ -839,7 +839,7 @@ defaultproperties
          OnClick=KFGGTab_MidGameHelp.ButtonClicked
          OnKeyEvent=LeaveMatchButton.InternalOnKeyEvent
      End Object
-     b_Leave=GUIButton'KFGunGame.KFGGTab_MidGameHelp.LeaveMatchButton'
+     b_Leave=LeaveMatchButton
 
      Begin Object Class=GUIButton Name=MapVotingButton
          Caption="Map Voting"
@@ -852,7 +852,7 @@ defaultproperties
          OnClick=KFGGTab_MidGameHelp.ButtonClicked
          OnKeyEvent=MapVotingButton.InternalOnKeyEvent
      End Object
-     b_MapVote=GUIButton'KFGunGame.KFGGTab_MidGameHelp.MapVotingButton'
+     b_MapVote=MapVotingButton
 
      Begin Object Class=GUIButton Name=KickVotingButton
          Caption="Kick Voting"
@@ -865,7 +865,7 @@ defaultproperties
          OnClick=KFGGTab_MidGameHelp.ButtonClicked
          OnKeyEvent=KickVotingButton.InternalOnKeyEvent
      End Object
-     b_KickVote=GUIButton'KFGunGame.KFGGTab_MidGameHelp.KickVotingButton'
+     b_KickVote=KickVotingButton
 
      Begin Object Class=GUIButton Name=MatchSetupButton
          Caption="Match Setup"
@@ -878,7 +878,7 @@ defaultproperties
          OnClick=KFGGTab_MidGameHelp.ButtonClicked
          OnKeyEvent=MatchSetupButton.InternalOnKeyEvent
      End Object
-     b_MatchSetup=GUIButton'KFGunGame.KFGGTab_MidGameHelp.MatchSetupButton'
+     b_MatchSetup=MatchSetupButton
 
      Begin Object Class=GUIButton Name=SpectateButton
          Caption="Spectate"
@@ -891,7 +891,7 @@ defaultproperties
          OnClick=KFGGTab_MidGameHelp.ButtonClicked
          OnKeyEvent=SpectateButton.InternalOnKeyEvent
      End Object
-     b_Spec=GUIButton'KFGunGame.KFGGTab_MidGameHelp.SpectateButton'
+     b_Spec=SpectateButton
 
      LeaveMPButtonText="Disconnect"
      LeaveSPButtonText="Forfeit"
@@ -919,7 +919,7 @@ defaultproperties
          bScaleToParent=True
          OnPreDraw=sbGameDesc.InternalPreDraw
      End Object
-     sb_GameDesc=AltSectionBackground'KFGunGame.KFGGTab_MidGameHelp.sbGameDesc'
+     sb_GameDesc=sbGameDesc
 
      Begin Object Class=AltSectionBackground Name=sbHints
          bFillClient=True
@@ -932,7 +932,7 @@ defaultproperties
          bScaleToParent=True
          OnPreDraw=sbHints.InternalPreDraw
      End Object
-     sb_Hints=AltSectionBackground'KFGunGame.KFGGTab_MidGameHelp.sbHints'
+     sb_Hints=sbHints
 
      Begin Object Class=GUIScrollTextBox Name=InfoText
          bNoTeletype=True
@@ -947,7 +947,7 @@ defaultproperties
          bScaleToParent=True
          bNeverFocus=True
      End Object
-     GameDescriptionBox=GUIScrollTextBox'KFGunGame.KFGGTab_MidGameHelp.InfoText'
+     GameDescriptionBox=InfoText
 
      Begin Object Class=GUIScrollTextBox Name=HintText
          bNoTeletype=True
@@ -961,7 +961,7 @@ defaultproperties
          bScaleToParent=True
          bNeverFocus=True
      End Object
-     HintsBox=GUIScrollTextBox'KFGunGame.KFGGTab_MidGameHelp.HintText'
+     HintsBox=HintText
 
      Begin Object Class=GUILabel Name=HintCount
          TextAlign=TXTA_Center
@@ -971,7 +971,7 @@ defaultproperties
          WinWidth=0.400000
          WinHeight=32.000000
      End Object
-     HintCountLabel=GUILabel'KFGunGame.KFGGTab_MidGameHelp.HintCount'
+     HintCountLabel=HintCount
 
      Begin Object Class=GUIButton Name=PrevHint
          Caption="Previous Hint"
@@ -985,7 +985,7 @@ defaultproperties
          OnClick=KFGGTab_MidGameHelp.ButtonClicked
          OnKeyEvent=PrevHint.InternalOnKeyEvent
      End Object
-     PrevHintButton=GUIButton'KFGunGame.KFGGTab_MidGameHelp.PrevHint'
+     PrevHintButton=PrevHint
 
      Begin Object Class=GUIButton Name=NextHint
          Caption="Next Hint"
@@ -999,7 +999,7 @@ defaultproperties
          OnClick=KFGGTab_MidGameHelp.ButtonClicked
          OnKeyEvent=NextHint.InternalOnKeyEvent
      End Object
-     NextHintButton=GUIButton'KFGunGame.KFGGTab_MidGameHelp.NextHint'
+     NextHintButton=NextHint
 
      OnPreDraw=KFGGTab_MidGameHelp.FixUp
 }
