@@ -1,6 +1,5 @@
 class GG_LAWFire extends LAWFire;
 
-defaultproperties
-{
+defaultproperties {
      ProjectileClass=class'GG_LAWProj'
 }

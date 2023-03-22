@@ -3,7 +3,6 @@
 //=============================================================================
 class GG_M32GrenadeLauncher extends M32GrenadeLauncher;
 
-defaultproperties
-{
+defaultproperties {
      FireModeClass(0)=class'GG_M32Fire'
 }

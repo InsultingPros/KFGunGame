@@ -9,7 +9,6 @@
 //=============================================================================
 class GG_M4203AssaultRifle extends M4203AssaultRifle;
 
-defaultproperties
-{
+defaultproperties {
      FireModeClass(1)=class'GG_M203Fire'
 }

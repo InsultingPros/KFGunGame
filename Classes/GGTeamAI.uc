@@ -1,6 +1,5 @@
 class GGTeamAI extends TeamAI;
 
-defaultproperties
-{
+defaultproperties {
      SquadType=class'KFGGSquad'
 }

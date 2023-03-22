@@ -1,6 +1,5 @@
 class GG_LAW extends LAW;
 
-defaultproperties
-{
+defaultproperties {
      FireModeClass(0)=class'GG_LAWFire'
 }

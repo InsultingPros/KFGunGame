@@ -1,51 +1,50 @@
 class KFGGScoreBoard extends KFDMScoreBoard;
 
-var     localized     string         GameTypeTitleString;
-var     localized     string         MaxWeaponLevelString;
-var     localized   string      GreenTeamNameString;
-var     localized   string      BlueTeamNameString;
-var     localized   string      WeaponLevelString;
+var localized string GameTypeTitleString;
+var localized string MaxWeaponLevelString;
+var localized string GreenTeamNameString;
+var localized string BlueTeamNameString;
+var localized string WeaponLevelString;
 
-function DrawTitle(Canvas Canvas, float HeaderOffsetY, float PlayerAreaY, float PlayerBoxSizeY)
-{
+function DrawTitle(Canvas Canvas, float HeaderOffsetY, float PlayerAreaY, float PlayerBoxSizeY) {
     local string TitleString, ScoreInfoString, RestartString;
     local float TitleXL, ScoreInfoXL, YL, TitleY, TitleYL;
 
-    TitleString = GameTypeTitleString @ "|" @ MaxWeaponLevelString$":"@KFGGGameReplicationInfo(GRI).MaxWeaponLevel@"|"@Level.Title;
+    TitleString = GameTypeTitleString @
+        "|" @
+        MaxWeaponLevelString $
+        ":" @
+        KFGGGameReplicationInfo(GRI).MaxWeaponLevel @
+        "|" @
+        Level.Title;
 
     Canvas.Font = class'ROHud'.static.GetSmallMenuFont(Canvas);
-
     Canvas.StrLen(TitleString, TitleXL, TitleYL);
 
-    if ( GRI.TimeLimit != 0 )
-    {
+    if (GRI.TimeLimit != 0) {
         ScoreInfoString = TimeLimit $ FormatTime(GRI.RemainingTime);
-    }
-    else
-    {
+    } else {
         ScoreInfoString = FooterText @ FormatTime(GRI.ElapsedTime);
     }
 
     Canvas.DrawColor = HUDClass.default.RedColor;
 
-    if ( UnrealPlayer(Owner).bDisplayLoser )
-    {
+    if (UnrealPlayer(Owner).bDisplayLoser) {
         ScoreInfoString = class'HUDBase'.default.YouveLostTheMatch;
-    }
-    else if ( UnrealPlayer(Owner).bDisplayWinner )
-    {
+    } else if (UnrealPlayer(Owner).bDisplayWinner) {
         ScoreInfoString = class'HUDBase'.default.YouveWonTheMatch;
-    }
-    else if ( PlayerController(Owner).IsDead() )
+    } else if (PlayerController(Owner).IsDead())
     {
-        if ( PlayerController(Owner).PlayerReplicationInfo.bOutOfLives )
+        if (PlayerController(Owner).PlayerReplicationInfo.bOutOfLives) {
             RestartString = OutFireText;
-        else RestartString = Restart;
+        } else {
+            RestartString = Restart;
+        }
 
         ScoreInfoString = RestartString;
     }
 
-    TitleY = Canvas.ClipY * 0.03;//0.13;
+    TitleY = Canvas.ClipY * 0.03; // 0.13;
     Canvas.SetPos(0.5 * (Canvas.ClipX - TitleXL), TitleY);
     Canvas.DrawText(TitleString);
 
@@ -54,24 +53,24 @@ function DrawTitle(Canvas Canvas, float HeaderOffsetY, float PlayerAreaY, float 
     Canvas.DrawText(ScoreInfoString);
 }
 
-simulated final function DrawTeamScores( byte Team, Canvas Canvas, float XOfs )
+simulated final function DrawTeamScores(byte Team, Canvas Canvas, float XOfs )
 {
     local PlayerReplicationInfo PRI, OwnerPRI;
     local byte PlayerCount;
-    local int i, FontReduction, NetXPos, HeaderOffsetY, HeadFoot, MessageFoot, PlayerBoxSizeY, BoxSpaceY, NameXPos, BoxTextOffsetY, HealthXPos, BoxXPos,KillsXPos, TitleYPos, BoxWidth, VetXPos;
+    local int i, FontReduction, NetXPos, HeaderOffsetY, HeadFoot, MessageFoot, PlayerBoxSizeY,
+        BoxSpaceY, NameXPos, BoxTextOffsetY, HealthXPos, BoxXPos,KillsXPos, TitleYPos, BoxWidth, VetXPos;
     local float XL,YL, MaxScaling;
     local float deathsXL, KillsXL, netXL,HealthXL, MaxNamePos, KillWidthX, HealthWidthX;
     local bool bNameFontReduction;
 
     OwnerPRI = KFPlayerController(Owner).PlayerReplicationInfo;
-    for ( i = 0; i < GRI.PRIArray.Length; i++)
-    {
+    for (i = 0; i < GRI.PRIArray.Length; i++) {
         PRI = GRI.PRIArray[i];
-        if ( !PRI.bOnlySpectator && PRI.Team!=none && PRI.Team.TeamIndex==Team )
-        {
+        if (!PRI.bOnlySpectator && PRI.Team != none && PRI.Team.TeamIndex == Team) {
             PRIArray[PlayerCount++] = PRI;
-            if( PlayerCount==MAXPLAYERS )
+            if (PlayerCount == MAXPLAYERS) {
                 break;
+            }
         }
     }
 
@@ -83,29 +82,37 @@ simulated final function DrawTeamScores( byte Team, Canvas Canvas, float XOfs )
     HeadFoot = 7 * YL;
     MessageFoot = 1.5 * HeadFoot;
 
-    if ( PlayerCount > (Canvas.ClipY - 1.5 * HeadFoot) / (PlayerBoxSizeY + BoxSpaceY) )
-    {
+    if (PlayerCount > (Canvas.ClipY - 1.5 * HeadFoot) / (PlayerBoxSizeY + BoxSpaceY)) {
         BoxSpaceY = 0.125 * YL;
         PlayerBoxSizeY = 1.25 * YL;
-        if ( PlayerCount > (Canvas.ClipY - 1.5 * HeadFoot) / (PlayerBoxSizeY + BoxSpaceY) )
+        if (PlayerCount > (Canvas.ClipY - 1.5 * HeadFoot) / (PlayerBoxSizeY + BoxSpaceY)) {
             PlayerBoxSizeY = 1.125 * YL;
+        }
     }
 
-    if ( Canvas.ClipX < 512 )
-        PlayerCount = Min(PlayerCount, 1+(Canvas.ClipY - HeadFoot) / (PlayerBoxSizeY + BoxSpaceY) );
-    else PlayerCount = Min(PlayerCount, (Canvas.ClipY - HeadFoot) / (PlayerBoxSizeY + BoxSpaceY) );
+    if (Canvas.ClipX < 512) {
+        PlayerCount = Min(PlayerCount, 1+(Canvas.ClipY - HeadFoot) / (PlayerBoxSizeY + BoxSpaceY));
+    } else {
+        PlayerCount = Min(PlayerCount, (Canvas.ClipY - HeadFoot) / (PlayerBoxSizeY + BoxSpaceY));
+    }
 
-    if ( FontReduction > 2 )
+    if (FontReduction > 2) {
         MaxScaling = 3;
-    else MaxScaling = 2.125;
+    } else {
+        MaxScaling = 2.125;
+    }
 
-    PlayerBoxSizeY = FClamp((1.25 + (Canvas.ClipY - 0.67 * MessageFoot)) / PlayerCount - BoxSpaceY, PlayerBoxSizeY, MaxScaling * YL);
+    PlayerBoxSizeY = FClamp(
+        (1.25 + (Canvas.ClipY - 0.67 * MessageFoot)) / PlayerCount - BoxSpaceY,
+        PlayerBoxSizeY,
+        MaxScaling * YL
+    );
 
     bDisplayMessages = (PlayerCount <= (Canvas.ClipY - MessageFoot) / (PlayerBoxSizeY + BoxSpaceY));
 
     HeaderOffsetY = 6.0 *YL;//11.f * YL;
     BoxWidth = 0.45 * Canvas.ClipX;
-    BoxXPos = 0.5*(Canvas.ClipX*0.5f-BoxWidth)+XOfs;
+    BoxXPos = 0.5 * (Canvas.ClipX * 0.5f - BoxWidth) + XOfs;
     VetXPos = BoxXPos + 0.0001 * BoxWidth;
     NameXPos = BoxXPos + 0.08 * BoxWidth;
     KillsXPos = BoxXPos + 0.60 * BoxWidth;
@@ -114,15 +121,16 @@ simulated final function DrawTeamScores( byte Team, Canvas Canvas, float XOfs )
 
     // draw background boxes
     Canvas.Style = ERenderStyle.STY_Alpha;
-    if( Team==0 )
+    if (Team == 0) {
         Canvas.DrawColor = class'Hud'.default.GreenColor;
-    else Canvas.DrawColor = class'Hud'.default.BlueColor;
+    } else {
+        Canvas.DrawColor = class'Hud'.default.BlueColor;
+    }
     Canvas.DrawColor.A = 128;
 
-    for ( i = 0; i < PlayerCount; i++ )
-    {
+    for (i = 0; i < PlayerCount; i++) {
         Canvas.SetPos(BoxXPos, HeaderOffsetY + (PlayerBoxSizeY + BoxSpaceY) * i);
-        Canvas.DrawTileStretched( BoxMaterial, BoxWidth, PlayerBoxSizeY);
+        Canvas.DrawTileStretched(BoxMaterial, BoxWidth, PlayerBoxSizeY);
     }
 
     // draw title
@@ -133,16 +141,12 @@ simulated final function DrawTeamScores( byte Team, Canvas Canvas, float XOfs )
     TitleYPos = HeaderOffsetY - 1.1 * YL;
     Canvas.DrawColor = HUDClass.default.WhiteColor;
 
-    if( GRI!=none && GRI.Teams[Team]!=none )
-    {
-        Canvas.SetPos(BoxXPos+0.1f*BoxWidth, TitleYPos-1.25f*YL);
-        if( Team==0 )
-        {
-            Canvas.DrawText(GreenTeamNameString,true);
-        }
-        else
-        {
-            Canvas.DrawText(BlueTeamNameString,true);
+    if (GRI != none && GRI.Teams[Team] != none) {
+        Canvas.SetPos(BoxXPos + 0.1f * BoxWidth, TitleYPos - 1.25f * YL);
+        if (Team == 0) {
+            Canvas.DrawText(GreenTeamNameString, true);
+        } else {
+            Canvas.DrawText(BlueTeamNameString, true);
         }
     }
 
@@ -153,31 +157,28 @@ simulated final function DrawTeamScores( byte Team, Canvas Canvas, float XOfs )
     Canvas.StrLen("50", HealthWidthX, YL);
 
     Canvas.SetPos(NameXPos, TitleYPos);
-    Canvas.DrawText(PlayerText,true);
+    Canvas.DrawText(PlayerText, true);
 
     Canvas.SetPos(KillsXPos - 0.5 * KillsXL, TitleYPos);
     //Canvas.DrawText(KillsText,true);
-    Canvas.DrawText(WeaponLevelString,true);
+    Canvas.DrawText(WeaponLevelString, true);
 
     Canvas.SetPos(HealthXPos - 0.5 * HealthXL, TitleYPos);
-    Canvas.DrawText(HealthText,true);
+    Canvas.DrawText(HealthText, true);
 
     // draw player names
     MaxNamePos = 0.9 * (KillsXPos - NameXPos);
 
-    for ( i = 0; i < PlayerCount; i++ )
-    {
+    for (i = 0; i < PlayerCount; i++) {
         Canvas.StrLen(PRIArray[i].PlayerName, XL, YL);
 
-        if ( XL > MaxNamePos )
-        {
+        if (XL > MaxNamePos) {
             bNameFontReduction = true;
             break;
         }
     }
 
-    if ( bNameFontReduction )
-    {
+    if (bNameFontReduction) {
         Canvas.Font = GetSmallerFontFor(Canvas, FontReduction + 1);
     }
 
@@ -190,17 +191,13 @@ simulated final function DrawTeamScores( byte Team, Canvas Canvas, float XOfs )
     MaxNamePos = Canvas.ClipX;
     Canvas.ClipX = KillsXPos - 4.f;
 
-    for ( i = 0; i < PlayerCount; i++ )
-    {
+    for (i = 0; i < PlayerCount; i++) {
         Canvas.SetPos(NameXPos, (PlayerBoxSizeY + BoxSpaceY)*i + BoxTextOffsetY);
 
-        if( PRIArray[i]==OwnerPRI )
-        {
+        if (PRIArray[i] == OwnerPRI) {
             Canvas.DrawColor.G = 0;
             Canvas.DrawColor.B = 0;
-        }
-        else
-        {
+        } else {
             Canvas.DrawColor.G = 255;
             Canvas.DrawColor.B = 255;
         }
@@ -211,8 +208,7 @@ simulated final function DrawTeamScores( byte Team, Canvas Canvas, float XOfs )
     Canvas.ClipX = MaxNamePos;
     Canvas.DrawColor = HUDClass.default.WhiteColor;
 
-    if ( bNameFontReduction )
-    {
+    if (bNameFontReduction) {
         Canvas.Font = GetSmallerFontFor(Canvas, FontReduction);
     }
 
@@ -221,10 +217,9 @@ simulated final function DrawTeamScores( byte Team, Canvas Canvas, float XOfs )
     Canvas.DrawColor = HUDClass.default.WhiteColor;
 
     // Draw the player informations.
-    for ( i = 0; i < PlayerCount; i++ )
-    {
+    for (i = 0; i < PlayerCount; i++) {
         // draw kills
-        //Canvas.StrLen(KFPlayerReplicationInfo(PRIArray[i]).Kills, KillWidthX, YL);
+        // Canvas.StrLen(KFPlayerReplicationInfo(PRIArray[i]).Kills, KillWidthX, YL);
         // Draw weapon level
         Canvas.StrLen(KFGGPRI(PRIArray[i]).WeaponLevel, KillWidthX, YL);
         Canvas.SetPos(KillsXPos - 0.5 * KillWidthX, (PlayerBoxSizeY + BoxSpaceY) * i + BoxTextOffsetY);
@@ -232,41 +227,47 @@ simulated final function DrawTeamScores( byte Team, Canvas Canvas, float XOfs )
         Canvas.DrawText(KFGGPRI(PRIArray[i]).WeaponLevel, true);
 
         // draw deaths
-        if( PRIArray[i].bOutOfLives )
-        {
+        if (PRIArray[i].bOutOfLives) {
             Canvas.SetPos(HealthXpos - HealthWidthX, (PlayerBoxSizeY + BoxSpaceY) * i + BoxTextOffsetY);
             Canvas.DrawText(OutText, true);
-        }
-        else
-        {
+        } else {
             Canvas.SetPos(HealthXpos - 0.5 * HealthWidthX, (PlayerBoxSizeY + BoxSpaceY) * i + BoxTextOffsetY);
             Canvas.DrawText(string(int(PRIArray[i].Deaths)), true);
         }
     }
 
-//    if ( Level.NetMode == NM_Standalone )
-//        return;
+    // if (Level.NetMode == NM_Standalone )
+    //     return;
 
     Canvas.StrLen(NetText, NetXL, YL);
     Canvas.DrawColor = HUDClass.default.WhiteColor;
     Canvas.SetPos(NetXPos - 0.5 * NetXL, TitleYPos);
     Canvas.DrawText(NetText,true);
 
-    DrawNetInfo(Canvas, FontReduction, HeaderOffsetY, PlayerBoxSizeY, BoxSpaceY, BoxTextOffsetY, -1, PlayerCount, NetXPos);
+    DrawNetInfo(
+        Canvas,
+        FontReduction,
+        HeaderOffsetY,
+        PlayerBoxSizeY,
+        BoxSpaceY,
+        BoxTextOffsetY,
+        -1,
+        PlayerCount,
+        NetXPos
+    );
     DrawMatchID(Canvas, FontReduction);
 }
-simulated event UpdateScoreBoard(Canvas Canvas)
-{
-    DrawTeamScores(0,Canvas,0.f);
-    DrawTeamScores(1,Canvas,Canvas.ClipX*0.5f);
+
+simulated event UpdateScoreBoard(Canvas Canvas) {
+    DrawTeamScores(0, Canvas, 0.f);
+    DrawTeamScores(1, Canvas, Canvas.ClipX * 0.5f);
 }
 
-defaultproperties
-{
-     GameTypeTitleString="Killing Floor Gun Game"
-     MaxWeaponLevelString="Max Weapon Level"
-     GreenTeamNameString="Green Team"
-     BlueTeamNameString="Blue Team"
-     WeaponLevelString="Level"
-     OutText="Dead"
+defaultproperties {
+    GameTypeTitleString="Killing Floor Gun Game"
+    MaxWeaponLevelString="Max Weapon Level"
+    GreenTeamNameString="Green Team"
+    BlueTeamNameString="Blue Team"
+    WeaponLevelString="Level"
+    OutText="Dead"
 }

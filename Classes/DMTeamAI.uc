@@ -1,6 +1,5 @@
 class DMTeamAI extends TeamAI;
 
-defaultproperties
-{
+defaultproperties {
      SquadType=class'KFDMSquad'
 }

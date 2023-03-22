@@ -1,9 +1,5 @@
-//-----------------------------------------------------------
-//
-//-----------------------------------------------------------
 class GGSyringePickup extends SyringePickup;
 
-defaultproperties
-{
+defaultproperties {
      InventoryType=class'GGSyringe'
 }

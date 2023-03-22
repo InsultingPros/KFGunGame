@@ -1,6 +1,5 @@
 class GG_M203Fire extends M203Fire;
 
-defaultproperties
-{
+defaultproperties {
      ProjectileClass=class'GG_M203GrenadeProjectile'
 }

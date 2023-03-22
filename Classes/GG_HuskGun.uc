@@ -9,7 +9,6 @@
 //=============================================================================
 class GG_HuskGun extends HuskGun;
 
-defaultproperties
-{
+defaultproperties {
      FireModeClass(0)=class'GG_HuskGunFire'
 }

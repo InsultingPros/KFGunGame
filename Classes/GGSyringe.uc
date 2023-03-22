@@ -3,13 +3,11 @@
 //=============================================================================
 class GGSyringe extends Syringe;
 
-simulated function PostBeginPlay()
-{
+simulated function PostBeginPlay() {
     super(KFWeapon).PostBeginPlay(); // No additional health boost.
 }
 
-defaultproperties
-{
-     FireModeClass(0)=class'GGSyringeFire'
-     PickupClass=class'GGSyringePickup'
+defaultproperties {
+    FireModeClass(0)=class'GGSyringeFire'
+    PickupClass=class'GGSyringePickup'
 }
