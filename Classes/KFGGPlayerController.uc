@@ -1,5 +1,10 @@
 class KFGGPlayerController extends KFPlayerController;
 
+// this is a big no-no
+exec function ToggleBehindView() {
+    ClientMessage("ToggleBehindView is disabled for gun game. DO NOT TRY TO CHEAT!!!");
+}
+
 // Overriden to clear shakes / rot no matter what
 function ViewShake(float DeltaTime) {
     if (ShakeOffsetRate != vect(0, 0, 0)) {
