@@ -10,29 +10,26 @@
 class KFGG extends KFGameType
     config(KFGunGameGarbage);
 
-var config int NumAmmoSpawns;
-var config int WarmupTime; // How long to do a pre match warmup before starting the round
-var config bool bReverseList; // Do the weapon list backwards
-var config bool bShortList; // Do the weapon list backwards
+var int WarmupTime; // How long to do a pre match warmup before starting the round
 var bool bDidWarmup, bDoingWarmup;
 var int WarmupCountDown;
 
-var array<string>    WeaponList;            // A list of weapons that the players have to go through to win
-var array<string>    StandardWeaponList;    // A list of weapons that the players have to go through to win that includes the longer list of weapons weapons
-var array<string>    ShortWeaponList;    // A list of weapons that the players have to go through to win that is shortened down
-//var string FinalWeapon;                   // The final weapon to get a kill with to get the victory
-var localized string WarmupDescription;
-var localized string ReverseDescription;
-var localized string ShortListDescription;
+var private transient KFGGGameReplicationInfo GG_GRI;
+var private transient array<string> WeaponList;
 
 static function Texture GetRandomTeamSymbol(int base) {
     return Texture'Engine.S_Actor';
 }
 
-event Tick(float DeltaTime);
-function DramaticEvent(float BaseZedTimePossibility, optional float DesiredZedTimeDuration);
-function ShowPathTo(PlayerController P, int TeamNum);
-function DoBossDeath();
+event Tick(float DeltaTime){}
+function DramaticEvent(float BaseZedTimePossibility, optional float DesiredZedTimeDuration){}
+function ShowPathTo(PlayerController P, int TeamNum){}
+function DoBossDeath(){}
+// For now don't dynamically load/unload weapons. TODO: find a way to dynamically
+// load a set of the GG weapons at a time to save on memory
+function WeaponSpawned(Inventory Weapon){}
+function WeaponDestroyed(class<Weapon> WeaponClass){}
+function CheckScore(PlayerReplicationInfo Scorer){}
 
 event PostLogin(PlayerController NewPlayer) {
     local int i;
@@ -41,69 +38,10 @@ event PostLogin(PlayerController NewPlayer) {
 
     // Precache all the weapons
     if (KFPlayerController(NewPlayer) != none) {
-        for (i = 0; i < StandardWeaponList.Length; i++) {
-            KFPlayerController(NewPlayer).ClientWeaponSpawned(class<Weapon>(BaseMutator.GetInventoryClass(StandardWeaponList[i])), none);
+        for (i = 0; i < WeaponList.Length; i++) {
+            KFPlayerController(NewPlayer).ClientWeaponSpawned(class<Weapon>(BaseMutator.GetInventoryClass(WeaponList[i])), none);
         }
     }
-}
-
-// For now don't dynamically load/unload weapons. TODO: find a way to dynamically
-// load a set of the GG weapons at a time to save on memory
-function WeaponSpawned(Inventory Weapon){}
-function WeaponDestroyed(class<Weapon> WeaponClass){}
-
-static function FillPlayInfo(PlayInfo PlayInfo) {
-    super(Info).FillPlayInfo(PlayInfo);  // Always begin with calling parent
-
-    PlayInfo.AddSetting(default.GameGroup, "TimeLimit", GetDisplayText("TimeLimit"),0, 0, "Text", "3;0:999");
-    PlayInfo.AddSetting(default.GameGroup, "WarmupTime", default.WarmupDescription,0, 0, "Text", "3;0:999");
-    PlayInfo.AddSetting(default.GameGroup, "bReverseList", default.ReverseDescription, 0, 0, "Check",,, true, true);
-    PlayInfo.AddSetting(default.GameGroup, "bShortList", default.ShortListDescription,0, 0, "Check",,, true, true);
-
-    // AddSetting(string Group, string PropertyName, string Description, byte SecLevel, byte Weight, string RenderType, optional string Extras, optional string ExtraPrivs, optional bool bMultiPlayerOnly, optional bool bAdvanced);
-    // PlayInfo.AddSetting(default.GameGroup,   "NumAmmoSpawns","Num Ammo Pickups",0, 0, "Text","2;0:10");
-
-    PlayInfo.AddSetting(default.ServerGroup, "MinPlayers","Num Bots",0, 0, "Text","2;0:64",, true, true);
-    PlayInfo.AddSetting(default.ServerGroup, "LobbyTimeOut", GetDisplayText("LobbyTimeOut"), 0, 1, "Text", "3;0:120",, true, true);
-    PlayInfo.AddSetting(default.ServerGroup, "bAdminCanPause", GetDisplayText("bAdminCanPause"), 1, 1, "Check",,, true, true);
-    PlayInfo.AddSetting(default.ServerGroup, "MaxSpectators", GetDisplayText("MaxSpectators"), 1, 1, "Text", "6;0:32",, true, true);
-    PlayInfo.AddSetting(default.ServerGroup, "MaxPlayers", GetDisplayText("MaxPlayers"), 0, 1, "Text", "6;0:32",, true);
-    PlayInfo.AddSetting(default.ServerGroup, "MaxIdleTime", GetDisplayText("MaxIdleTime"), 0, 1, "Text", "3;0:300",, true, true);
-
-    // Add GRI's PIData
-    if (default.GameReplicationInfoClass != none) {
-        default.GameReplicationInfoClass.static.FillPlayInfo(PlayInfo);
-        PlayInfo.PopClass();
-    }
-
-    if (default.VoiceReplicationInfoClass != none) {
-        default.VoiceReplicationInfoClass.static.FillPlayInfo(PlayInfo);
-        PlayInfo.PopClass();
-    }
-
-    if (default.BroadcastClass != none) {
-        default.BroadcastClass.static.FillPlayInfo(PlayInfo);
-    } else {
-        class'BroadcastHandler'.static.FillPlayInfo(PlayInfo);
-    }
-
-    PlayInfo.PopClass();
-
-    if (class'Engine.GameInfo'.default.VotingHandlerClass != none) {
-        class'Engine.GameInfo'.default.VotingHandlerClass.static.FillPlayInfo(PlayInfo);
-        PlayInfo.PopClass();
-    }
-}
-
-static event string GetDescriptionText(string PropName) {
-    switch (PropName) {
-        //case "NumAmmoSpawns":        return "Number of ammo pickups that can be available at once.";
-        //case "MinPlayers":        return "Minimum number of players in game (rest will be filled with bots.";
-        //case "InitGrenadesCount":    return "Initial amount of grenades players start with.";
-        case "WarmupTime":      return default.WarmupDescription;
-        case "bReverseList":    return default.ReverseDescription;
-    }
-    return super.GetDescriptionText(PropName);
 }
 
 function bool CheckMaxLives(PlayerReplicationInfo Scorer) {
@@ -114,59 +52,25 @@ event PreBeginPlay() {
     local int i;
 
     super(xTeamGame).PreBeginPlay();
+
+    GG_GRI = KFGGGameReplicationInfo(GameReplicationInfo);
+    if (GG_GRI == none) {
+        warn("This should NOT happen: KFGGGameReplicationInfo is none! Terminating.");
+        Destroy();
+        return;
+    }
+    WarmupTime = GG_GRI.WarmupTime;
+
     GameReplicationInfo.bNoTeamSkins = true;
     GameReplicationInfo.bForceNoPlayerLights = true;
     GameReplicationInfo.bNoTeamChanges = false;
 
-    if (bShortList) {
-        for (i = 0; i < ShortWeaponList.Length; i++) {
-            if (bReverseList) {
-                if (ShortWeaponList[i] != "") {
-                    if (i > 0) {
-                        WeaponList[WeaponList.Length] = ShortWeaponList[ShortWeaponList.Length - (i + 1)];
-                    }
-                }
-            } else {
-                if (ShortWeaponList[i] != "") {
-                    WeaponList[i] = ShortWeaponList[i];
-                }
-            }
+    for (i = 0; i < 100; i += 1) {
+        if (GG_GRI.Weapons[i] == "") {
+            continue;
         }
-    } else {
-        for (i = 0; i < StandardWeaponList.Length; i++) {
-            if (bReverseList) {
-                if (StandardWeaponList[i] != "") {
-                    if (i > 0) {
-                        WeaponList[WeaponList.Length] = StandardWeaponList[StandardWeaponList.Length - (i + 1)];
-                    }
-                }
-            } else {
-                if (StandardWeaponList[i] != "") {
-                    WeaponList[i] = StandardWeaponList[i];
-                }
-            }
-        }
+        WeaponList[WeaponList.length] = GG_GRI.Weapons[i];
     }
-
-    // Add the final weapon when in reverse mode
-    if (bReverseList) {
-        if (bShortList) {
-            if (ShortWeaponList[ShortWeaponList.Length - 1] != "") {
-                WeaponList[WeaponList.Length] = ShortWeaponList[ShortWeaponList.Length-1];
-            }
-        } else {
-            if (StandardWeaponList[StandardWeaponList.Length - 1] != "") {
-                WeaponList[WeaponList.Length] = StandardWeaponList[StandardWeaponList.Length-1];
-            }
-        }
-    }
-
-    // for (i = 0; i < WeaponList.Length; i++ )
-    // {
-    //     log("i = "$i$" WeaponList.Length = "$WeaponList.Length$" WeaponList[i] = "$WeaponList[i]);
-    // }
-
-    KFGGGameReplicationInfo(GameReplicationInfo).MaxWeaponLevel = WeaponList.Length;
 }
 
 event InitGame(string Options, out string Error) {
@@ -779,8 +683,6 @@ final function UpdateViewsNow() {
     }
 }
 
-function CheckScore(PlayerReplicationInfo Scorer);
-
 function RestartPlayer(Controller aPlayer) {
     if (aPlayer.PlayerReplicationInfo.bOutOfLives || aPlayer.Pawn != none) {
         return;
@@ -1214,66 +1116,55 @@ state MatchOver {
     }
 }
 
+static function FillPlayInfo(PlayInfo PlayInfo) {
+    super(Info).FillPlayInfo(PlayInfo);  // Always begin with calling parent
+
+    PlayInfo.AddSetting(default.GameGroup, "TimeLimit", GetDisplayText("TimeLimit"),0, 0, "Text", "3;0:999");
+
+    // AddSetting(string Group, string PropertyName, string Description, byte SecLevel, byte Weight, string RenderType, optional string Extras, optional string ExtraPrivs, optional bool bMultiPlayerOnly, optional bool bAdvanced);
+    // PlayInfo.AddSetting(default.GameGroup,   "NumAmmoSpawns","Num Ammo Pickups",0, 0, "Text","2;0:10");
+
+    PlayInfo.AddSetting(default.ServerGroup, "MinPlayers","Num Bots",0, 0, "Text","2;0:64",, true, true);
+    PlayInfo.AddSetting(default.ServerGroup, "LobbyTimeOut", GetDisplayText("LobbyTimeOut"), 0, 1, "Text", "3;0:120",, true, true);
+    PlayInfo.AddSetting(default.ServerGroup, "bAdminCanPause", GetDisplayText("bAdminCanPause"), 1, 1, "Check",,, true, true);
+    PlayInfo.AddSetting(default.ServerGroup, "MaxSpectators", GetDisplayText("MaxSpectators"), 1, 1, "Text", "6;0:32",, true, true);
+    PlayInfo.AddSetting(default.ServerGroup, "MaxPlayers", GetDisplayText("MaxPlayers"), 0, 1, "Text", "6;0:32",, true);
+    PlayInfo.AddSetting(default.ServerGroup, "MaxIdleTime", GetDisplayText("MaxIdleTime"), 0, 1, "Text", "3;0:300",, true, true);
+
+    // Add GRI's PIData
+    if (default.GameReplicationInfoClass != none) {
+        default.GameReplicationInfoClass.static.FillPlayInfo(PlayInfo);
+        PlayInfo.PopClass();
+    }
+
+    if (default.VoiceReplicationInfoClass != none) {
+        default.VoiceReplicationInfoClass.static.FillPlayInfo(PlayInfo);
+        PlayInfo.PopClass();
+    }
+
+    if (default.BroadcastClass != none) {
+        default.BroadcastClass.static.FillPlayInfo(PlayInfo);
+    } else {
+        class'BroadcastHandler'.static.FillPlayInfo(PlayInfo);
+    }
+
+    PlayInfo.PopClass();
+
+    if (class'Engine.GameInfo'.default.VotingHandlerClass != none) {
+        class'Engine.GameInfo'.default.VotingHandlerClass.static.FillPlayInfo(PlayInfo);
+        PlayInfo.PopClass();
+    }
+}
+
+static event string GetDescriptionText(string PropName) {
+    switch (PropName) {
+        // case "MinPlayers":           return "Minimum number of players in game (rest will be filled with bots.";
+        // case "InitGrenadesCount":    return "Initial amount of grenades players start with.";
+    }
+    return super.GetDescriptionText(PropName);
+}
+
 defaultproperties {
-    WarmUpTime=30
-    StandardWeaponList(0)="KFMod.Single"
-    StandardWeaponList(1)="KFMod.MK23Pistol"
-    StandardWeaponList(2)="KFMod.Dualies"
-    StandardWeaponList(3)="KFMod.DualMK23Pistol"
-    StandardWeaponList(4)="KFMod.Magnum44Pistol"
-    StandardWeaponList(5)="KFMod.Dual44Magnum"
-    StandardWeaponList(6)="KFMod.Winchester"
-    StandardWeaponList(7)="KFMod.MAC10MP"
-    StandardWeaponList(8)="KFMod.MP7MMedicGun"
-    StandardWeaponList(9)="KFMod.MP5MMedicGun"
-    StandardWeaponList(10)="KFMod.Bullpup"
-    StandardWeaponList(11)="KFMod.Crossbow"
-    StandardWeaponList(12)="KFMod.Shotgun"
-    StandardWeaponList(13)="KFMod.M7A3MMedicGun"
-    StandardWeaponList(14)="KFMod.FlameThrower"
-    StandardWeaponList(15)="KFMod.Deagle"
-    StandardWeaponList(16)="KFMod.M4AssaultRifle"
-    StandardWeaponList(17)="KFMod.KSGShotgun"
-    StandardWeaponList(18)="KFMod.AK47AssaultRifle"
-    StandardWeaponList(19)="KFMod.BoomStick"
-    StandardWeaponList(20)="KFMod.M14EBRBattleRifle"
-    StandardWeaponList(21)="KFMod.DualDeagle"
-    StandardWeaponList(22)="KFMod.BenelliShotgun"
-    StandardWeaponList(23)="KFGunGame.GG_M79GrenadeLauncher"
-    StandardWeaponList(24)="KFMod.SCARMK17AssaultRifle"
-    StandardWeaponList(25)="KFMod.FNFAL_ACOG_AssaultRifle"
-    StandardWeaponList(26)="KFGunGame.GG_M4203AssaultRifle"
-    StandardWeaponList(27)="KFGunGame.GG_M32GrenadeLauncher"
-    StandardWeaponList(28)="KFMod.M99SniperRifle"
-    StandardWeaponList(29)="KFGunGame.GG_HuskGun"
-    StandardWeaponList(30)="KFMod.AA12AutoShotgun"
-    StandardWeaponList(31)="KFGunGame.GG_LAW"
-    StandardWeaponList(32)="KFMod.Katana"
-    ShortWeaponList(0)="KFMod.Single"
-    ShortWeaponList(1)="KFMod.MK23Pistol"
-    ShortWeaponList(2)="KFMod.Dual44Magnum"
-    ShortWeaponList(3)="KFMod.Winchester"
-    ShortWeaponList(4)="KFMod.MP5MMedicGun"
-    ShortWeaponList(5)="KFMod.Bullpup"
-    ShortWeaponList(6)="KFMod.Crossbow"
-    ShortWeaponList(7)="KFMod.M7A3MMedicGun"
-    ShortWeaponList(8)="KFMod.FlameThrower"
-    ShortWeaponList(9)="KFMod.M4AssaultRifle"
-    ShortWeaponList(10)="KFMod.AK47AssaultRifle"
-    ShortWeaponList(11)="KFMod.BoomStick"
-    ShortWeaponList(12)="KFMod.M14EBRBattleRifle"
-    ShortWeaponList(13)="KFMod.DualDeagle"
-    ShortWeaponList(14)="KFMod.BenelliShotgun"
-    ShortWeaponList(15)="KFGunGame.GG_M79GrenadeLauncher"
-    ShortWeaponList(16)="KFMod.FNFAL_ACOG_AssaultRifle"
-    ShortWeaponList(17)="KFGunGame.GG_M32GrenadeLauncher"
-    ShortWeaponList(18)="KFMod.M99SniperRifle"
-    ShortWeaponList(19)="KFMod.AA12AutoShotgun"
-    ShortWeaponList(20)="KFGunGame.GG_LAW"
-    ShortWeaponList(21)="KFMod.Katana"
-    WarmupDescription="Warmup Time"
-    ReverseDescription="Reverse Weapon List"
-    ShortListDescription="Shorter Weapon List"
     bNoBots=false
     bSpawnInTeamArea=true
     TeamAIType(0)=class'GGTeamAI'
