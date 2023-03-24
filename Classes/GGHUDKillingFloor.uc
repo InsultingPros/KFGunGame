@@ -1,4 +1,5 @@
-class GGHUDKillingFloor extends HUDKillingFloor;
+class GGHUDKillingFloor extends HUDKillingFloor
+    config(KFGunGameGarbage);
 
 var byte PLCount,PLPosition;
 var float NextPosUpdate;

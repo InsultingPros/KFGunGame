@@ -7,7 +7,8 @@
 // Copyright (C) 2011 John "Ramm-Jaeger" Gibson
 // Some elements based off of KFTDM by Marco
 //=============================================================================
-class KFGG extends KFGameType;
+class KFGG extends KFGameType
+    config(KFGunGameGarbage);
 
 var config int NumAmmoSpawns;
 var config int WarmupTime; // How long to do a pre match warmup before starting the round

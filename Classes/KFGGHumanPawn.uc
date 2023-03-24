@@ -1,7 +1,8 @@
 //=============================================================================
 // KFGGHumanPawn
 //=============================================================================
-class KFGGHumanPawn extends KFHumanPawn;
+class KFGGHumanPawn extends KFHumanPawn
+    config(KFGunGameGarbage);
 
 // Just changed to pendingWeapon
 simulated function ChangedWeapon() {

@@ -1,4 +1,5 @@
-class KFGGPlayerController extends KFPlayerController;
+class KFGGPlayerController extends KFPlayerController
+    config(KFGunGameGarbage);
 
 // this is a big no-no
 exec function ToggleBehindView() {
