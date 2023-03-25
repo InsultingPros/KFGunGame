@@ -977,15 +977,15 @@ function ResetBeforeMatchStart() {
         P = NextC;
     }
 
-    // Reset ALL actors (except Controllers)
     foreach AllActors(class'Actor', A) {
-        if (!A.IsA('Controller')) {
-            A.Reset();
-        }
-
-        // Destroy any active projectiles
+        // destroy any active projectiles
         if (A.IsA('Projectile')) {
             A.Destroy();
+            continue;
+        }
+        // reset ALL actors (except Controllers)
+        if (!A.IsA('Controller')) {
+            A.Reset();
         }
     }
 
