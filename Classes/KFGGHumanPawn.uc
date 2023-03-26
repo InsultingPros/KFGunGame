@@ -155,7 +155,8 @@ simulated function ClearOutCurrentWeapons() {
             I = I.Inventory;
             continue;
         }
-        log("Getting Rid of weapon " $ I);
+        // debug
+        // log("Getting Rid of weapon " $ I);
 
         I.Destroyed();
         if (I != none) {
