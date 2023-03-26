@@ -1,5 +1,14 @@
 class KFGGBot extends KFInvasionBot;
 
+// redefine to fix `accessed none` error
+function byte GetMessageIndex(name PhraseName) {
+    if (PlayerReplicationInfo.VoiceType == none)
+        return 0;
+    // I should fix this issue in voice pack instead, but roaster system is complicated
+    // TODO: maybe later
+    // return PlayerReplicationInfo.Voicetype.Static.GetMessageIndex(PhraseName);
+}
+
 function float AdjustAimError(
     float aimerror,
     float TargetDist,
