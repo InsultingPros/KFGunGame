@@ -77,6 +77,10 @@ event InitGame(string Options, out string Error) {
     local KFLevelRules KFLRit;
     local ShopVolume SH;
     local ZombieVolume ZZ;
+    local KFGGSettings Settings;
+
+    Settings = new(outer) class'KFGGSettings';
+    TimeLimit = Settings.TimeLimit;
 
     MaxLives = 0;
     super(DeathMatch).InitGame(Options, Error);

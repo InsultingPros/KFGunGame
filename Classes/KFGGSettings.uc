@@ -4,6 +4,7 @@ class KFGGSettings extends Object
 const INI="KFGunGameSettings";
 
 var config int WarmupTime;              // How long to do a pre match warmup before starting the round
+var config int TimeLimit;               // How long should the match be
 var config string WeaponListName;       // what weapon list to use
 var transient array<string> Weapons;    // weapons!
 
@@ -44,5 +45,6 @@ simulated function array<string> GetAllWeaponLists() {
 defaultproperties {
     // defaults in case someone forgets about config
     WarmupTime=30
+    TimeLimit=15
     WeaponListName="Default"
 }
