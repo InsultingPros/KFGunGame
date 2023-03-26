@@ -15,6 +15,28 @@ exec function Suicide() {
 simulated function SendSelectedVeterancyToServer(optional bool bForceChange) {}
 function SelectVeterancy(class<KFVeterancyTypes> VetSkill, optional bool bForceChange) {}
 
+// have to redefine this to fix few 'accessed none's
+function ClientVoiceMessage(
+    PlayerReplicationInfo Sender,
+    PlayerReplicationInfo Recipient,
+    name messagetype,
+    byte messageID,
+    optional Pawn soundSender,
+    optional vector senderLocation
+) {
+    local VoicePack V;
+
+    // add 'player' check
+    if (Sender == none || Sender.voicetype == none || Player == none || Player.Console == none) {
+        return;
+    }
+
+    V = Spawn(Sender.voicetype, self);
+    if (V != none) {
+        V.ClientInitialize(Sender, Recipient, messagetype, messageID);
+    }
+}
+
 // Overriden to clear shakes / rot no matter what
 function ViewShake(float DeltaTime) {
     if (ShakeOffsetRate != vect(0, 0, 0)) {
