@@ -17,6 +17,7 @@ static function string GetString(
     optional PlayerReplicationInfo RelatedPRI_2,
     optional Object OptionalObject
 ) {
+    local string wItemName;
     // if (Switch < 7 )
     // {
     //     P.Level.FillPrecacheMaterialsArray(false);
@@ -36,6 +37,12 @@ static function string GetString(
     // else if (Switch == 7 )
     //     P.ClientPlaySound(default.Riff);
 
+    if (class<Weapon>(OptionalObject) == none) {
+        wItemName = "404 Weapon";
+    } else {
+        wItemName = class<Weapon>(OptionalObject).default.ItemName;
+    }
+
     if (RelatedPRI_1 == none) {
         return "";
     }
@@ -46,7 +53,7 @@ static function string GetString(
     if (switch == 0) {
         return RelatedPRI_1.PlayerName @
             default.HasReachedString @
-            class<Weapon>(OptionalObject).default.ItemName @
+            wItemName @
             default.LevelString @
             KFGGPRI(RelatedPRI_1).WeaponLevel $
             "/" $
@@ -55,7 +62,7 @@ static function string GetString(
     } else if (switch == 1) {
         return RelatedPRI_1.PlayerName @
             default.FinalWeaponString @
-            class<Weapon>(OptionalObject).default.ItemName $
+            wItemName $
             "!!!";
     } else if (switch == 2) {
         return RelatedPRI_1.PlayerName @ default.StoleALevelFromString @ RelatedPRI_2.PlayerName $ "!";
