@@ -9,22 +9,30 @@ var localized string WeaponLevelString;
 function DrawTitle(Canvas Canvas, float HeaderOffsetY, float PlayerAreaY, float PlayerBoxSizeY) {
     local string TitleString, ScoreInfoString, RestartString;
     local float TitleXL, ScoreInfoXL, YL, TitleY, TitleYL;
+    local KFGGGameReplicationInfo GG_GRI;
 
+    GG_GRI = KFGGGameReplicationInfo(GRI);
     TitleString = GameTypeTitleString @
         "|" @
         MaxWeaponLevelString $
         ":" @
-        KFGGGameReplicationInfo(GRI).MaxWeaponLevel @
+        GG_GRI.MaxWeaponLevel @
         "|" @
         Level.Title;
 
     Canvas.Font = class'ROHud'.static.GetSmallMenuFont(Canvas);
     Canvas.StrLen(TitleString, TitleXL, TitleYL);
 
-    if (GRI.TimeLimit != 0) {
-        ScoreInfoString = TimeLimit $ FormatTime(GRI.RemainingTime);
-    } else {
-        ScoreInfoString = FooterText @ FormatTime(GRI.ElapsedTime);
+    if(GG_GRI != none && GG_GRI.bDoingWarmup){
+        ScoreInfoString = "WARMUP:" $ FormatTime(GG_GRI.WarmupTime - GRI.ElapsedTime);
+    }
+    else
+    {
+        if (GRI.TimeLimit != 0) {
+            ScoreInfoString = TimeLimit $ FormatTime(GRI.RemainingTime);
+        } else {
+            ScoreInfoString = FooterText @ FormatTime(GRI.ElapsedTime);
+        }
     }
 
     Canvas.DrawColor = HUDClass.default.RedColor;

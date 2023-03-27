@@ -3,11 +3,13 @@ class KFGGGameReplicationInfo extends KFGameReplicationInfo;
 const MAXWEAPONS=100;           // 100 is more than enough for all vanilla weapons + custom gg ones
 var byte MaxWeaponLevel;        // The maximum weapon level before someone wins the match
 var int WarmupTime;             // How long to do a pre match warmup before starting the round
+var int WarmupCountDown;
+var bool bDoingWarmup;
 var string weapons[MAXWEAPONS];
 
 replication {
     reliable if (Role == ROLE_Authority)
-        MaxWeaponLevel, WarmupTime, weapons;
+        MaxWeaponLevel, WarmupTime, weapons, WarmupCountDown, bDoingWarmup;
 }
 
 // load all required stuff from `KFGGSettings`

@@ -11,8 +11,7 @@ class KFGG extends KFGameType
     config(KFGunGameGarbage);
 
 var int WarmupTime; // How long to do a pre match warmup before starting the round
-var bool bDidWarmup, bDoingWarmup;
-var int WarmupCountDown;
+var bool bDidWarmup;
 
 var private transient KFGGGameReplicationInfo GG_GRI;
 var private transient array<string> WeaponList;
@@ -77,6 +76,10 @@ event InitGame(string Options, out string Error) {
     local KFLevelRules KFLRit;
     local ShopVolume SH;
     local ZombieVolume ZZ;
+    local KFGGSettings Settings;
+
+    Settings = new(outer) class'KFGGSettings';
+    TimeLimit = Settings.TimeLimit;
 
     MaxLives = 0;
     super(DeathMatch).InitGame(Options, Error);
@@ -455,7 +458,7 @@ function Killed(Controller Killer, Controller Killed, Pawn KilledPawn, class<Dam
             }
         }
 
-        if (!bDoingWarmup && KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel >= WeaponList.Length) {
+        if (!GG_GRI.bDoingWarmup && KFGGPRI(Killer.PlayerReplicationInfo).WeaponLevel >= WeaponList.Length) {
             MusicPlaying = true;
             CalmMusicPlaying = false;
 
@@ -779,7 +782,7 @@ auto State PendingMatch {
     function beginstate() {
         bWaitingToStartMatch = true;
         StartupStage = 0;
-        WarmupCountDown = WarmupTime;
+        GG_GRI.WarmupCountDown = WarmupTime;
         // if (IsA('xLastManStandingGame') )
         //     NetWait = Max(NetWait,10);
     }
@@ -851,17 +854,17 @@ state MatchInProgress {
         GameReplicationInfo.ElapsedTime = ElapsedTime;
 
         if (!bDidWarmup && WarmupTime > 0) {
-            WarmupCountDown--;
+            GG_GRI.WarmupCountDown--;
 
-            if (WarmupCountDown <= (default.CountDown - 1) && WarmupCountDown > 0) {
-                StartupStage = 5 - WarmupCountDown;
+            if (GG_GRI.WarmupCountDown <= (default.CountDown - 1) && GG_GRI.WarmupCountDown > 0) {
+                StartupStage = 5 - GG_GRI.WarmupCountDown;
                 PlayStartupMessage();
             }
 
-            if (WarmupCountDown <= 0) {
+            if (GG_GRI.WarmupCountDown <= 0) {
                 ResetBeforeMatchStart();
                 bDidWarmup = true;
-                bDoingWarmup = false;
+                GG_GRI.bDoingWarmup = false;
                 StartMatch();
 
                 for (C = Level.ControllerList; C != none; C = C.nextController) {
@@ -881,7 +884,7 @@ state MatchInProgress {
                 StartupStage = 6;
 
             } else {
-                bDoingWarmup = true;
+                GG_GRI.bDoingWarmup = true;
             }
         } else {
             bDidWarmup = true;
