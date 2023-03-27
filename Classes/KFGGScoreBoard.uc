@@ -9,22 +9,22 @@ var localized string WeaponLevelString;
 function DrawTitle(Canvas Canvas, float HeaderOffsetY, float PlayerAreaY, float PlayerBoxSizeY) {
     local string TitleString, ScoreInfoString, RestartString;
     local float TitleXL, ScoreInfoXL, YL, TitleY, TitleYL;
-    local KFGG GGinfo;
+    local KFGGGameReplicationInfo GG_GRI;
 
+    GG_GRI = KFGGGameReplicationInfo(GRI);
     TitleString = GameTypeTitleString @
         "|" @
         MaxWeaponLevelString $
         ":" @
-        KFGGGameReplicationInfo(GRI).MaxWeaponLevel @
+        GG_GRI.MaxWeaponLevel @
         "|" @
         Level.Title;
 
     Canvas.Font = class'ROHud'.static.GetSmallMenuFont(Canvas);
     Canvas.StrLen(TitleString, TitleXL, TitleYL);
 
-    GGinfo = KFGG(Level.Game);
-    if(GGinfo != none && GGinfo.bDoingWarmup){
-        ScoreInfoString = "WARMUP:" $ FormatTime(GGinfo.WarmupTime - GRI.ElapsedTime);
+    if(GG_GRI != none && GG_GRI.bDoingWarmup){
+        ScoreInfoString = "WARMUP:" $ FormatTime(GG_GRI.WarmupTime - GRI.ElapsedTime);
     }
     else
     {
